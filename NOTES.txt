@@ -1,0 +1,5 @@
+Odf simple api
+http://odftoolkit.org/projects/simple/pages/Home
+
+Apache xerces dom
+http://xerces.apache.org/mirrors.cgi

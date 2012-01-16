@@ -1,0 +1,69 @@
+package sp.alvaro.model;
+
+public class Aluno {
+
+    private String nome; // pode ser um código
+    private String turma;
+    
+    public Aluno() {
+        
+    }
+    
+    public Aluno(String nome, String turma) {
+        this.nome = nome;
+        this.turma = turma;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getTurma() {
+        return turma;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setTurma(String turma) {
+        this.turma = turma;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+        result = prime * result + ((turma == null) ? 0 : turma.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Aluno other = (Aluno) obj;
+        if (nome == null) {
+            if (other.nome != null)
+                return false;
+        } else if (!nome.equals(other.nome))
+            return false;
+        if (turma == null) {
+            if (other.turma != null)
+                return false;
+        } else if (!turma.equals(other.turma))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Aluno [nome=" + nome + ", sala=" + turma + "]";
+    }
+
+}
