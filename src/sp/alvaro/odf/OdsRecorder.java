@@ -49,7 +49,7 @@ public class OdsRecorder implements TurmaFileRecorder {
 
             this.processSheets(ods, f);
             
-            String path = outputDir.getAbsolutePath() + "/" + f.getTurma();
+            String path = outputDir.getAbsolutePath() + "/" + f.getTurma() + ".ods";
             ods.save(path);
         }
     }
