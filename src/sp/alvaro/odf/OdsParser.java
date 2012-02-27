@@ -88,8 +88,9 @@ public class OdsParser implements NotasParser {
         Coluna y = new Coluna("C");
         y.inc(4*index);
         String turma = table.getCellByPosition(y.getValor().concat("4")).getDisplayText();        
-        String aulas = table.getCellByPosition(y.getValor().concat("63")).getDisplayText();   
-        TarjetaProf tarj = new TarjetaProf(turma, Integer.parseInt(aulas));
+        String aulasDadas = table.getCellByPosition(y.getValor().concat("63")).getDisplayText();   
+        String aulasPrevistas = table.getCellByPosition(y.getValor().concat("62")).getDisplayText(); 
+        TarjetaProf tarj = new TarjetaProf(turma, Integer.parseInt(aulasDadas), Integer.parseInt(aulasPrevistas));
         
         // notas
         String nota; 

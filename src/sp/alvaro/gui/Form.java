@@ -25,6 +25,8 @@ import sp.alvaro.AppSettings;
  */
 public class Form extends javax.swing.JFrame {
 
+    private static final long serialVersionUID = 1L;
+
     /** Creates new form Form */
     public Form() {
         initComponents();

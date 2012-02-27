@@ -8,15 +8,25 @@ public class TarjetaProf {
     private String turma;
     private List<Conceito> notas;
     private int aulasDadas;
+    private int aulasPrevistas;
     
     public TarjetaProf() {
         this.notas = new ArrayList<Conceito>();
     }
 
-    public TarjetaProf(String turma, int aulasDadas) {
+    public TarjetaProf(String turma, int aulasDadas, int aulasPrevistas) {
         this.notas = new ArrayList<Conceito>();
         this.turma = turma;
         this.aulasDadas = aulasDadas;
+        this.aulasPrevistas = aulasPrevistas;
+    }
+    
+    public int getAulasPrevistas() {
+        return aulasPrevistas;
+    }
+
+    public void setAulasPrevistas(int aulasPrevistas) {
+        this.aulasPrevistas = aulasPrevistas;
     }
 
     public int getAulasDadas() {
@@ -48,6 +58,7 @@ public class TarjetaProf {
         final int prime = 31;
         int result = 1;
         result = prime * result + aulasDadas;
+        result = prime * result + aulasPrevistas;
         result = prime * result + ((notas == null) ? 0 : notas.hashCode());
         result = prime * result + ((turma == null) ? 0 : turma.hashCode());
         return result;
@@ -64,6 +75,8 @@ public class TarjetaProf {
         TarjetaProf other = (TarjetaProf) obj;
         if (aulasDadas != other.aulasDadas)
             return false;
+        if (aulasPrevistas != other.aulasPrevistas)
+            return false;
         if (notas == null) {
             if (other.notas != null)
                 return false;
@@ -79,7 +92,8 @@ public class TarjetaProf {
 
     @Override
     public String toString() {
-        return "TarjetaProf [turma=" + turma + ", notas=" + notas + ", aulasDadas=" + aulasDadas + "]";
+        return "TarjetaProf [turma=" + turma + ", notas=" + notas + ", aulasDadas=" + aulasDadas + ", aulasPrevistas="
+                + aulasPrevistas + "]";
     }
 
 }

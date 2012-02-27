@@ -29,8 +29,10 @@ public class MediaCalculator {
 
     private void calculateAulasDadas(List<TarjetaTurma> tarjetas, TarjetaTurma medias) {
         for (TarjetaTurma tarj: tarjetas) {
-            int aulas = medias.getAulasDadas() + tarj.getAulasDadas();
-            medias.setAulasDadas(aulas);
+            int aulasDadas = medias.getAulasDadas() + tarj.getAulasDadas();
+            int aulasPrevistas = medias.getAulasPrevistas() + tarj.getAulasPrevistas();
+            medias.setAulasDadas(aulasDadas);
+            medias.setAulasPrevistas(aulasPrevistas);
         }
     }
 

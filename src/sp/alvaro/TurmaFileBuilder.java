@@ -80,10 +80,11 @@ public class TurmaFileBuilder {
         
         String prof = profFile.getProfessor();
         String materia = profFile.getMateria();
-        int aulas = profTarj.getAulasDadas();
+        int aulasDadas = profTarj.getAulasDadas();
+        int aulasPrevistas = profTarj.getAulasPrevistas();
         TarjetaTurma tarjeta = tarjetaInSheet(prof, materia, sheet);
         if (tarjeta == null) {
-            tarjeta = new TarjetaTurma(materia, prof, aulas);
+            tarjeta = new TarjetaTurma(materia, prof, aulasDadas, aulasPrevistas);
             sheet.getTarjetas().add(tarjeta);
         }
         

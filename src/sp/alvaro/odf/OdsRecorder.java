@@ -75,7 +75,8 @@ public class OdsRecorder implements TurmaFileRecorder {
                 
                 // preenche dados
                 table.getCellByPosition(col.getValor()+"3").setStringValue(tarjeta.getMateria());
-                table.getCellByPosition(col.getValor()+"48").setStringValue(Integer.toString(tarjeta.getAulasDadas()));
+                table.getCellByPosition(col.getValor()+"48").setStringValue(Integer.toString(tarjeta.getAulasPrevistas()));
+                table.getCellByPosition(col.getValor()+"49").setStringValue(Integer.toString(tarjeta.getAulasDadas()));
                 
                 int lin = 7;
                 for (Conceito nota: tarjeta.getNotas()) {

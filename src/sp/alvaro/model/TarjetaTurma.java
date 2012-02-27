@@ -9,18 +9,28 @@ public class TarjetaTurma {
     private String professor;
     private List<Conceito> notas;
     private int aulasDadas;
+    private int aulasPrevistas;
 
     public TarjetaTurma() {
         this.notas = new ArrayList<Conceito>();
     }
 
-    public TarjetaTurma(String materia, String professor, int aulasDadas) {
+    public TarjetaTurma(String materia, String professor, int aulasDadas, int aulasPrevistas) {
         this.notas = new ArrayList<Conceito>();
         this.materia = materia;
         this.professor = professor;
         this.aulasDadas = aulasDadas;
+        this.aulasPrevistas = aulasPrevistas;
     }
     
+    public int getAulasPrevistas() {
+        return aulasPrevistas;
+    }
+
+    public void setAulasPrevistas(int aulasPrevistas) {
+        this.aulasPrevistas = aulasPrevistas;
+    }
+
     public int getAulasDadas() {
         return aulasDadas;
     }
@@ -58,6 +68,7 @@ public class TarjetaTurma {
         final int prime = 31;
         int result = 1;
         result = prime * result + aulasDadas;
+        result = prime * result + aulasPrevistas;
         result = prime * result + ((materia == null) ? 0 : materia.hashCode());
         result = prime * result + ((notas == null) ? 0 : notas.hashCode());
         result = prime * result + ((professor == null) ? 0 : professor.hashCode());
@@ -74,6 +85,8 @@ public class TarjetaTurma {
             return false;
         TarjetaTurma other = (TarjetaTurma) obj;
         if (aulasDadas != other.aulasDadas)
+            return false;
+        if (aulasPrevistas != other.aulasPrevistas)
             return false;
         if (materia == null) {
             if (other.materia != null)
@@ -96,7 +109,7 @@ public class TarjetaTurma {
     @Override
     public String toString() {
         return "TarjetaTurma [materia=" + materia + ", professor=" + professor + ", notas=" + notas + ", aulasDadas="
-                + aulasDadas + "]";
+                + aulasDadas + ", aulasPrevistas=" + aulasPrevistas + "]";
     }
 
 }
