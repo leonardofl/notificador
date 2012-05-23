@@ -15,6 +15,10 @@
 
 =================
 
+* PROBLEMA MUITO GRAVE: 
+se eu altero e salvo uma das planilhas, o parse não é mais completado! 
+Será algum problema de compatibilidade de versões?
+
 * Tratar letras no lugar das notas (TR, AB, RM, NC)
 Nesses casos, alunos não estão mais na sala, então devem ser ignorados
 
