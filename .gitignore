@@ -1,1 +1,10 @@
 *~
+resources/properties
+test/resources/outgui/
+test/resources/out_multicol/*
+test/resources/nova/
+bin/
+build/
+dist/
+release/
+
