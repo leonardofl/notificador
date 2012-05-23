@@ -1,4 +1,4 @@
-* Testar planilha grande (coluna > AA)
+* Testar planilha grande (coluna > AA) OK
 
 * Output "processando" OK
 
@@ -12,3 +12,22 @@
 * Campo A.P. (aulas previstas) OK
 
 * Por a extensão ods nos arquivos gerados OK
+
+=================
+
+* Tratar letras no lugar das notas (TR, AB, RM, NC)
+Nesses casos, alunos não estão mais na sala, então devem ser ignorados
+
+* Pode haver linhas em branco no meio da Tarjeta
+
+* Testar se quando o prof edita o ods no excel tudo continua funcionando
+
+* Colocar no fim da da 5a planilha (conceito final) a porcentagem total de faltas, 
+considerando todas as matérias de uma vez
+
+* Criar log
+Imortante para checar erros em produção
+
+* Gráfico (???)
+
+
