@@ -3,12 +3,15 @@ package sp.alvaro;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import sp.alvaro.model.ProfFile;
+import sp.alvaro.model.ProfSheet;
+import sp.alvaro.model.TarjetaProf;
 import sp.alvaro.odf.OdsParser;
 
 /**
@@ -20,7 +23,9 @@ public class OdsParserTest {
 
     public final static String WORK_DIR = "test/resources";
     public final static String EXTENSION = "ods";
-
+    public final static String LETTERS_SHEET = "test/resources/bad_format/letras.ods";
+    public final static String BLANK_LINES_SHEET = "test/resources/bad_format/linhas_em_branco.ods";
+    
     private Set<File> files;
     private ProfFile expectedFile1, expectedFile2, currentFile1, currentFile2;
     
@@ -116,4 +121,34 @@ public class OdsParserTest {
         assertEquals(expectedFile2.getSheets().get(2), currentFile2.getSheets().get(2));
         assertEquals(expectedFile2.getSheets().get(3), currentFile2.getSheets().get(3));
     }
-}
+    
+    @Test
+    public void readSheetWithLetters() throws IOException {
+
+        File sheetFile = new File(LETTERS_SHEET);
+        NotasParser parser = new OdsParser();
+        parser.parseFile(sheetFile);
+        ProfFile profFile = parser.parseFile(sheetFile);
+        ProfSheet profSheet = profFile.getSheets().get(0);
+        
+        int expectTarjSize = 5;
+        for (TarjetaProf tarj: profSheet.getTarjetas()) {
+            assertEquals(expectTarjSize, tarj.getNotas().size());
+        }
+    }
+    
+    @Test
+    public void readSheetWithBlankLines() throws IOException {
+    
+        File sheetFile = new File(BLANK_LINES_SHEET);
+        NotasParser parser = new OdsParser();
+        parser.parseFile(sheetFile);
+        ProfFile profFile = parser.parseFile(sheetFile);
+        ProfSheet profSheet = profFile.getSheets().get(0);
+        
+        int[] expectTarjSize = new int[]{5, 4, 3, 5};
+        int i = 0;
+        for (TarjetaProf tarj: profSheet.getTarjetas()) {
+            assertEquals(expectTarjSize[i++], tarj.getNotas().size());
+        }
+    }}

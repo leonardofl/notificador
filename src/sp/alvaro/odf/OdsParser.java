@@ -25,6 +25,8 @@ import sp.alvaro.model.TarjetaProf;
  */
 public class OdsParser implements NotasParser {
     
+    private static final int MAX_ALUNOS = 54; // o máximo que cabe na tarjeta
+
     public Set<ProfFile> parse(Collection<File> files) throws IOException {
         
         Set<ProfFile> profFiles = new HashSet<ProfFile>();
@@ -61,19 +63,21 @@ public class OdsParser implements NotasParser {
     private ProfSheet parseSheet(Table table, int bim) {
 
         ProfSheet profSheet = new ProfSheet(Periodo.valueOf(bim));
-        
+
         Coluna y = new Coluna("C");
         int i = 0;
         // while !turma.isEmpty
-        while (!(table.getCellByPosition(y.getValor().concat("4")).getDisplayText()).isEmpty()) {
+        String turma = table.getCellByPosition(y.getValor().concat("4")).getDisplayText();
+        while (!turma.isEmpty() && !turma.contains("FIM")) {
 
             TarjetaProf tarj = parseTarjeta(table, i);
             profSheet.getTarjetas().add(tarj);
 
             y.inc(4);
             i++;
+            turma = table.getCellByPosition(y.getValor().concat("4")).getDisplayText();
         }
-        
+
         return profSheet;
     }
     
@@ -84,7 +88,7 @@ public class OdsParser implements NotasParser {
      * @return
      */
     private TarjetaProf parseTarjeta(Table table, int index) {
-        
+
         Coluna y = new Coluna("C");
         y.inc(4*index);
         String turma = table.getCellByPosition(y.getValor().concat("4")).getDisplayText();        
@@ -93,11 +97,12 @@ public class OdsParser implements NotasParser {
         TarjetaProf tarj = new TarjetaProf(turma, Integer.parseInt(aulasDadas), Integer.parseInt(aulasPrevistas));
         
         // notas
-        String nota; 
         int row = 7;
         // while // !nota.isEmpty
-        while (!(nota = table.getCellByPosition(y.getValor().concat(Integer.toString(row))).getDisplayText()).isEmpty()) { 
+        for (int i=0; i<MAX_ALUNOS; i++) { 
 
+            String nota = table.getCellByPosition(y.getValor().concat(Integer.toString(row))).getDisplayText();
+            
             Coluna ya = new Coluna(y.getValor());
             ya.dec();
             String aluno = table.getCellByPosition(ya.toString().concat(Integer.toString(row))).getDisplayText();
@@ -105,9 +110,19 @@ public class OdsParser implements NotasParser {
             yf.inc();
             String faltas = table.getCellByPosition(yf.getValor().concat(Integer.toString(row))).getDisplayText();
 
-            Conceito conc = new Conceito(new Aluno(aluno, turma), 
-            Integer.parseInt(nota), Integer.parseInt(faltas));
-            tarj.getNotas().add(conc);
+            if (nota != null && !nota.isEmpty()) {
+
+                int notaInt = 0, faltasInt = 0;
+                try {
+                    notaInt = Integer.parseInt(nota);
+                    faltasInt = Integer.parseInt(faltas);
+                }
+                catch(NumberFormatException e) {
+                    ;
+                }
+                Conceito conc = new Conceito(new Aluno(aluno, turma), notaInt, faltasInt);
+                tarj.getNotas().add(conc);
+            }
             
             row++;
         }

@@ -19,10 +19,19 @@
 se eu altero e salvo uma das planilhas, o parse não é mais completado! 
 Será algum problema de compatibilidade de versões?
 
+Isso está temporariamente resolvido com a palavra FIM 
+na célula que conteria o nome da próxima turma
+
 * Tratar letras no lugar das notas (TR, AB, RM, NC)
 Nesses casos, alunos não estão mais na sala, então devem ser ignorados
 
+OK
+Obs: alunos TR,TD,etc estão entrando no objeto tarjeta
+
 * Pode haver linhas em branco no meio da Tarjeta
+
+OK
+Obs: aluno da linha em branco NÃO é acrescentado na tarjeta
 
 * Testar se quando o prof edita o ods no excel tudo continua funcionando
 
