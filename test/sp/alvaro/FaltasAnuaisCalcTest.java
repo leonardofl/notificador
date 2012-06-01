@@ -58,7 +58,7 @@ public class FaltasAnuaisCalcTest {
 		for (Aluno aluno: faltasAnuais.getFaltas().keySet()) {
 			
 			assertEquals(expectedFaltasAnuais.getFaltas().get(aluno), 
-					faltasAnuais.getFaltas().get(aluno));  
+					faltasAnuais.getFaltas().get(aluno), 0.01);  
 		}
 	}
 }
