@@ -15,20 +15,20 @@ import sp.alvaro.model.TarjetaTurma;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.model.TurmaSheet;
 
-// TODO: testar com mais tarjetas, pra alcançar o AA
 public class OdsRecorder implements TurmaFileRecorder {
 
 	// regra de negócio
-	public static final int PRESENCA_MINIMA = 90; // 75%
+	public static final int PRESENCA_MINIMA = 75; // 75%
 	
     private static final String MODELO_CONSOLIDADO = "resources/consolidado_modelo.ods";
-    private static final int MAX_MATERIAS = 6; // pra passar de 6 tem q enderessar TODO de baixo
+    private static final int MAX_MATERIAS = 12; 
     private static final int MAX_NOTAS = 40;
     private static final int TARJETA_PASSO = 4; // quantas células de uma tarjeta pra outras
     private static final int LINHA_MATERIA = 3;
     private static final int LINHA_TURMA = 4;
     private static final int LINHA_AULAS_PREVISTAS = 48;
     private static final int LINHA_AULAS_DADAS = 49;
+    private static final String COLUNA_FALTAS_ANUAIS = "AX";
     
     private File outputDir;
     
@@ -79,7 +79,7 @@ public class OdsRecorder implements TurmaFileRecorder {
                 int tarj_size = tarjeta.getNotas().size();
                 if (tarj_size > MAX_NOTAS){
                     throw new IllegalArgumentException(
-                            tarj_size + " é muito! Sistema não suporta mais que " + MAX_NOTAS + " matérias.");
+                            tarj_size + " é muito! Sistema não suporta mais que " + MAX_NOTAS + " linhas por tarjeta.");
                 }
                 
                 // preenche dados
@@ -105,7 +105,8 @@ public class OdsRecorder implements TurmaFileRecorder {
             }
             
             if (i == 4) { // notas finais
-            	this.recordFaltasAnuais(f.getFaltasAnuais(), turmaSheet, table, new Coluna("AA"));
+            	this.recordFaltasAnuais(f.getFaltasAnuais(), turmaSheet, table, 
+            			new Coluna(COLUNA_FALTAS_ANUAIS));
             }
         }
     }
@@ -116,6 +117,7 @@ public class OdsRecorder implements TurmaFileRecorder {
 		int lin = 7;
 		Coluna col2 = new Coluna(col.getValor());
 		col2.inc();
+
 		for (Conceito conc: finalSheet.getTarjetas().get(0).getNotas()) {
 			
 			Aluno aluno = conc.getAluno();
