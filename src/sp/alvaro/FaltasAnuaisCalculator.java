@@ -20,11 +20,13 @@ public class FaltasAnuaisCalculator {
     public TarjetaFaltasAnuais calculateFaltasAnuais(TurmaSheet notasFinais) {
     	
     	int totalAulas = 0;
+    	int previstas = 0;
     	Map<Aluno, Integer> totalFaltas = new HashMap<Aluno, Integer>();
     	
     	for (TarjetaTurma tarj: notasFinais.getTarjetas()) {
     		
     		totalAulas += tarj.getAulasDadas();
+    		previstas += tarj.getAulasPrevistas();
     		for (Conceito conc: tarj.getNotas()) {
     			
     			Aluno aluno = conc.getAluno();
@@ -37,7 +39,8 @@ public class FaltasAnuaisCalculator {
     		}
     	}
     	
-    	TarjetaFaltasAnuais faltasAnuais = new TarjetaFaltasAnuais(totalAulas);
+    	String turma = notasFinais.getTarjetas().get(0).getNotas().get(0).getAluno().getTurma();
+    	TarjetaFaltasAnuais faltasAnuais = new TarjetaFaltasAnuais(turma, totalAulas, previstas);
     	
     	for (Map.Entry<Aluno, Integer> entry : totalFaltas.entrySet()) {
     		

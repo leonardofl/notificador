@@ -16,24 +16,23 @@ import java.util.Map;
  */
 public class TarjetaFaltasAnuais {
 	
-    private Map<Aluno, Double> faltas;
+    private String turma;
     private int aulasDadas;
+    private int aulasPrevistas;
+    private Map<Aluno, Double> faltas;
 
-    public TarjetaFaltasAnuais(int aulasDadas) {
-		this.aulasDadas = aulasDadas;
+    public TarjetaFaltasAnuais() {
+
 		this.faltas = new HashMap<Aluno, Double>();
 	}
-	
-    public TarjetaFaltasAnuais() {
-		this.faltas = new HashMap<Aluno, Double>();    	
-	}
 
-	public int getAulasDadas() {
-		return aulasDadas;
-	}
+    public TarjetaFaltasAnuais(String turma, int aulasDadas,
+			int aulasPrevistas) {
 
-	public void setAulasDadas(int aulasDadas) {
+    	this.turma = turma;
 		this.aulasDadas = aulasDadas;
+		this.aulasPrevistas = aulasPrevistas;
+		this.faltas = new HashMap<Aluno, Double>();
 	}
 
 	public Map<Aluno, Double> getFaltas() {
@@ -44,12 +43,38 @@ public class TarjetaFaltasAnuais {
 		this.faltas = faltas;
 	}
 
+	public String getTurma() {
+		return turma;
+	}
+
+	public void setTurma(String turma) {
+		this.turma = turma;
+	}
+
+	public int getAulasDadas() {
+		return aulasDadas;
+	}
+
+	public void setAulasDadas(int aulasDadas) {
+		this.aulasDadas = aulasDadas;
+	}
+
+	public int getAulasPrevistas() {
+		return aulasPrevistas;
+	}
+
+	public void setAulasPrevistas(int aulasPrevistas) {
+		this.aulasPrevistas = aulasPrevistas;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + aulasDadas;
+		result = prime * result + aulasPrevistas;
 		result = prime * result + ((faltas == null) ? 0 : faltas.hashCode());
+		result = prime * result + ((turma == null) ? 0 : turma.hashCode());
 		return result;
 	}
 
@@ -64,18 +89,26 @@ public class TarjetaFaltasAnuais {
 		TarjetaFaltasAnuais other = (TarjetaFaltasAnuais) obj;
 		if (aulasDadas != other.aulasDadas)
 			return false;
+		if (aulasPrevistas != other.aulasPrevistas)
+			return false;
 		if (faltas == null) {
 			if (other.faltas != null)
 				return false;
 		} else if (!faltas.equals(other.faltas))
+			return false;
+		if (turma == null) {
+			if (other.turma != null)
+				return false;
+		} else if (!turma.equals(other.turma))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "TarjetaFaltasAnuais [faltas=" + faltas + ", aulasDadas="
-				+ aulasDadas + "]";
+		return "TarjetaFaltasAnuais [turma=" + turma + ", aulasDadas="
+				+ aulasDadas + ", aulasPrevistas=" + aulasPrevistas
+				+ ", faltas=" + faltas + "]";
 	}
-
+    
 }

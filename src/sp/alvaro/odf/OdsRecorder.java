@@ -117,7 +117,7 @@ public class OdsRecorder implements TurmaFileRecorder {
 		int lin = 7;
 		Coluna col2 = new Coluna(col.getValor());
 		col2.inc();
-
+		//table.getCellByPosition(col2.getValor()+LINHA_TURMA).setStringValue();
 		for (Conceito conc: finalSheet.getTarjetas().get(0).getNotas()) {
 			
 			Aluno aluno = conc.getAluno();

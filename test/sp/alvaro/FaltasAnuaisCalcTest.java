@@ -39,7 +39,7 @@ public class FaltasAnuaisCalcTest {
         tarjetas.add(tarj);
 
         
-        expectedFaltasAnuais = new TarjetaFaltasAnuais(44);
+        expectedFaltasAnuais = new TarjetaFaltasAnuais("6aA", 44, 46);
         expectedFaltasAnuais.getFaltas().put(new Aluno("A", "6aA"), 11.36d);
         expectedFaltasAnuais.getFaltas().put(new Aluno("B", "6aA"), 25d);
         expectedFaltasAnuais.getFaltas().put(new  Aluno("C", "6aA"), 38.64d);
@@ -53,6 +53,9 @@ public class FaltasAnuaisCalcTest {
 		FaltasAnuaisCalculator calc = new FaltasAnuaisCalculator();
 		TarjetaFaltasAnuais faltasAnuais = calc.calculateFaltasAnuais(notasFinais);
 		
+		assertEquals(expectedFaltasAnuais.getAulasDadas(), faltasAnuais.getAulasDadas());
+		assertEquals(expectedFaltasAnuais.getAulasPrevistas(), faltasAnuais.getAulasPrevistas());
+		assertEquals(expectedFaltasAnuais.getTurma(), faltasAnuais.getTurma());
 		assertEquals(expectedFaltasAnuais.getFaltas().size(), faltasAnuais.getFaltas().size());
 		
 		for (Aluno aluno: faltasAnuais.getFaltas().keySet()) {
