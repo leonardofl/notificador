@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
+import org.apache.log4j.Logger;
 import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.table.Table;
 
@@ -16,18 +17,20 @@ import sp.alvaro.model.TurmaFile;
 import sp.alvaro.model.TurmaSheet;
 
 public class OdsRecorder implements TurmaFileRecorder {
+	
+	private Logger logger = Logger.getLogger(OdsRecorder.class);
 
 	// regra de negócio
 	public static final int PRESENCA_MINIMA = 75; // 75%
 	
     private static final String MODELO_CONSOLIDADO = "resources/consolidado_modelo.ods";
     private static final int MAX_MATERIAS = 12; 
-    private static final int MAX_NOTAS = 40;
+    private static final int MAX_NOTAS = 53;
     private static final int TARJETA_PASSO = 4; // quantas células de uma tarjeta pra outras
     private static final int LINHA_MATERIA = 3;
     private static final int LINHA_TURMA = 4;
-    private static final int LINHA_AULAS_PREVISTAS = 48;
-    private static final int LINHA_AULAS_DADAS = 49;
+    private static final int LINHA_AULAS_PREVISTAS =62;
+    private static final int LINHA_AULAS_DADAS = 63;
     private static final String COLUNA_FALTAS_ANUAIS = "AX";
     
     private File outputDir;
@@ -56,7 +59,7 @@ public class OdsRecorder implements TurmaFileRecorder {
                 throw new IOException("Falha da API de ODF");
             }
 
-            this.processSheets(ods, f);
+        	this.processSheets(ods, f);
             
             String path = outputDir.getAbsolutePath() + "/" + f.getTurma() + ".ods";
             ods.save(path);
@@ -65,9 +68,9 @@ public class OdsRecorder implements TurmaFileRecorder {
     
     private void processSheets(SpreadsheetDocument ods, TurmaFile f) {
 
-        for (int i=0; i<5; i++) { // percorre bimestres
+    	int i = 0;
+        for (TurmaSheet turmaSheet: f.getSheets()) { // percorre bimestres
             
-            TurmaSheet turmaSheet = f.getSheets().get(i);
             Table table = ods.getTableList().get(i);
             
             table.getCellByPosition("C" + LINHA_TURMA).setStringValue(f.getTurma());
@@ -78,8 +81,10 @@ public class OdsRecorder implements TurmaFileRecorder {
                 // consistência
                 int tarj_size = tarjeta.getNotas().size();
                 if (tarj_size > MAX_NOTAS){
-                    throw new IllegalArgumentException(
+                	IllegalArgumentException e = new IllegalArgumentException(
                             tarj_size + " é muito! Sistema não suporta mais que " + MAX_NOTAS + " linhas por tarjeta.");
+                	logger.warn(e.getMessage() + " enquanto parseando ", e);
+                    throw e;
                 }
                 
                 // preenche dados
@@ -108,6 +113,7 @@ public class OdsRecorder implements TurmaFileRecorder {
             	this.recordFaltasAnuais(f.getFaltasAnuais(), turmaSheet, table, 
             			new Coluna(COLUNA_FALTAS_ANUAIS));
             }
+            i++;
         }
     }
 
@@ -117,7 +123,7 @@ public class OdsRecorder implements TurmaFileRecorder {
 		int lin = 7;
 		Coluna col2 = new Coluna(col.getValor());
 		col2.inc();
-		//table.getCellByPosition(col2.getValor()+LINHA_TURMA).setStringValue();
+		table.getCellByPosition(col2.getValor()+LINHA_TURMA).setStringValue(faltasAnuais.getTurma());
 		for (Conceito conc: finalSheet.getTarjetas().get(0).getNotas()) {
 			
 			Aluno aluno = conc.getAluno();
@@ -138,7 +144,9 @@ public class OdsRecorder implements TurmaFileRecorder {
 		}
 		
 		String totalAulas = Integer.toString(faltasAnuais.getAulasDadas());
+		String previstas = Integer.toString(faltasAnuais.getAulasPrevistas());
 		table.getCellByPosition(col2.getValor()+LINHA_AULAS_DADAS).setStringValue(totalAulas);
+		table.getCellByPosition(col2.getValor()+LINHA_AULAS_PREVISTAS).setStringValue(previstas);
 	}
 
 }

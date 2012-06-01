@@ -29,19 +29,21 @@ public class OdsParser implements NotasParser {
 	private Logger logger = Logger.getLogger(OdsParser.class);
 	
     private static final int MAX_ALUNOS = 54; // o máximo que cabe na tarjeta
+    private static final String CELULA_PRIMEIRA_AULAS_DADAS = "C63";
 
     public Set<ProfFile> parse(Collection<File> files) throws IOException {
         
         Set<ProfFile> profFiles = new HashSet<ProfFile>();
         for (File file: files) {
-            profFiles.add(this.parseFile(file));
+
+        	profFiles.add(this.parseFile(file));
         }
         return profFiles;
     }
     
     public ProfFile parseFile(File file) throws IOException {
         
-    	logger.debug("Parsing file" + file.getName());
+    	logger.debug("Parsing file " + file.getName());
     	
         SpreadsheetDocument planilha;
         try {
@@ -51,7 +53,7 @@ public class OdsParser implements NotasParser {
         }
         
         Table table = planilha.getTableList().get(0);
-
+        
         // extract basic information
         String prof = table.getCellByPosition("B64").getDisplayText();
         String materia = table.getCellByPosition("C3").getDisplayText();
@@ -59,13 +61,23 @@ public class OdsParser implements NotasParser {
         ProfFile profFile = new ProfFile(prof, materia, file.getName());
         for (int bim=1; bim<=4; bim++) {
             ProfSheet profSheet = parseSheet(planilha.getTableList().get(bim-1), bim);
-            profFile.getSheets().add(profSheet);
+            if (profSheet != null) {
+            	profFile.getSheets().add(profSheet);
+            }
         }
         
         return profFile;
     }
     
     private ProfSheet parseSheet(Table table, int bim) {
+    	
+    	logger.debug("Parsing bimestre " + bim);
+
+        String check = table.getCellByPosition(CELULA_PRIMEIRA_AULAS_DADAS).getDisplayText();
+        if (check == null || check.isEmpty()) {
+        	logger.info("Nada no " + bim + "o bimestre");
+        	return null;
+        }
 
         ProfSheet profSheet = new ProfSheet(Periodo.valueOf(bim));
 

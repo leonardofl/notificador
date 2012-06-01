@@ -14,8 +14,8 @@ public class MediaCalculator {
      */
     public TarjetaTurma calculateMedia(List<TarjetaTurma> tarjetas) {
         
-        if (tarjetas.size() != 4)
-            throw new IllegalArgumentException("Média deve ser calculada sobre tarjetas de 4 bimestres");
+        if (tarjetas.size() > 4)
+            throw new IllegalArgumentException("Média deve ser calculada sobre até 4 tarjetas");
         
         TarjetaTurma medias = new TarjetaTurma();
         
@@ -42,7 +42,7 @@ public class MediaCalculator {
             medias.getNotas().add(new Conceito(c.getAluno(), c.getNota()/4d, c.getFaltas()));
         }
         
-        for (int i=1; i<4; i++) {
+        for (int i=1; i<tarjetas.size(); i++) {
             for (Conceito conceito: tarjetas.get(i).getNotas()) {
                 for (Conceito c: medias.getNotas()) {
                     if (c.getAluno().equals(conceito.getAluno())) {
