@@ -7,6 +7,7 @@ public class TurmaFile {
 
     private String turma;
     private List<TurmaSheet> sheets;
+    private TarjetaFaltasAnuais faltasAnuais;
     
     public TurmaFile() {
         this.sheets = new ArrayList<TurmaSheet>();        
@@ -32,8 +33,16 @@ public class TurmaFile {
     public void setSheets(List<TurmaSheet> sheets) {
         this.sheets = sheets;
     }
+    
+    public TarjetaFaltasAnuais getFaltasAnuais() {
+		return faltasAnuais;
+	}
 
-    @Override
+	public void setFaltasAnuais(TarjetaFaltasAnuais faltasAnuais) {
+		this.faltasAnuais = faltasAnuais;
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -64,9 +73,10 @@ public class TurmaFile {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "TurmaFile [turma=" + turma + ", sheets=" + sheets + "]";
-    }
+	@Override
+	public String toString() {
+		return "TurmaFile [turma=" + turma + ", sheets=" + sheets
+				+ ", faltasAnuais=" + faltasAnuais + "]";
+	}
 
 }
