@@ -41,6 +41,12 @@ ou seja, verificar se a 5a planilha será gerada corretamente
 * Colocar no fim da da 5a planilha (conceito final) a porcentagem total de faltas, 
 considerando todas as matérias de uma vez
 
+Feito, mas só vai funcionar para planilhas com até 6 tarjetas
+
+* Se a falta anual for maior que 25% deixar em vermelho
+
+Estou tendo problemas com a API: em vez de vermelhor, texto fica tachado!
+
 * Criar log
 Imortante para checar erros em produção
 

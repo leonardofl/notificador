@@ -8,6 +8,7 @@ import java.util.Set;
 import sp.alvaro.model.Periodo;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
+import sp.alvaro.model.TarjetaFaltasAnuais;
 import sp.alvaro.model.TarjetaProf;
 import sp.alvaro.model.TarjetaTurma;
 import sp.alvaro.model.TurmaFile;
@@ -56,6 +57,11 @@ public class TurmaFileBuilder {
                 finalSheet.getTarjetas().add(tarjFinal);
             }
 
+            // calcula notas anuais
+            FaltasAnuaisCalculator fcalc = new FaltasAnuaisCalculator();
+            TarjetaFaltasAnuais faltasAnuais = fcalc.calculateFaltasAnuais(finalSheet);
+            file.setFaltasAnuais(faltasAnuais);
+            
             file.getSheets().add(finalSheet);
         }
         

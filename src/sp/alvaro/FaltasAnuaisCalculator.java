@@ -9,7 +9,7 @@ import sp.alvaro.model.TarjetaFaltasAnuais;
 import sp.alvaro.model.TarjetaTurma;
 import sp.alvaro.model.TurmaSheet;
 
-public class NotasFinaisCalculator {
+public class FaltasAnuaisCalculator {
 	
     /**
      * Faz o cálculo das faltas anuais

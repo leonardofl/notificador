@@ -50,7 +50,7 @@ public class FaltasAnuaisCalcTest {
 
 		TurmaSheet notasFinais = new TurmaSheet(Periodo.ANO);
 		notasFinais.setTarjetas(tarjetas);
-		NotasFinaisCalculator calc = new NotasFinaisCalculator();
+		FaltasAnuaisCalculator calc = new FaltasAnuaisCalculator();
 		TarjetaFaltasAnuais faltasAnuais = calc.calculateFaltasAnuais(notasFinais);
 		
 		assertEquals(expectedFaltasAnuais.getFaltas().size(), faltasAnuais.getFaltas().size());
