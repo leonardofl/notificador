@@ -146,9 +146,10 @@ public class OdsParserTest {
         ProfFile profFile = parser.parseFile(sheetFile);
         ProfSheet profSheet = profFile.getSheets().get(0);
         
-        int[] expectTarjSize = new int[]{5, 4, 3, 5};
+        int[] expectTarjSize = new int[]{4, 4, 3, 5};
         int i = 0;
         for (TarjetaProf tarj: profSheet.getTarjetas()) {
             assertEquals(expectTarjSize[i++], tarj.getNotas().size());
         }
-    }}
+    }
+}

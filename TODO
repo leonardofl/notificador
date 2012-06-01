@@ -33,6 +33,9 @@ Obs: alunos TR,TD,etc estão entrando no objeto tarjeta
 OK
 Obs: aluno da linha em branco NÃO é acrescentado na tarjeta
 
+Obs: é preciso fazer teste de integração com as letras e linhas em branco
+ou seja, verificar se a 5a planilha será gerada corretamente
+
 * Testar se quando o prof edita o ods no excel tudo continua funcionando
 
 * Colocar no fim da da 5a planilha (conceito final) a porcentagem total de faltas, 
