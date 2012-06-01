@@ -47,8 +47,11 @@ Feito, mas só vai funcionar para planilhas com até 6 tarjetas
 
 Estou tendo problemas com a API: em vez de vermelhor, texto fica tachado!
 
-* Criar log
+* Criar log (ok)
 Imortante para checar erros em produção
+
+* Criar um arquivo só com o log da última execução
+Será que dá pra fazer só mexendo no log.config?
 
 * Gráfico (???)
 

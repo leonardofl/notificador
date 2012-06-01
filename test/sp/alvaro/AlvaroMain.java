@@ -3,6 +3,9 @@ package sp.alvaro;
 import java.io.File;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.odf.OdsParser;
@@ -10,11 +13,15 @@ import sp.alvaro.odf.OdsRecorder;
 
 public class AlvaroMain {
 
-    public final static String WORK_DIR = "test/resources";
-    public final static File OUT_DIR = new File("test/resources/out");
+    public final static String WORK_DIR = "test/resources/multicol";
+    public final static File OUT_DIR = new File("test/resources/multicol/out");
     public final static String EXTENSION = "ods";
 
     public static void main(String[] args) throws Exception {
+    	
+    	PropertyConfigurator.configure("log.config");
+    	Logger logger = Logger.getLogger(AlvaroMain.class);
+    	logger.info("Log configured");
 
         FilePicker picker = new FilePicker(WORK_DIR, EXTENSION);
         Set<File> files = picker.pickFiles();
@@ -25,6 +32,8 @@ public class AlvaroMain {
         Set<TurmaFile> turmaFiles = builder.buildTurmaFiles(sheets);
         TurmaFileRecorder recorder = new OdsRecorder(OUT_DIR);
         recorder.record(turmaFiles);
+        
+    	logger.info("End of execution");
     }
 
 }

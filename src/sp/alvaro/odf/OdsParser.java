@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.table.Table;
 
@@ -25,6 +26,8 @@ import sp.alvaro.model.TarjetaProf;
  */
 public class OdsParser implements NotasParser {
     
+	private Logger logger = Logger.getLogger(OdsParser.class);
+	
     private static final int MAX_ALUNOS = 54; // o máximo que cabe na tarjeta
 
     public Set<ProfFile> parse(Collection<File> files) throws IOException {
@@ -38,6 +41,8 @@ public class OdsParser implements NotasParser {
     
     public ProfFile parseFile(File file) throws IOException {
         
+    	logger.debug("Parsing file" + file.getName());
+    	
         SpreadsheetDocument planilha;
         try {
             planilha = SpreadsheetDocument.loadDocument(file);
@@ -92,9 +97,23 @@ public class OdsParser implements NotasParser {
         Coluna y = new Coluna("C");
         y.inc(4*index);
         String turma = table.getCellByPosition(y.getValor().concat("4")).getDisplayText();        
-        String aulasDadas = table.getCellByPosition(y.getValor().concat("63")).getDisplayText();   
-        String aulasPrevistas = table.getCellByPosition(y.getValor().concat("62")).getDisplayText(); 
-        TarjetaProf tarj = new TarjetaProf(turma, Integer.parseInt(aulasDadas), Integer.parseInt(aulasPrevistas));
+        String aulasDadasStr = table.getCellByPosition(y.getValor().concat("63")).getDisplayText();   
+        String aulasPrevistasStr = table.getCellByPosition(y.getValor().concat("62")).getDisplayText(); 
+        
+        int aulasDadas=0, aulasPrevistas=0;
+        try {
+        	aulasDadas = Integer.parseInt(aulasDadasStr);
+        } catch (NumberFormatException e) {
+        	String message = "Could not parse aulasDadas = " + aulasDadasStr + " on cell " + y.getValor() + "63";
+        	logger.error(message, e);
+        }
+        try {
+        	aulasPrevistas = Integer.parseInt(aulasPrevistasStr);
+	    } catch (NumberFormatException e) {
+	    	String message = "Could not parse aulasPrevistas = " + aulasPrevistasStr + " on cell " + y.getValor() + "62";
+        	logger.error(message, e);
+	    }
+        TarjetaProf tarj = new TarjetaProf(turma, aulasDadas, aulasPrevistas);
         
         // notas
         int row = 7;
