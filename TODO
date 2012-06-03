@@ -1,81 +1,54 @@
-* Testar planilha grande (coluna > AA) OK
+===============
+=== BACKLOG ===
+===============
+== Funcionalidades a implementar
 
-* Output "processando" OK
-
-* Diretórios padrãos ser o de execução (no win tb!)  OK!
-
-* Fazer com que enter no fileChoose abra a pasta, e não a selecione 
-(selecionar só com o botão)
-
-* Sobre OK
-
-* Campo A.P. (aulas previstas) OK
-
-* Por a extensão ods nos arquivos gerados OK
-
-=================
-
-* PROBLEMA MUITO GRAVE: 
-se eu altero e salvo uma das planilhas, o parse não é mais completado! 
-Será algum problema de compatibilidade de versões?
-
-Isso está temporariamente resolvido com a palavra FIM 
-na célula que conteria o nome da próxima turma
-
-* Tratar letras no lugar das notas (TR, AB, RM, NC)
-Nesses casos, alunos não estão mais na sala, então devem ser ignorados
-
-OK
-Obs: alunos TR,TD,etc estão entrando no objeto tarjeta
-
-* Pode haver linhas em branco no meio da Tarjeta
-
-OK
-Obs: aluno da linha em branco NÃO é acrescentado na tarjeta
-
-Obs: é preciso fazer teste de integração com as letras e linhas em branco
-ou seja, verificar se a 5a planilha será gerada corretamente
-
-* Testar se quando o prof edita o ods no excel tudo continua funcionando
-
-* Colocar no fim da da 5a planilha (conceito final) a porcentagem total de faltas, 
-considerando todas as matérias de uma vez
-
-OK
-
-* Se a falta anual for maior que 25% deixar em vermelho
-
-Estou tendo problemas com a API: em vez de vermelhor, texto fica tachado!
-
-* Criar log (ok)
-Imortante para checar erros em produção
-
-* Criar um arquivo só com o log da última execução
-Será que dá pra fazer só mexendo no log.config?
-
-* Sistema só funciona se sala tiver no máximo 12 matérias
-Pode ser preciso flexibilizar isso
-Além de suportar mais de 12 matérias, 
-vai ter saída mais simples, sem planilhas desnecessária
-
-* Gráfico (???)
-
-* Fazer o guia do professor
+** Fazer o guia do professor
 Junto com isso, criar uma boa planilha de exemplo
 
-* Nome do professor deveria aparecer na tarjeta consolidada?
+** Colocar informações cruzadas no modelo de dados, isto facilita log
+Exemplo: TarjetaTurma devia ter atributo turma
 
-* Fazer com que erros de parser sejam apresentados ao usuário
-Não só do log
+** Fazer com que erros de parser sejam apresentados ao usuário, não só no log
 Assim o usuário pode facilmente corrigir a planilha
 Cada linha de leitura da planilha é um erro em potencial
 Criar um bom sistema de exceções para isso
 
-* Tarjeta do 1oA foi criada como ciências em vez de biologia
-Isto porque o professor, Cleiton, também dá aula de ciências para outras sala
-Possivelmente o sistema não esteja suportando professor com várias matérias
+** Gráfico 
 
-* Colocar informações cruzadas no modelo de dados, isto facilita log
-Exemplo: TarjetaTurma devia ter atributo turma
+** Sistema só funciona se sala tiver no máximo 12 matérias
+Pode ser preciso flexibilizar isso
+Além de suportar mais de 12 matérias, 
+vai ter saída mais simples, sem planilhas desnecessárias
 
-* notas vermelhas não estão ficando mais vermelhas
+** Criar um arquivo só com o log da última execução
+Será que dá pra fazer só mexendo no log.config?
+
+** Fazer com que enter no fileChoose abra a pasta, e não a selecione 
+(selecionar só com o botão)
+
+******************************************
+******************************************
+
+============
+=== BUGS ===
+============
+== Problemas para corrigir
+
+** Nome do professor deveria aparecer na tarjeta consolidada?
+
+** Professor com várias matérias não funciona direito
+Tarjeta do 1oA foi criada como ciências em vez de biologia
+Isto porque o professor, Cleiton, também dá aula de ciências para outras salas
+
+** Notas vermelhas não estão ficando vermelhas
+
+** Se a falta anual for maior que 25% deixar em vermelho
+Estou tendo problemas com a API: em vez de vermelhor, texto fica tachado!
+Talvez seja melhor mexer no modelo
+
+** Travamento no parser 
+Se eu altero e salvo uma das planilhas, o parse não é mais completado! 
+Será algum problema de compatibilidade de versões?
+Isso está temporariamente resolvido com a palavra FIM na célula que conteria o nome da próxima turma
+
