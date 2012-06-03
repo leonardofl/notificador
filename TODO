@@ -58,4 +58,8 @@ Pode ser preciso flexibilizar isso
 
 * Gráfico (???)
 
+* BUG: processei as planilhas beatriz, dani e luciana e as coisas pareciam funcionar
+Aí alterei beatriz para inserir faltas nos alunos
+Contudo, parece que o sistema não leu as faltas que eu inseri
+
 
