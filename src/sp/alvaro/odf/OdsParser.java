@@ -140,19 +140,23 @@ public class OdsParser implements NotasParser {
             yf.inc();
             String faltas = table.getCellByPosition(yf.getValor().concat(Integer.toString(row))).getDisplayText();
 
+            int notaInt = 0, faltasInt = 0;
             if (nota != null && !nota.isEmpty()) {
-
-                int notaInt = 0, faltasInt = 0;
                 try {
                     notaInt = Integer.parseInt(nota);
-                    faltasInt = Integer.parseInt(faltas);
                 }
                 catch(NumberFormatException e) {
                     ;
                 }
-                Conceito conc = new Conceito(new Aluno(aluno, turma), notaInt, faltasInt);
-                tarj.getNotas().add(conc);
+                try {
+                    faltasInt = Integer.parseInt(faltas);
+                }
+                catch(NumberFormatException e) {
+                    ;
+                }                
             }
+            Conceito conc = new Conceito(new Aluno(aluno, turma), notaInt, faltasInt);
+            tarj.getNotas().add(conc);
             
             row++;
         }

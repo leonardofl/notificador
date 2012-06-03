@@ -26,7 +26,7 @@ public class OdsRecorder implements TurmaFileRecorder {
 	
     private static final String MODELO_CONSOLIDADO = "resources/consolidado_modelo.ods";
     private static final int MAX_MATERIAS = 12; 
-    private static final int MAX_NOTAS = 53;
+    private static final int MAX_NOTAS = 54;
     private static final int TARJETA_PASSO = 4; // quantas células de uma tarjeta pra outras
     private static final int LINHA_MATERIA = 3;
     private static final int LINHA_TURMA = 4;

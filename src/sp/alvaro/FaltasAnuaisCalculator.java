@@ -19,6 +19,10 @@ public class FaltasAnuaisCalculator {
      */
     public TarjetaFaltasAnuais calculateFaltasAnuais(TurmaSheet notasFinais) {
     	
+    	if (notasFinais.getTarjetas() == null || notasFinais.getTarjetas().isEmpty()) {
+    		throw new IllegalArgumentException("Planilha de notas finais não possui tarjetas");
+    	}
+    	
     	int totalAulas = 0;
     	int previstas = 0;
     	Map<Aluno, Integer> totalFaltas = new HashMap<Aluno, Integer>();

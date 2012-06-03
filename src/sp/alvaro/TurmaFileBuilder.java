@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import sp.alvaro.model.Periodo;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
@@ -21,6 +23,8 @@ import sp.alvaro.model.TurmaSheet;
  */
 public class TurmaFileBuilder {
     
+	private Logger logger = Logger.getLogger(TurmaFileBuilder.class);
+	
     private Set<TurmaFile> files;
    
     /**
@@ -51,7 +55,14 @@ public class TurmaFileBuilder {
                 
                 List<TarjetaTurma> bimestres = new ArrayList<TarjetaTurma>();
                 for (TurmaSheet sheet: file.getSheets()) {
-                    bimestres.add(sheet.getTarjetas().get(i));
+                	try {
+                		bimestres.add(sheet.getTarjetas().get(i));
+                	} catch(IndexOutOfBoundsException e) {
+						String message = "Não consegui processar a tarjeta "
+								+ i + " da planilha " + sheet.getBimestre()
+								+ " da turma " + file.getTurma();
+                		logger.error(message, e);
+                	}
                 }
                 TarjetaTurma tarjFinal = calc.calculateMedia(bimestres);
                 finalSheet.getTarjetas().add(tarjFinal);

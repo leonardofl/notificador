@@ -71,3 +71,11 @@ Assim o usuário pode facilmente corrigir a planilha
 Cada linha de leitura da planilha é um erro em potencial
 Criar um bom sistema de exceções para isso
 
+* Tarjeta do 1oA foi criada como ciências em vez de biologia
+Isto porque o professor, Cleiton, também dá aula de ciências para outras sala
+Possivelmente o sistema não esteja suportando professor com várias matérias
+
+* Colocar informações cruzadas no modelo de dados, isto facilita log
+Exemplo: TarjetaTurma devia ter atributo turma
+
+* notas vermelhas não estão ficando mais vermelhas
