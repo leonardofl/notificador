@@ -55,11 +55,19 @@ Será que dá pra fazer só mexendo no log.config?
 
 * Sistema só funciona se sala tiver no máximo 12 matérias
 Pode ser preciso flexibilizar isso
+Além de suportar mais de 12 matérias, 
+vai ter saída mais simples, sem planilhas desnecessária
 
 * Gráfico (???)
 
-* BUG: processei as planilhas beatriz, dani e luciana e as coisas pareciam funcionar
-Aí alterei beatriz para inserir faltas nos alunos
-Contudo, parece que o sistema não leu as faltas que eu inseri
+* Fazer o guia do professor
+Junto com isso, criar uma boa planilha de exemplo
 
+* Nome do professor deveria aparecer na tarjeta consolidada?
+
+* Fazer com que erros de parser sejam apresentados ao usuário
+Não só do log
+Assim o usuário pode facilmente corrigir a planilha
+Cada linha de leitura da planilha é um erro em potencial
+Criar um bom sistema de exceções para isso
 

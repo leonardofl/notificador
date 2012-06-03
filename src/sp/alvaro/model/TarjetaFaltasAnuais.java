@@ -19,11 +19,11 @@ public class TarjetaFaltasAnuais {
     private String turma;
     private int aulasDadas;
     private int aulasPrevistas;
-    private Map<Aluno, Double> faltas;
+    private Map<Aluno, Integer> faltas;
 
     public TarjetaFaltasAnuais() {
 
-		this.faltas = new HashMap<Aluno, Double>();
+		this.faltas = new HashMap<Aluno, Integer>();
 	}
 
     public TarjetaFaltasAnuais(String turma, int aulasDadas,
@@ -32,14 +32,14 @@ public class TarjetaFaltasAnuais {
     	this.turma = turma;
 		this.aulasDadas = aulasDadas;
 		this.aulasPrevistas = aulasPrevistas;
-		this.faltas = new HashMap<Aluno, Double>();
+		this.faltas = new HashMap<Aluno, Integer>();
 	}
 
-	public Map<Aluno, Double> getFaltas() {
+	public Map<Aluno, Integer> getFaltas() {
 		return faltas;
 	}
 
-	public void setFaltas(Map<Aluno, Double> faltas) {
+	public void setFaltas(Map<Aluno, Integer> faltas) {
 		this.faltas = faltas;
 	}
 

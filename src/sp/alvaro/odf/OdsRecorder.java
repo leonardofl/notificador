@@ -132,16 +132,27 @@ public class OdsRecorder implements TurmaFileRecorder {
 		int lin = 7;
 		Coluna col2 = new Coluna(col.getValor());
 		col2.inc();
+		Coluna col3 = new Coluna(col2.getValor());
+		col3.inc();
+		
 		table.getCellByPosition(col2.getValor()+LINHA_TURMA).setStringValue(faltasAnuais.getTurma());
+		String totalAulas = Integer.toString(faltasAnuais.getAulasDadas());
+		String previstas = Integer.toString(faltasAnuais.getAulasPrevistas());
+		table.getCellByPosition(col2.getValor()+LINHA_AULAS_DADAS).setStringValue(totalAulas);
+		table.getCellByPosition(col2.getValor()+LINHA_AULAS_PREVISTAS).setStringValue(previstas);
+
 		for (Conceito conc: finalSheet.getTarjetas().get(0).getNotas()) {
 			
 			Aluno aluno = conc.getAluno();
-			double falta = faltasAnuais.getFaltas().get(aluno);
+			int falta = faltasAnuais.getFaltas().get(aluno);
 			
-			String faltaLabel = "" + Math.round(falta) + "%";
+			String faltaStr = Integer.toString(falta);
+			String porcentagem = "" + Math.round(100d*falta/faltasAnuais.getAulasDadas()) + "%";
 			String l = Integer.toString(lin);
-            table.getCellByPosition(col.getValor()+l).setStringValue(aluno.getNome());
-            table.getCellByPosition(col2.getValor()+l).setStringValue(faltaLabel);
+
+			table.getCellByPosition(col.getValor()+l).setStringValue(aluno.getNome());
+			table.getCellByPosition(col2.getValor()+l).setStringValue(faltaStr);
+			table.getCellByPosition(col3.getValor()+l).setStringValue(porcentagem);
             
 //            if (falta > 100 - PRESENCA_MINIMA) {
 //            	Font font = (Font) table.getCellByPosition(col2.getValor()+l).getFont();
@@ -152,10 +163,6 @@ public class OdsRecorder implements TurmaFileRecorder {
             lin++;
 		}
 		
-		String totalAulas = Integer.toString(faltasAnuais.getAulasDadas());
-		String previstas = Integer.toString(faltasAnuais.getAulasPrevistas());
-		table.getCellByPosition(col2.getValor()+LINHA_AULAS_DADAS).setStringValue(totalAulas);
-		table.getCellByPosition(col2.getValor()+LINHA_AULAS_PREVISTAS).setStringValue(previstas);
 	}
 
 }

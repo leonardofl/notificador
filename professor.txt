@@ -1,4 +1,24 @@
 Guia para o professor
 
+Explicar estrutura da planilha
+
+Nome do arquivo: seu nome, sem usar espaços ou caracteres especiais (acentos). Pode usar underline '_'
+
+Cuidado para não colocar notas no bimestre errado
+
 Sistema aceita apenas notas inteiras (ex: não vale dar 2,5 para o aluno)
 
+Falar do "FIM"
+
+Porcentagem de faltas anuais são arredondas (8,6% vira 9% e 8,3% vira 8%)
+
+Preenchimento do nome da turma deve ser rigoroso, todos os prof devem preencher do mesmo modo o nome de uma turma.
+Não colocar o nome da turma em tarjetas não utilizadas, deixar como no modelo
+
+Os campos AP e AD não devem ser preenchidos (nem com 0) caso tarjeta não seja utilizada.
+
+Não deixar tarjetas sem usar antes de tarjetas usadas. 
+
+Turmas não precisam estar em ordem (ex: 6aA pode vir depois da 8aB)
+Também não é preciso que a ordem das turmas se mantenha de bimestre para bimestre.
+Isso pode facilitar eventuais verificação manuais, mas não é estritamente necessário.

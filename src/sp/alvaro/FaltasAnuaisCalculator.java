@@ -46,7 +46,7 @@ public class FaltasAnuaisCalculator {
     		
     	    Aluno aluno = entry.getKey();
     	    int faltas = entry.getValue();
-    	    faltasAnuais.getFaltas().put(aluno, 100.0*faltas/totalAulas);
+    	    faltasAnuais.getFaltas().put(aluno, faltas);
     	}
     	
     	return faltasAnuais;
