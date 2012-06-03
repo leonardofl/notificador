@@ -74,7 +74,8 @@ public class OdsParser implements NotasParser {
 
         String check = table.getCellByPosition(CELULA_PRIMEIRA_AULAS_DADAS).getDisplayText();
         if (check == null || check.isEmpty()) {
-        	logger.info("Nada no " + bim + "o bimestre");
+        	// TODO quando alterar modelo de dados, esse debug pode virar info
+        	logger.debug("Nada no " + bim + "o bimestre");
         	return null;
         }
 

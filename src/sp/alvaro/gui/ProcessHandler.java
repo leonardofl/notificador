@@ -7,6 +7,9 @@ package sp.alvaro.gui;
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
+
 import sp.alvaro.FilePicker;
 import sp.alvaro.NotasParser;
 import sp.alvaro.TurmaFileBuilder;
@@ -22,7 +25,9 @@ import sp.alvaro.odf.OdsRecorder;
  */
 public class ProcessHandler {
     
-    public final static String EXTENSION = "ods";
+	Logger logger = Logger.getLogger(Form.class);
+
+	public final static String EXTENSION = "ods";
     private String in, out;
     
     public ProcessHandler(String in, String out) {
@@ -42,7 +47,9 @@ public class ProcessHandler {
         Set<TurmaFile> turmaFiles = builder.buildTurmaFiles(sheets);
         File out_dir = new File(this.out);
         TurmaFileRecorder recorder = new OdsRecorder(out_dir);
-        recorder.record(turmaFiles);    
+        recorder.record(turmaFiles);  
+        
+    	logger.info("Execução completa");
     }
     
 }

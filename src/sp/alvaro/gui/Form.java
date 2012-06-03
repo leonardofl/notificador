@@ -17,6 +17,10 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
+
+import org.apache.log4j.PropertyConfigurator;
+
+import sp.alvaro.AlvaroMain;
 import sp.alvaro.AppSettings;
 
 /**
@@ -289,6 +293,11 @@ public class Form extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+    	
+    	PropertyConfigurator.configure("resources/log.config");
+    	org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Form.class);
+    	logger.info("Log configurado");
+    	
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

@@ -32,9 +32,10 @@ Obs: as aspas são apenas para delimitar o valor neste texto, você não deve es
 
 ATENÇÃO!!!
 É muito importante que todos os professores utilizem o mesmo padrão para descrever o nome da turma.
-Então siga a convenção: número, seguido de ª ou º, seguido de espaço, seguido de uma letra maiúscula.
-O ª é usado nas sérias de 5 a 9, e o º é usado nos anos de 1 a 3.
-Exemplos: 6ª A, 1º B
+Então siga a convenção: número, seguido de 'a' ou 'o', seguido de uma letra maiúscula.
+O 'a' é usado nas sérias de 5 a 9, e o 'o' é usado nos anos de 1 a 3.
+Exemplos certos: 6aA, 1oB
+Exemplos errados: 6ªA, 1ºB, 6a A, 1o B, 6ª A, 1º B 
 
 Você deve então para cada tarjeta preencher as notas e faltas obtidas pelos alunos.
 Para cada tarjeta, mantenha o campo 'nº' como está, não altere os números ou escreva o nome dos alunos.
