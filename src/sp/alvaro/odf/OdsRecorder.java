@@ -11,6 +11,7 @@ import org.odftoolkit.simple.table.Table;
 import sp.alvaro.TurmaFileRecorder;
 import sp.alvaro.model.Aluno;
 import sp.alvaro.model.Conceito;
+import sp.alvaro.model.Periodo;
 import sp.alvaro.model.TarjetaFaltasAnuais;
 import sp.alvaro.model.TarjetaTurma;
 import sp.alvaro.model.TurmaFile;
@@ -44,6 +45,8 @@ public class OdsRecorder implements TurmaFileRecorder {
     public void record(Collection<TurmaFile> turmaFiles) throws Exception {
         
         for (TurmaFile f: turmaFiles) {
+        	
+        	logger.debug("Gravando arquivo " + f.getTurma());
             
             // consistência
             int turmas_size = f.getSheets().get(0).getTarjetas().size();
@@ -71,6 +74,10 @@ public class OdsRecorder implements TurmaFileRecorder {
     	int i = 0;
         for (TurmaSheet turmaSheet: f.getSheets()) { // percorre bimestres
             
+        	logger.debug("Gravando planilha " + turmaSheet.getBimestre());
+        	
+        	if (turmaSheet.getBimestre() == Periodo.ANO)
+        		i = 4;
             Table table = ods.getTableList().get(i);
             
             table.getCellByPosition("C" + LINHA_TURMA).setStringValue(f.getTurma());
@@ -109,7 +116,7 @@ public class OdsRecorder implements TurmaFileRecorder {
                 col.inc(TARJETA_PASSO); 
             }
             
-            if (i == 4) { // notas finais
+            if (turmaSheet.getBimestre() == Periodo.ANO) { // notas finais
             	this.recordFaltasAnuais(f.getFaltasAnuais(), turmaSheet, table, 
             			new Coluna(COLUNA_FALTAS_ANUAIS));
             }
@@ -120,6 +127,8 @@ public class OdsRecorder implements TurmaFileRecorder {
 	private void recordFaltasAnuais(TarjetaFaltasAnuais faltasAnuais, TurmaSheet finalSheet, 
 			Table table, Coluna col) {
 
+		logger.debug("Gravando notas anuais");
+		
 		int lin = 7;
 		Coluna col2 = new Coluna(col.getValor());
 		col2.inc();

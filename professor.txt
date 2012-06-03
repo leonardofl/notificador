@@ -1,0 +1,4 @@
+Guia para o professor
+
+Sistema aceita apenas notas inteiras (ex: não vale dar 2,5 para o aluno)
+

@@ -18,7 +18,6 @@ import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
 import sp.alvaro.model.TarjetaProf;
 
-//TODO: testar com mais tarjetas, pra alcançar o AA
 /**
  * Recupera as notas nos arquivos ods
  * @author leonardo
