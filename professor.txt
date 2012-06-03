@@ -1,24 +1,62 @@
-Guia para o professor
+GUIA DO PROFESSOR
 
-Explicar estrutura da planilha
+Olá caro professor,
 
-Nome do arquivo: seu nome, sem usar espaços ou caracteres especiais (acentos). Pode usar underline '_'
+o Notificador é um software que ajudará a administração de sua escola a ter mais agilidade.
+Mas para isso é preciso a sua colaboração.
+É preciso que você digitalize as notas em um arquivo de planilha, seguindo rigorosamente as instruções que agora lê.
+Em primeiro lugar, é preciso que você tenha um editor de texto capaz de manipular uma planilha em ODS.
+O melhor exemplo é o BrOffice, um software livre que pode ser baixado gratuitamente em http://www.broffice.org/.
 
-Cuidado para não colocar notas no bimestre errado
 
-Sistema aceita apenas notas inteiras (ex: não vale dar 2,5 para o aluno)
+/--- Nota educativa ---/
 
-Falar do "FIM"
+O ODF (Formato de Documento Aberto) é um padrão que especifica vários formatos abertos.
+Como exemplos temos o ODS para planilhas e o ODT para textos.
+Formato aberto significa que qualquer desenvolvedor de software tem condições de manipular os arquivos salvos nestes formatos.
+Isso garante que seja possível fazer programas como o Notificador, evita a dependência de um único fornecedor, e a longo prazo também ajuda a garantir que seu documento sempre poderá ser lido.
+Para saber mais: http://pt.wikipedia.org/wiki/Formato_aberto
 
-Porcentagem de faltas anuais são arredondas (8,6% vira 9% e 8,3% vira 8%)
+/--------------------/
 
-Preenchimento do nome da turma deve ser rigoroso, todos os prof devem preencher do mesmo modo o nome de uma turma.
-Não colocar o nome da turma em tarjetas não utilizadas, deixar como no modelo
 
-Os campos AP e AD não devem ser preenchidos (nem com 0) caso tarjeta não seja utilizada.
+Além destas instruções, você deve receber da administração de sua escola um arquivo exemplo, o "prof.ods".
+Este arquivo pode ser aberto com o BrOffice.
+Nele você encontrará 4 planilhas, uma para cada bimestre.
+Em cada planilha, você verá 4 tarjetas.
+Você deve deixar cada planilha com uma tarjeta por turma, para cada turma que você dá aula.
+Além do cabeçalho, cada tarjeta possui várias linhas, sendo que cada linha registra o conceito de um aluno.
+No cabeçalho você deve preencher adequadamente os campos "Disciplina" e "Série".
+Exemplos: Disciplina="00119-Inglês" e Série="6ª A" 
+Obs: as aspas são apenas para delimitar o valor neste texto, você não deve escrevê-las
 
-Não deixar tarjetas sem usar antes de tarjetas usadas. 
+ATENÇÃO!!!
+É muito importante que todos os professores utilizem o mesmo padrão para descrever o nome da turma.
+Então siga a convenção: número, seguido de ª ou º, seguido de espaço, seguido de uma letra maiúscula.
+O ª é usado nas sérias de 5 a 9, e o º é usado nos anos de 1 a 3.
+Exemplos: 6ª A, 1º B
 
-Turmas não precisam estar em ordem (ex: 6aA pode vir depois da 8aB)
-Também não é preciso que a ordem das turmas se mantenha de bimestre para bimestre.
-Isso pode facilitar eventuais verificação manuais, mas não é estritamente necessário.
+Você deve então para cada tarjeta preencher as notas e faltas obtidas pelos alunos.
+Para cada tarjeta, mantenha o campo 'nº' como está, não altere os números ou escreva o nome dos alunos.
+Para números inválidos (quando não existe um aluno para aquele número), você pode deixar os campos 'Nota' e 'Faltas' em branco, ou preenchê-los com zeros.
+No fim da tarjeta você deve ainda preencher os campos A.P. (aulas previstas) e A.D. (aulas dadas). Não deixe de preenchê-los, mesmo que com zeros.
+
+ATENÇÃO!!!
+Atente para a célula com o conteúdo FIM, existente em cada uma das quatro planilhas.
+Você deverá tomar o cuidado para escrever a palavra FIM na célula onde estaria o nome da turma da próxima tarjeta.
+Regra prática: veja a coluna onde está o nome da turma da sua última tarjeta; vá 4 colunas para a direita e escreva a palavra FIM.
+Por favor, escreva 'FIM', não 'fim', 'Fim', 'FIM ', ' FIM ', etc. 
+
+Após os dados serem preenchidos, basta entregar o arquivo editado para a administração de sua escola.
+
+Pedimos ainda alguns cuidados:
+* Entregue o arquivo deixando o nome do arquivo com o seu nome, sem usar acentos ou espaços no nome do arquivo. Em vez de espaço, você pode, por exemplo, usar underlines '_';
+* As notas dos alunos devem ser fornecidas como números inteiros; ex: não se permite dar nota 2,5 para um aluno: escolha 2 ou 3;
+* Cuidado para não colocar os dados na planilha do bimestre errado;
+* Não colocar o nome da turma em tarjetas não utilizadas; 
+* Não "pule" uma tarjeta, deixando-a em branco e utilizando a próxima;
+* De preferência não deixe na planilha tarjetas não utilizadas;
+
+Também é importante que saibam das seguintes limitações do sistema:
+* Uma planilha não suporta mais do que 12 tarjetas.
+* Uma tarjeta não suporta mais que 54 alunos.

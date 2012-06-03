@@ -3,7 +3,7 @@
 ===============
 == Funcionalidades a implementar
 
-** Fazer o guia do professor
+** Fazer o guia do professor (OK)
 Junto com isso, criar uma boa planilha de exemplo
 
 ** Colocar informações cruzadas no modelo de dados, isto facilita log
@@ -26,6 +26,8 @@ Será que dá pra fazer só mexendo no log.config?
 
 ** Fazer com que enter no fileChoose abra a pasta, e não a selecione 
 (selecionar só com o botão)
+
+** Colocar cabeçalho da licença nos arquivos de código
 
 ******************************************
 ******************************************
