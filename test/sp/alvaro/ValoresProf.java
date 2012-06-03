@@ -6,6 +6,7 @@ import sp.alvaro.model.Periodo;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
 import sp.alvaro.model.TarjetaProf;
+import sp.alvaro.odf.OdsParser;
 
 public class ValoresProf {
 
@@ -165,6 +166,7 @@ public class ValoresProf {
         this.file1.getSheets().add(sheet2);
         this.file1.getSheets().add(sheet3);
         this.file1.getSheets().add(sheet4);
+        fillTarjetas(file1);
     }
 
     public ProfFile getProfSheet2() {
@@ -321,6 +323,19 @@ public class ValoresProf {
         this.file2.getSheets().add(sheet2);
         this.file2.getSheets().add(sheet3);
         this.file2.getSheets().add(sheet4);
+        fillTarjetas(file2);
+    }
+    
+    private void fillTarjetas(ProfFile f) {
+    	
+    	for (ProfSheet s: f.getSheets()) {
+    		for (TarjetaProf t: s.getTarjetas()) {
+    			for (int i=t.getNotas().size()+1; i<=OdsParser.MAX_ALUNOS; i++) {
+    				t.getNotas().add(new Conceito(
+    						new Aluno(Integer.toString(i), t.getTurma()), 0, 0));
+    			}
+    		}
+    	}
     }
 
 }

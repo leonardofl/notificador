@@ -52,3 +52,10 @@ Se eu altero e salvo uma das planilhas, o parse não é mais completado!
 Será algum problema de compatibilidade de versões?
 Isso está temporariamente resolvido com a palavra FIM na célula que conteria o nome da próxima turma
 
+* No sistema atual, toda tarjeta deve ter MAX_ALUNOS linhas
+Mesmo que objeto tarjeta só tenha 4 notas úteis, a lista notas terá MAX_ALUNO objetos Conceito
+Seria legal flexibilizar isso
+Uma coisa ruim que isso gerou foi um acoplamento entre ValoresProf e OdsParser
+(método fillTarjetas é muito feio, não deveria existir).
+Proposta: quando acabar alunos, a linha do número do aluno deve ficar branca.
+Com isso dá pra também melhorar os testes readSheetWithBlankLines e readSheetWithLetters em OdsParser 

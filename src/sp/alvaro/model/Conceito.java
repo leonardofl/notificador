@@ -6,6 +6,12 @@ public class Conceito {
     private double nota;
     private int faltas;
     
+    public boolean isNulo() {
+    	if (nota == 0 && faltas == 0)
+    		return true;
+    	else
+    		return false;
+    }
     
     public Conceito() {
         

@@ -144,7 +144,8 @@ public class TurmaSheetBuilderTest {
                     for (TarjetaTurma tarj: sheet.getTarjetas()) {
                         for (Conceito nota: tarj.getNotas()) {
                             Conceito n = findNota(f.getTurma(), sheet.getBimestre(), tarj.getMateria(), tarj.getProfessor(), nota.getAluno());
-                            assertEquals(nota, n);
+                            if (nota != null && !nota.isNulo())
+                            	assertEquals(nota, n);
                         }
                     }
                 }
@@ -155,7 +156,8 @@ public class TurmaSheetBuilderTest {
             for (TarjetaTurma tarj: finalSheet.getTarjetas()) {
                 for (Conceito nota: tarj.getNotas()) {
                     Conceito n = findNota(f.getTurma(), Periodo.ANO, tarj.getMateria(), tarj.getProfessor(), nota.getAluno());
-                    assertEquals(n, nota);                    
+                    if (n != null && !n.isNulo())
+                    	assertEquals(n, nota);                    
                 }
             }
         }

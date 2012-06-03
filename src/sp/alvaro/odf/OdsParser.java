@@ -27,7 +27,7 @@ public class OdsParser implements NotasParser {
     
 	private Logger logger = Logger.getLogger(OdsParser.class);
 	
-    private static final int MAX_ALUNOS = 54; // o máximo que cabe na tarjeta
+    public static final int MAX_ALUNOS = 54; // o máximo que cabe na tarjeta
     private static final String CELULA_PRIMEIRA_AULAS_DADAS = "C63";
 
     public Set<ProfFile> parse(Collection<File> files) throws IOException {
