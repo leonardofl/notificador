@@ -10,9 +10,8 @@ import org.apache.log4j.Logger;
 import sp.alvaro.model.Periodo;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
+import sp.alvaro.model.Tarjeta;
 import sp.alvaro.model.TarjetaFaltasAnuais;
-import sp.alvaro.model.TarjetaProf;
-import sp.alvaro.model.TarjetaTurma;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.model.TurmaSheet;
 
@@ -38,7 +37,7 @@ public class TurmaFileBuilder {
 
         for (ProfFile profFile: profFiles) {          
             for (ProfSheet profSheet: profFile.getSheets()) {
-                for (TarjetaProf tarj: profSheet.getTarjetas()) {
+                for (Tarjeta tarj: profSheet.getTarjetas()) {
                     this.process(tarj, profSheet, profFile);
                 }
                 
@@ -48,12 +47,12 @@ public class TurmaFileBuilder {
         // calcula média final
         MediaCalculator calc = new MediaCalculator();
         for (TurmaFile file: files) {
-            TurmaSheet finalSheet = new TurmaSheet(Periodo.ANO);
+            TurmaSheet finalSheet = new TurmaSheet(Periodo.ANO, file.getTurma());
             
             // iterando matérias
             for (int i=0; i<file.getSheets().get(0).getTarjetas().size(); i++) {
                 
-                List<TarjetaTurma> bimestres = new ArrayList<TarjetaTurma>();
+                List<Tarjeta> bimestres = new ArrayList<Tarjeta>();
                 for (TurmaSheet sheet: file.getSheets()) {
                 	try {
                 		bimestres.add(sheet.getTarjetas().get(i));
@@ -64,7 +63,7 @@ public class TurmaFileBuilder {
                 		logger.error(message, e);
                 	}
                 }
-                TarjetaTurma tarjFinal = calc.calculateMedia(bimestres);
+                Tarjeta tarjFinal = calc.calculateMedia(bimestres);
                 finalSheet.getTarjetas().add(tarjFinal);
             }
 
@@ -79,9 +78,10 @@ public class TurmaFileBuilder {
         return files;
     }
     
-    private void process(TarjetaProf profTarj, ProfSheet profSheet, ProfFile profFile) {
+    private void process(Tarjeta profTarj, ProfSheet profSheet, ProfFile profFile) {
 
         String turma = profTarj.getTurma();
+        String materia = profTarj.getMateria();
         TurmaFile file = turmaInFiles(turma);
         if (file == null) {
             file = new TurmaFile(turma);
@@ -91,26 +91,25 @@ public class TurmaFileBuilder {
         Periodo bim = profSheet.getBimestre();
         TurmaSheet sheet = sheetInFile(bim, file);
         if (sheet == null) {
-            sheet = new TurmaSheet(bim);
+            sheet = new TurmaSheet(bim, turma);
             file.getSheets().add(sheet);
         }
         
         String prof = profFile.getProfessor();
-        String materia = profFile.getMateria();
         int aulasDadas = profTarj.getAulasDadas();
         int aulasPrevistas = profTarj.getAulasPrevistas();
-        TarjetaTurma tarjeta = tarjetaInSheet(prof, materia, sheet);
+        Tarjeta tarjeta = tarjetaInSheet(prof, materia, sheet);
         if (tarjeta == null) {
-            tarjeta = new TarjetaTurma(materia, prof, aulasDadas, aulasPrevistas);
+            tarjeta = new Tarjeta(turma, materia, prof, bim, aulasDadas, aulasPrevistas);
             sheet.getTarjetas().add(tarjeta);
         }
         
         tarjeta.setNotas(profTarj.getNotas());
     }
     
-    private TarjetaTurma tarjetaInSheet(String prof, String materia, TurmaSheet sheet) {
+    private Tarjeta tarjetaInSheet(String prof, String materia, TurmaSheet sheet) {
 
-        for (TarjetaTurma t: sheet.getTarjetas()) {
+        for (Tarjeta t: sheet.getTarjetas()) {
             if (t.getProfessor().equals(prof) && t.getMateria().equals(materia))
                 return t;
         }

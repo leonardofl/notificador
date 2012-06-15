@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
-import sp.alvaro.model.TarjetaProf;
+import sp.alvaro.model.Tarjeta;
 import sp.alvaro.odf.OdsParser;
 
 /**
@@ -60,10 +60,8 @@ public class OdsParserTest {
     public void verifyDataHead() {
         
         assertEquals(expectedFile1.getProfessor(), currentFile1.getProfessor());
-        assertEquals(expectedFile1.getMateria(), currentFile1.getMateria());
         
         assertEquals(expectedFile2.getProfessor(), currentFile2.getProfessor());
-        assertEquals(expectedFile2.getMateria(), currentFile2.getMateria());
     }
     
     @Test
@@ -132,7 +130,7 @@ public class OdsParserTest {
         ProfSheet profSheet = profFile.getSheets().get(0);
         
         int expectTarjSize = OdsParser.MAX_ALUNOS;
-        for (TarjetaProf tarj: profSheet.getTarjetas()) {
+        for (Tarjeta tarj: profSheet.getTarjetas()) {
             assertEquals(expectTarjSize, tarj.getNotas().size());
         }
     }
@@ -147,7 +145,7 @@ public class OdsParserTest {
         ProfSheet profSheet = profFile.getSheets().get(0);
         
         int expectTarjSize = OdsParser.MAX_ALUNOS;
-        for (TarjetaProf tarj: profSheet.getTarjetas()) {
+        for (Tarjeta tarj: profSheet.getTarjetas()) {
             assertEquals(expectTarjSize, tarj.getNotas().size());
         }
     }

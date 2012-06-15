@@ -29,6 +29,8 @@ Será que dá pra fazer só mexendo no log.config?
 
 ** Colocar cabeçalho da licença nos arquivos de código
 
+** Paralelizar processamento
+
 ******************************************
 ******************************************
 
@@ -36,6 +38,8 @@ Será que dá pra fazer só mexendo no log.config?
 === BUGS ===
 ============
 == Problemas para corrigir
+
+** Não se basear na posição da tarjeta para recuperá-la e fazer as contas
 
 ** Nome do professor deveria aparecer na tarjeta consolidada?
 

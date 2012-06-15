@@ -5,8 +5,8 @@ import java.util.Map;
 
 import sp.alvaro.model.Aluno;
 import sp.alvaro.model.Conceito;
+import sp.alvaro.model.Tarjeta;
 import sp.alvaro.model.TarjetaFaltasAnuais;
-import sp.alvaro.model.TarjetaTurma;
 import sp.alvaro.model.TurmaSheet;
 
 public class FaltasAnuaisCalculator {
@@ -27,7 +27,7 @@ public class FaltasAnuaisCalculator {
     	int previstas = 0;
     	Map<Aluno, Integer> totalFaltas = new HashMap<Aluno, Integer>();
     	
-    	for (TarjetaTurma tarj: notasFinais.getTarjetas()) {
+    	for (Tarjeta tarj: notasFinais.getTarjetas()) {
     		
     		totalAulas += tarj.getAulasDadas();
     		previstas += tarj.getAulasPrevistas();

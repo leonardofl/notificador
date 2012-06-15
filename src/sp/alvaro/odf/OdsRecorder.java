@@ -12,8 +12,8 @@ import sp.alvaro.TurmaFileRecorder;
 import sp.alvaro.model.Aluno;
 import sp.alvaro.model.Conceito;
 import sp.alvaro.model.Periodo;
+import sp.alvaro.model.Tarjeta;
 import sp.alvaro.model.TarjetaFaltasAnuais;
-import sp.alvaro.model.TarjetaTurma;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.model.TurmaSheet;
 
@@ -83,7 +83,7 @@ public class OdsRecorder implements TurmaFileRecorder {
             table.getCellByPosition("C" + LINHA_TURMA).setStringValue(f.getTurma());
             
             Coluna col = new Coluna("C");
-            for (TarjetaTurma tarjeta: turmaSheet.getTarjetas()) {
+            for (Tarjeta tarjeta: turmaSheet.getTarjetas()) {
                 
                 // consistência
                 int tarj_size = tarjeta.getNotas().size();

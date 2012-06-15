@@ -3,7 +3,7 @@ package sp.alvaro;
 import java.util.List;
 
 import sp.alvaro.model.Conceito;
-import sp.alvaro.model.TarjetaTurma;
+import sp.alvaro.model.Tarjeta;
 
 public class MediaCalculator {
 
@@ -12,12 +12,12 @@ public class MediaCalculator {
      * @param tarjetas dos quatro bimestres
      * @return tarjeta de médias
      */
-    public TarjetaTurma calculateMedia(List<TarjetaTurma> tarjetas) {
+    public Tarjeta calculateMedia(List<Tarjeta> tarjetas) {
         
         if (tarjetas.size() > 4)
             throw new IllegalArgumentException("Média deve ser calculada sobre até 4 tarjetas");
         
-        TarjetaTurma medias = new TarjetaTurma();
+        Tarjeta medias = new Tarjeta();
         
         medias.setMateria(tarjetas.get(0).getMateria());
         medias.setProfessor(tarjetas.get(0).getProfessor());
@@ -27,8 +27,8 @@ public class MediaCalculator {
         return medias;
     }
 
-    private void calculateAulasDadas(List<TarjetaTurma> tarjetas, TarjetaTurma medias) {
-        for (TarjetaTurma tarj: tarjetas) {
+    private void calculateAulasDadas(List<Tarjeta> tarjetas, Tarjeta medias) {
+        for (Tarjeta tarj: tarjetas) {
             int aulasDadas = medias.getAulasDadas() + tarj.getAulasDadas();
             int aulasPrevistas = medias.getAulasPrevistas() + tarj.getAulasPrevistas();
             medias.setAulasDadas(aulasDadas);
@@ -36,7 +36,7 @@ public class MediaCalculator {
         }
     }
 
-    private void calculateNotas(List<TarjetaTurma> tarjetas, TarjetaTurma medias) {
+    private void calculateNotas(List<Tarjeta> tarjetas, Tarjeta medias) {
 
         for (Conceito c: tarjetas.get(0).getNotas()) {
             medias.getNotas().add(new Conceito(c.getAluno(), c.getNota()/4d, c.getFaltas()));

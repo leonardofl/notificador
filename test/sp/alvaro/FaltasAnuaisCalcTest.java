@@ -11,28 +11,31 @@ import org.junit.Test;
 import sp.alvaro.model.Aluno;
 import sp.alvaro.model.Conceito;
 import sp.alvaro.model.Periodo;
+import sp.alvaro.model.Tarjeta;
 import sp.alvaro.model.TarjetaFaltasAnuais;
-import sp.alvaro.model.TarjetaTurma;
 import sp.alvaro.model.TurmaSheet;
 
 public class FaltasAnuaisCalcTest {
 
-	private List<TarjetaTurma> tarjetas;
+	private List<Tarjeta> tarjetas;
 	private TarjetaFaltasAnuais expectedFaltasAnuais;
-	
+
+	private String trm = "6aA";
+	private Periodo bim = Periodo.BIMESTRE_1;
+
 	@Before
 	public void setUp() {
 		
         // prepara dados
-        tarjetas = new ArrayList<TarjetaTurma>();
+        tarjetas = new ArrayList<Tarjeta>();
         
-        TarjetaTurma tarj = new TarjetaTurma("Matemática", "Areco", 22, 23);
+        Tarjeta tarj = new Tarjeta(trm, "Matemática", "Areco", bim, 22, 23);
         tarj.getNotas().add(new Conceito(new Aluno("A", "6aA"), 10, 2));
         tarj.getNotas().add(new Conceito(new Aluno("B", "6aA"), 5, 5));
         tarj.getNotas().add(new Conceito(new Aluno("C", "6aA"), 2, 10));
         tarjetas.add(tarj);
 
-        tarj = new TarjetaTurma("Inglês", "Thales", 22, 23);
+        tarj = new Tarjeta(trm, "Inglês", "Thales",  bim, 22, 23);
         tarj.getNotas().add(new Conceito(new Aluno("A", "6aA"), 8, 3));
         tarj.getNotas().add(new Conceito(new Aluno("B", "6aA"), 6, 6));
         tarj.getNotas().add(new Conceito(new Aluno("C", "6aA"), 4, 7));
@@ -48,7 +51,7 @@ public class FaltasAnuaisCalcTest {
 	@Test
 	public void testCalculaNotasFinais() {
 
-		TurmaSheet notasFinais = new TurmaSheet(Periodo.ANO);
+		TurmaSheet notasFinais = new TurmaSheet(Periodo.ANO, trm);
 		notasFinais.setTarjetas(tarjetas);
 		FaltasAnuaisCalculator calc = new FaltasAnuaisCalculator();
 		TarjetaFaltasAnuais faltasAnuais = calc.calculateFaltasAnuais(notasFinais);

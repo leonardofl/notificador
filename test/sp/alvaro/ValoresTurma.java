@@ -6,7 +6,7 @@ import java.util.Set;
 import sp.alvaro.model.Aluno;
 import sp.alvaro.model.Conceito;
 import sp.alvaro.model.Periodo;
-import sp.alvaro.model.TarjetaTurma;
+import sp.alvaro.model.Tarjeta;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.model.TurmaSheet;
 
@@ -30,9 +30,10 @@ public class ValoresTurma {
         String trm = "6aA";
         TurmaFile turmaFile = new TurmaFile(trm);
         
-        TurmaSheet turmaSheet = new TurmaSheet(Periodo.BIMESTRE_1);
-
-        TarjetaTurma tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        Periodo bim = Periodo.BIMESTRE_1;
+        TurmaSheet turmaSheet = new TurmaSheet(bim, trm);
+        	
+        Tarjeta tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 6, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 3, 1));
@@ -40,7 +41,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 2, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 6, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 3, 1));
@@ -50,9 +51,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
 
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_2);
+        bim = Periodo.BIMESTRE_2;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -60,27 +62,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
-        tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
-        tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
-        tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
-        tarjeta.getNotas().add(new Conceito(new Aluno("4", trm), 4, 5));
-        tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
-        turmaSheet.getTarjetas().add(tarjeta);
-
-        turmaFile.getSheets().add(turmaSheet);
-
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_3);
-
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
-        tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
-        tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
-        tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
-        tarjeta.getNotas().add(new Conceito(new Aluno("4", trm), 4, 5));
-        tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
-        turmaSheet.getTarjetas().add(tarjeta);
-
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -90,9 +72,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
 
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_4);
+        bim = Periodo.BIMESTRE_3;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -100,7 +83,28 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
+        tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
+        tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
+        tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
+        tarjeta.getNotas().add(new Conceito(new Aluno("4", trm), 4, 5));
+        tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
+        turmaSheet.getTarjetas().add(tarjeta);
+
+        turmaFile.getSheets().add(turmaSheet);
+
+        bim = Periodo.BIMESTRE_4;
+        turmaSheet = new TurmaSheet(bim, trm);
+
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
+        tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
+        tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
+        tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
+        tarjeta.getNotas().add(new Conceito(new Aluno("4", trm), 4, 5));
+        tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
+        turmaSheet.getTarjetas().add(tarjeta);
+
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -110,9 +114,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
         
-        turmaSheet = new TurmaSheet(Periodo.ANO);
+        bim = Periodo.ANO;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 88, 23*4);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 88, 23*4);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5.25, 8));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 20));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 7.5, 4));
@@ -120,7 +125,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 7.25, 12));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 88, 23*4);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 88, 23*4);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5.25, 8));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 20));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 7.5, 4));
@@ -138,9 +143,10 @@ public class ValoresTurma {
         String trm = "6aB";
         TurmaFile turmaFile = new TurmaFile(trm);
         
-        TurmaSheet turmaSheet = new TurmaSheet(Periodo.BIMESTRE_1);
+        Periodo bim = Periodo.BIMESTRE_1;
+        TurmaSheet turmaSheet = new TurmaSheet(bim, trm);
 
-        TarjetaTurma tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        Tarjeta tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 2, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 3, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 6, 1));
@@ -148,7 +154,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 1, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 2, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 3, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 6, 1));
@@ -158,9 +164,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
 
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_2);
+        bim = Periodo.BIMESTRE_2;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 2, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 1, 9));
@@ -168,7 +175,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 3, 9));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 2, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 1, 9));
@@ -178,9 +185,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
 
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_3);
+        bim = Periodo.BIMESTRE_3;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -188,7 +196,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -196,11 +204,12 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        turmaFile.getSheets().add(turmaSheet);
+        bim = Periodo.BIMESTRE_4;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_4);
+        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_4, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -208,7 +217,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -218,9 +227,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
         
-        turmaSheet = new TurmaSheet(Periodo.ANO);
+        bim = Periodo.ANO;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 92, 23*4);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 92, 23*4);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 3.5, 11));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 4.5, 20));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 6.25, 12));
@@ -228,7 +238,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 5.5, 18));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 92, 23*4);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 92, 23*4);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 3.5, 11));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 4.5, 20));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 6.25, 12));
@@ -246,9 +256,10 @@ public class ValoresTurma {
         String trm = "6aC";
         TurmaFile turmaFile = new TurmaFile(trm);
         
-        TurmaSheet turmaSheet = new TurmaSheet(Periodo.BIMESTRE_1);
+        Periodo bim = Periodo.BIMESTRE_1;
+        TurmaSheet turmaSheet = new TurmaSheet(bim, trm);
 
-        TarjetaTurma tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        Tarjeta tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 3, 1));
@@ -256,7 +267,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 2, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 3, 1));
@@ -266,9 +277,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
 
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_2);
+        bim = Periodo.BIMESTRE_2;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 10, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 10, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 4, 11));
@@ -276,7 +288,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 4, 15));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 10, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 10, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 4, 11));
@@ -286,9 +298,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
 
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_3);
+        bim = Periodo.BIMESTRE_3;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -296,27 +309,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
-        tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
-        tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
-        tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
-        tarjeta.getNotas().add(new Conceito(new Aluno("4", trm), 4, 5));
-        tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
-        turmaSheet.getTarjetas().add(tarjeta);
-
-        turmaFile.getSheets().add(turmaSheet);
-
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_4);
-
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
-        tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
-        tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
-        tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
-        tarjeta.getNotas().add(new Conceito(new Aluno("4", trm), 4, 5));
-        tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
-        turmaSheet.getTarjetas().add(tarjeta);
-
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -326,9 +319,31 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
 
-        turmaSheet = new TurmaSheet(Periodo.ANO);
+        bim = Periodo.BIMESTRE_4;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 88, 23*4);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
+        tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
+        tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
+        tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
+        tarjeta.getNotas().add(new Conceito(new Aluno("4", trm), 4, 5));
+        tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
+        turmaSheet.getTarjetas().add(tarjeta);
+
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
+        tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
+        tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
+        tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
+        tarjeta.getNotas().add(new Conceito(new Aluno("4", trm), 4, 5));
+        tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
+        turmaSheet.getTarjetas().add(tarjeta);
+
+        turmaFile.getSheets().add(turmaSheet);
+
+        bim = Periodo.ANO;
+        turmaSheet = new TurmaSheet(bim, trm);
+
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 88, 23*4);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 6.25, 8));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 6.25, 20));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 6.25, 14));
@@ -336,7 +351,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 6, 24));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 88, 23*4);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 88, 23*4);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 6.25, 8));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 6.25, 20));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 6.25, 14));
@@ -354,9 +369,10 @@ public class ValoresTurma {
         String trm = "6aD";
         TurmaFile turmaFile = new TurmaFile(trm);
         
-        TurmaSheet turmaSheet = new TurmaSheet(Periodo.BIMESTRE_1);
+        Periodo bim = Periodo.BIMESTRE_1;
+        TurmaSheet turmaSheet = new TurmaSheet(bim, trm);
 
-        TarjetaTurma tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        Tarjeta tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 5, 1));
@@ -364,7 +380,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 4, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 5, 1));
@@ -374,9 +390,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
 
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_2);
+        bim = Periodo.BIMESTRE_2;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 1, 10));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 2, 9));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 3, 8));
@@ -384,7 +401,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 2, 15));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 1, 10));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 2, 9));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 3, 8));
@@ -394,9 +411,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
 
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_3);
+        bim = Periodo.BIMESTRE_3;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -404,7 +422,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -414,9 +432,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
 
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_4);
+        bim = Periodo.BIMESTRE_4;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 22, 23);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -424,7 +443,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 22, 23);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 5, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 9, 1));
@@ -434,9 +453,10 @@ public class ValoresTurma {
 
         turmaFile.getSheets().add(turmaSheet);
         
-        turmaSheet = new TurmaSheet(Periodo.ANO);
+        bim = Periodo.ANO;
+        turmaSheet = new TurmaSheet(bim, trm);
 
-        tarjeta = new TarjetaTurma("00119-Inglês", "MANOEL", 92, 23*4);
+        tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 92, 23*4);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 4, 16));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 4.25, 24));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 6.5, 11));
@@ -444,7 +464,7 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 6, 24));
         turmaSheet.getTarjetas().add(tarjeta);
 
-        tarjeta = new TarjetaTurma("00118-Geografia", "MARIA", 92, 23*4);
+        tarjeta = new Tarjeta(trm, "00118-Geografia", "MARIA", bim, 92, 23*4);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 4, 16));
         tarjeta.getNotas().add(new Conceito(new Aluno("2", trm), 4.25, 24));
         tarjeta.getNotas().add(new Conceito(new Aluno("3", trm), 6.5, 11));

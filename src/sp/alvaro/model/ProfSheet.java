@@ -11,24 +11,33 @@ import java.util.List;
  */
 public class ProfSheet {
     
-
     private Periodo bimestre;
-    private List<TarjetaProf> tarjetas;
+    private String professor;
+    private List<Tarjeta> tarjetas;
 
     public ProfSheet() {
-        this.tarjetas = new ArrayList<TarjetaProf>();
+        this.tarjetas = new ArrayList<Tarjeta>();
     }
 
-    public ProfSheet(Periodo bimestre) {
-        this.tarjetas = new ArrayList<TarjetaProf>();
+    public ProfSheet(Periodo bimestre, String professor) {
+        this();
         this.bimestre = bimestre;
+        this.professor = professor;
     }
 
-    public Periodo getBimestre() {
+    public String getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(String professor) {
+		this.professor = professor;
+	}
+
+	public Periodo getBimestre() {
         return bimestre;
     }
 
-    public List<TarjetaProf> getTarjetas() {
+    public List<Tarjeta> getTarjetas() {
         return tarjetas;
     }
 
@@ -36,42 +45,44 @@ public class ProfSheet {
         this.bimestre = bimestre;
     }
 
-    public void setTarjetas(List<TarjetaProf> tarjetas) {
+    public void setTarjetas(List<Tarjeta> tarjetas) {
         this.tarjetas = tarjetas;
     }
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((bimestre == null) ? 0 : bimestre.hashCode());
+		result = prime * result
+				+ ((professor == null) ? 0 : professor.hashCode());
+		return result;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((bimestre == null) ? 0 : bimestre.hashCode());
-        result = prime * result + ((tarjetas == null) ? 0 : tarjetas.hashCode());
-        return result;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProfSheet other = (ProfSheet) obj;
+		if (bimestre != other.bimestre)
+			return false;
+		if (professor == null) {
+			if (other.professor != null)
+				return false;
+		} else if (!professor.equals(other.professor))
+			return false;
+		return true;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ProfSheet other = (ProfSheet) obj;
-        if (bimestre != other.bimestre)
-            return false;
-        if (tarjetas == null) {
-            if (other.tarjetas != null)
-                return false;
-        } else if (!tarjetas.equals(other.tarjetas))
-            return false;
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ProfSheet [bimestre=" + bimestre + ", tarjetas=" + tarjetas + "]";
-    }
+	@Override
+	public String toString() {
+		return "ProfSheet [bimestre=" + bimestre + ", professor=" + professor
+				+ ", tarjetas=" + tarjetas + "]";
+	}
 
 }

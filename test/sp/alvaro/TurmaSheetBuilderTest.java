@@ -1,6 +1,8 @@
 package sp.alvaro;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import sp.alvaro.model.Aluno;
 import sp.alvaro.model.Conceito;
 import sp.alvaro.model.Periodo;
 import sp.alvaro.model.ProfFile;
-import sp.alvaro.model.TarjetaTurma;
+import sp.alvaro.model.Tarjeta;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.model.TurmaSheet;
 import sp.alvaro.odf.OdsParser;
@@ -119,12 +121,12 @@ public class TurmaSheetBuilderTest {
                     expectedFile = tf;
             }
             Map<String, String> profMap = new HashMap<String, String>();
-            for (TarjetaTurma t: expectedFile.getSheets().get(0).getTarjetas()) {
+            for (Tarjeta t: expectedFile.getSheets().get(0).getTarjetas()) {
                 profMap.put(t.getProfessor(), t.getMateria());
             }
             
             for (TurmaSheet s: f.getSheets()) {
-                for (TarjetaTurma t: s.getTarjetas()) {
+                for (Tarjeta t: s.getTarjetas()) {
                     assertTrue(profMap.keySet().contains(t.getProfessor()));
                     assertEquals(profMap.get(t.getProfessor()), t.getMateria());
                 }
@@ -141,7 +143,7 @@ public class TurmaSheetBuilderTest {
                 
                 // bimestres
                 if (sheet.getBimestre() != Periodo.ANO) {
-                    for (TarjetaTurma tarj: sheet.getTarjetas()) {
+                    for (Tarjeta tarj: sheet.getTarjetas()) {
                         for (Conceito nota: tarj.getNotas()) {
                             Conceito n = findNota(f.getTurma(), sheet.getBimestre(), tarj.getMateria(), tarj.getProfessor(), nota.getAluno());
                             if (nota != null && !nota.isNulo())
@@ -153,7 +155,7 @@ public class TurmaSheetBuilderTest {
             
             // final
             TurmaSheet finalSheet = f.getSheets().get(4);
-            for (TarjetaTurma tarj: finalSheet.getTarjetas()) {
+            for (Tarjeta tarj: finalSheet.getTarjetas()) {
                 for (Conceito nota: tarj.getNotas()) {
                     Conceito n = findNota(f.getTurma(), Periodo.ANO, tarj.getMateria(), tarj.getProfessor(), nota.getAluno());
                     if (n != null && !n.isNulo())
@@ -177,8 +179,8 @@ public class TurmaSheetBuilderTest {
                 sheet = s;
         }
         
-        TarjetaTurma tarjeta = null;
-        for (TarjetaTurma tarj: sheet.getTarjetas()) {
+        Tarjeta tarjeta = null;
+        for (Tarjeta tarj: sheet.getTarjetas()) {
             if (tarj.getProfessor().equals(prof) && tarj.getMateria().equals(materia))
                 tarjeta = tarj;
         }

@@ -16,7 +16,7 @@ import sp.alvaro.model.Conceito;
 import sp.alvaro.model.Periodo;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
-import sp.alvaro.model.TarjetaProf;
+import sp.alvaro.model.Tarjeta;
 
 /**
  * Recupera as notas nos arquivos ods
@@ -55,11 +55,12 @@ public class OdsParser implements NotasParser {
         
         // extract basic information
         String prof = table.getCellByPosition("B64").getDisplayText();
-        String materia = table.getCellByPosition("C3").getDisplayText();
 
-        ProfFile profFile = new ProfFile(prof, materia, file.getName());
+        ProfFile profFile = new ProfFile(prof, file.getName());
         for (int bim=1; bim<=4; bim++) {
-            ProfSheet profSheet = parseSheet(planilha.getTableList().get(bim-1), bim);
+			ProfSheet profSheet = parseSheet(
+					planilha.getTableList().get(bim - 1), prof,
+					Periodo.valueOf(bim));
             if (profSheet != null) {
             	profFile.getSheets().add(profSheet);
             }
@@ -68,7 +69,7 @@ public class OdsParser implements NotasParser {
         return profFile;
     }
     
-    private ProfSheet parseSheet(Table table, int bim) {
+    private ProfSheet parseSheet(Table table, String prof, Periodo bim) {
     	
     	logger.debug("Parsing bimestre " + bim);
 
@@ -79,7 +80,7 @@ public class OdsParser implements NotasParser {
         	return null;
         }
 
-        ProfSheet profSheet = new ProfSheet(Periodo.valueOf(bim));
+        ProfSheet profSheet = new ProfSheet(bim, prof);
 
         Coluna y = new Coluna("C");
         int i = 0;
@@ -87,7 +88,7 @@ public class OdsParser implements NotasParser {
         String turma = table.getCellByPosition(y.getValor().concat("4")).getDisplayText();
         while (!turma.isEmpty() && !turma.contains("FIM")) {
 
-            TarjetaProf tarj = parseTarjeta(table, i);
+            Tarjeta tarj = parseTarjeta(table, i, prof, bim);
             profSheet.getTarjetas().add(tarj);
 
             y.inc(4);
@@ -104,14 +105,15 @@ public class OdsParser implements NotasParser {
      * @para index índice da tarjeta na planilha, indo de 0 a N-1
      * @return
      */
-    private TarjetaProf parseTarjeta(Table table, int index) {
+    private Tarjeta parseTarjeta(Table table, int index, String prof, Periodo bim) {
 
         Coluna y = new Coluna("C");
         y.inc(4*index);
         String turma = table.getCellByPosition(y.getValor().concat("4")).getDisplayText();        
         String aulasDadasStr = table.getCellByPosition(y.getValor().concat("63")).getDisplayText();   
         String aulasPrevistasStr = table.getCellByPosition(y.getValor().concat("62")).getDisplayText(); 
-        
+        String materia = table.getCellByPosition(y.getValor().concat("3")).getDisplayText();
+        		
         int aulasDadas=0, aulasPrevistas=0;
         try {
         	aulasDadas = Integer.parseInt(aulasDadasStr);
@@ -125,7 +127,8 @@ public class OdsParser implements NotasParser {
 	    	String message = "Could not parse aulasPrevistas = " + aulasPrevistasStr + " on cell " + y.getValor() + "62";
         	logger.error(message, e);
 	    }
-        TarjetaProf tarj = new TarjetaProf(turma, aulasDadas, aulasPrevistas);
+        
+        Tarjeta tarj = new Tarjeta(turma, materia, prof, bim, aulasDadas, aulasPrevistas);
         
         // notas
         int row = 7;
