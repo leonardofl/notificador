@@ -203,11 +203,11 @@ public class ValoresTurma {
         tarjeta.getNotas().add(new Conceito(new Aluno("4", trm), 4, 5));
         tarjeta.getNotas().add(new Conceito(new Aluno("5", trm), 9, 3));
         turmaSheet.getTarjetas().add(tarjeta);
+        
+        turmaFile.getSheets().add(turmaSheet);
 
         bim = Periodo.BIMESTRE_4;
         turmaSheet = new TurmaSheet(bim, trm);
-
-        turmaSheet = new TurmaSheet(Periodo.BIMESTRE_4, trm);
 
         tarjeta = new Tarjeta(trm, "00119-Inglês", "MANOEL", bim, 22, 23);
         tarjeta.getNotas().add(new Conceito(new Aluno("1", trm), 5, 2));

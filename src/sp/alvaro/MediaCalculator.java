@@ -3,12 +3,15 @@ package sp.alvaro;
 import java.util.List;
 
 import sp.alvaro.model.Conceito;
+import sp.alvaro.model.Periodo;
 import sp.alvaro.model.Tarjeta;
 
 public class MediaCalculator {
 
     /**
      * Faz o cálculo da tarjeta de médias
+     * Assume-se que tarjetas passadas são do mesmo professor e materia
+     * Bimestre da tarjeta retornada é ANO
      * @param tarjetas dos quatro bimestres
      * @return tarjeta de médias
      */
@@ -19,8 +22,10 @@ public class MediaCalculator {
         
         Tarjeta medias = new Tarjeta();
         
+        medias.setBimestre(Periodo.ANO);
         medias.setMateria(tarjetas.get(0).getMateria());
         medias.setProfessor(tarjetas.get(0).getProfessor());
+        medias.setTurma(tarjetas.get(0).getTurma());
         calculateAulasDadas(tarjetas, medias);
         calculateNotas(tarjetas, medias);
         

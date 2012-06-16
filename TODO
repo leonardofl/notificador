@@ -3,6 +3,12 @@
 ===============
 == Funcionalidades a implementar
 
+** Testes estão passando, mas é preciso revisá-los todos
+para ver se está tudo semanticamente certo.
+Boa parte sei que não vai etsar, pq o equals não compara as notas na tarjeta,
+só as informações "de cabeçalho"
+Pra isso, criar um método tipo tarjeta.notasEquals(other)
+
 ** Fazer o guia do professor (OK)
 Junto com isso, criar uma boa planilha de exemplo
 

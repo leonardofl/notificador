@@ -19,7 +19,7 @@ public class Tarjeta {
 
 	public Tarjeta(String turma, String materia, String professor,
 			Periodo bimestre, int aulasDadas, int aulasPrevistas) {
-        super();
+        this();
         this.turma = turma;
         this.materia = materia;
         this.professor = professor;
