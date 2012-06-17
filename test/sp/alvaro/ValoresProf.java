@@ -22,7 +22,7 @@ public class ValoresProf {
     
     private void generateData1() {
         
-    	String materia = "Inglês";
+    	String materia = "00119-Inglês";
     	String prof = "MANOEL";
         
         // 1o bim
@@ -180,7 +180,7 @@ public class ValoresProf {
     
     private void generateData2() {
         
-    	String materia = "Geografia";
+    	String materia = "00118-Geografia";
     	String prof = "MARIA";
     	
         // 1o bim

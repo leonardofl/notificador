@@ -63,6 +63,7 @@ public class MediaCalcTest {
         MediaCalculator calc = new MediaCalculator();
         Tarjeta currentMedias = calc.calculateMedia(tarjetas);
         assertEquals(expectedMedias, currentMedias);
+        assertTrue(expectedMedias.notasEquals(currentMedias));
     }
 
 }

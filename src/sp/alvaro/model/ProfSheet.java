@@ -85,4 +85,14 @@ public class ProfSheet {
 				+ ", tarjetas=" + tarjetas + "]";
 	}
 
+	public Tarjeta findTarjeta(String turma, String materia) {
+		
+		for (Tarjeta tarj: tarjetas) {
+			if (tarj.getTurma().equals(turma) &&
+					tarj.getMateria().equals(materia)) {
+				return tarj;
+			}
+		}
+		return null;
+	}
 }

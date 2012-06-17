@@ -1,6 +1,7 @@
 package sp.alvaro;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -105,19 +106,29 @@ public class OdsParserTest {
     @Test
     public void verifyNotasProf1() {        
 
-        assertEquals(expectedFile1.getSheets().get(0), currentFile1.getSheets().get(0));
-        assertEquals(expectedFile1.getSheets().get(1), currentFile1.getSheets().get(1));
-        assertEquals(expectedFile1.getSheets().get(2), currentFile1.getSheets().get(2));
-        assertEquals(expectedFile1.getSheets().get(3), currentFile1.getSheets().get(3));
+    	for (int i=0; i<3; i++) {
+            assertEquals(expectedFile1.getSheets().get(i), currentFile1.getSheets().get(i));
+            for (Tarjeta tarj: expectedFile1.getSheets().get(i).getTarjetas()) {
+            	String turma = tarj.getTurma();
+            	String materia = tarj.getMateria();
+            	Tarjeta other = currentFile1.getSheets().get(i).findTarjeta(turma, materia);
+            	assertTrue(tarj.notasEquals(other));
+            }
+    	}
     }
 
     @Test
     public void verifyNotasProf2() {        
 
-        assertEquals(expectedFile2.getSheets().get(0), currentFile2.getSheets().get(0));
-        assertEquals(expectedFile2.getSheets().get(1), currentFile2.getSheets().get(1));
-        assertEquals(expectedFile2.getSheets().get(2), currentFile2.getSheets().get(2));
-        assertEquals(expectedFile2.getSheets().get(3), currentFile2.getSheets().get(3));
+    	for (int i=0; i<3; i++) {
+            assertEquals(expectedFile2.getSheets().get(i), currentFile2.getSheets().get(i));
+            for (Tarjeta tarj: expectedFile2.getSheets().get(i).getTarjetas()) {
+            	String turma = tarj.getTurma();
+            	String materia = tarj.getMateria();
+            	Tarjeta other = currentFile2.getSheets().get(i).findTarjeta(turma, materia);
+            	assertTrue(tarj.notasEquals(other));
+            }
+    	}
     }
     
     @Test

@@ -83,7 +83,7 @@ public class Tarjeta {
     public void setNotas(List<Conceito> notas) {
         this.notas = notas;
     }
-
+    
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -134,4 +134,54 @@ public class Tarjeta {
 				+ aulasPrevistas + ", notas=" + notas + "]";
 	}
 
+	/**
+	 * Verifica se lista de notas de outra tarjeta é igual a dessa tarjeta
+	 * 
+	 * Todas as notas de <code>other</code> devem estar nesta tarjeta e todas as
+	 * notas desta tarjeta devem estar em <code>other</code>. A ordem das notas
+	 * não importa O que importa são os pares <aluno,conceito> Ignora informação
+	 * de cabeçalho (que podem ser verificadas com o método <code>equals</code>)
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public boolean notasEquals(Tarjeta other) {
+		
+		if (other == null || other.getNotas() == null) {
+			return false;
+		}
+		for (Conceito nota: this.notas) {
+			if (nota != null && !nota.isNulo()) {
+				if (!nota.equals(other.findNota(nota.getAluno()))) {
+					return false;
+				}
+			}
+		}
+		for (Conceito nota: other.getNotas()) {
+			if (nota != null && !nota.isNulo()) {
+				if (!nota.equals(this.findNota(nota.getAluno()))) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Procura a nota de um determinado aluno na tarjeta
+	 * 
+	 * @param aluno
+	 * @return o <code>Conceito</code> do aluno ou <code>null</code> se aluno
+	 *         não tiver nota na tarjeta
+	 */
+	public Conceito findNota(Aluno aluno) {
+		
+		for (Conceito n: notas) {
+			if (n.getAluno().equals(aluno)) {
+				return n;
+			}
+		}
+		return null;
+	}
+	
 }
