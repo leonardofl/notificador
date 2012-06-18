@@ -42,7 +42,7 @@ public class OdsRecorder implements TurmaFileRecorder {
     }
     
     @Override
-    public void record(Collection<TurmaFile> turmaFiles) throws Exception {
+    public void record(Collection<TurmaFile> turmaFiles) throws IOException {
         
         for (TurmaFile f: turmaFiles) {
         	
@@ -55,17 +55,26 @@ public class OdsRecorder implements TurmaFileRecorder {
                         turmas_size + " é muito! Sistema não suporta mais que " + MAX_MATERIAS + " matérias.");
             }
             
-            SpreadsheetDocument ods = SpreadsheetDocument.newSpreadsheetDocument();
-            try {
-                ods = SpreadsheetDocument.loadDocument(MODELO_CONSOLIDADO);
-            } catch (Exception e) {
-                throw new IOException("Falha da API de ODF");
-            }
+            SpreadsheetDocument ods;
+			try {
+				ods = SpreadsheetDocument.newSpreadsheetDocument();
+				ods = SpreadsheetDocument.loadDocument(MODELO_CONSOLIDADO);
+			} catch (Exception e) {
+				String msg = "Não consegui carregar a planilha de modelo " + MODELO_CONSOLIDADO;
+				logger.error(msg, e);
+				throw new IOException(msg, e);
+			}
 
         	this.processSheets(ods, f);
             
             String path = outputDir.getAbsolutePath() + "/" + f.getTurma() + ".ods";
-            ods.save(path);
+            try {
+				ods.save(path);
+			} catch (Exception e) {
+				String msg = "Não consegui salvar planilha em " + path;
+				logger.error(msg, e);
+				throw new IOException(msg, e);
+			}
         }
     }
     
