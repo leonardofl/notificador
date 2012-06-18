@@ -9,7 +9,7 @@ import sp.alvaro.model.ProfFile;
 
 public interface NotasParser {
 
-    public Set<ProfFile> parse(Collection<File> files) throws IOException;
+    public Set<ProfFile> parse(Collection<File> files) throws NotasParserException;
     
     /**
      * Recupera notas a partir de um arquivo feito pelo professor
@@ -17,5 +17,5 @@ public interface NotasParser {
      * @return
      * @throws IOException 
      */
-    public ProfFile parseFile(File file) throws IOException;
+    public ProfFile parseFile(File file) throws NotasParserException;
 }

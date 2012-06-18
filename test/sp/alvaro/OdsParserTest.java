@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Set;
 
 import org.junit.Before;
@@ -132,7 +131,7 @@ public class OdsParserTest {
     }
     
     @Test
-    public void readSheetWithLetters() throws IOException {
+    public void readSheetWithLetters() throws NotasParserException {
 
         File sheetFile = new File(LETTERS_SHEET);
         NotasParser parser = new OdsParser();
@@ -147,7 +146,7 @@ public class OdsParserTest {
     }
     
     @Test
-    public void readSheetWithBlankLines() throws IOException {
+    public void readSheetWithBlankLines() throws NotasParserException {
     
         File sheetFile = new File(BLANK_LINES_SHEET);
         NotasParser parser = new OdsParser();

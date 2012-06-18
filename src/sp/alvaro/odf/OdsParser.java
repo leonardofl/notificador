@@ -1,7 +1,6 @@
 package sp.alvaro.odf;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +10,7 @@ import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.table.Table;
 
 import sp.alvaro.NotasParser;
+import sp.alvaro.NotasParserException;
 import sp.alvaro.model.Aluno;
 import sp.alvaro.model.Conceito;
 import sp.alvaro.model.Periodo;
@@ -28,9 +28,17 @@ public class OdsParser implements NotasParser {
 	private Logger logger = Logger.getLogger(OdsParser.class);
 	
     public static final int MAX_ALUNOS = 54; // o máximo que cabe na tarjeta
-    private static final String CELULA_PRIMEIRA_AULAS_DADAS = "C63";
+    private static final String COL_FIRST_TARJETA = "C"; // coluna das notas
+    private static final String CELL_PROF = "B64";
+    private static final String CELL_FIRST_AULAS_DADAS = "C63";
+    private static final String LIN_TURMAS = "4";
+    private static final String LIN_MATERIAS = "3";
+    private static final String LIN_AULAS_DADAS = "63";
+    private static final String LIN_AULAS_PREVISTAS = "62";   
+    private static final String LIN_FIRST_NOTA = "7";
+    private static final int TARJETAS_DISTANCE = 4;
 
-    public Set<ProfFile> parse(Collection<File> files) throws IOException {
+    public Set<ProfFile> parse(Collection<File> files) throws NotasParserException {
         
         Set<ProfFile> profFiles = new HashSet<ProfFile>();
         for (File file: files) {
@@ -40,7 +48,7 @@ public class OdsParser implements NotasParser {
         return profFiles;
     }
     
-    public ProfFile parseFile(File file) throws IOException {
+    public ProfFile parseFile(File file) throws NotasParserException {
         
     	logger.debug("Parsing file " + file.getName());
     	
@@ -48,52 +56,82 @@ public class OdsParser implements NotasParser {
         try {
             planilha = SpreadsheetDocument.loadDocument(file);
         } catch (Exception e) {
-            throw new IOException("Falha da API de ODF");
+        	String msg = "Não pude ler o arquivo " + file.getName();
+        	logger.error(msg, e);
+            throw new NotasParserException(msg);
         }
         
-        Table table = planilha.getTableList().get(0);
+        Table table = null;
+        try {
+        	table = planilha.getTableList().get(0);
+        } catch (ArrayIndexOutOfBoundsException e) {
+			String msg = "Arquivo " + file.getName() + " não possui planilha 0";
+        	logger.error(msg, e);
+        	throw new NotasParserException(msg);
+        }
         
         // extract basic information
-        String prof = table.getCellByPosition("B64").getDisplayText();
-
+        String prof = table.getCellByPosition(CELL_PROF).getDisplayText();
+        if (prof == null || prof.isEmpty()) {
+			String msg = "Célula B64 do arquivo " + file.getName()
+					+ " deveria conter o nome do professor";
+        	logger.error(msg);
+        	throw new NotasParserException(msg);
+        }
+        
         ProfFile profFile = new ProfFile(prof, file.getName());
         for (int bim=1; bim<=4; bim++) {
 			ProfSheet profSheet = parseSheet(
 					planilha.getTableList().get(bim - 1), prof,
 					Periodo.valueOf(bim));
-            if (profSheet != null) {
+            if (profSheet == null) {
+            	logger.warn("Período " + bim + " do " + prof + " não foi incluído");
+            } else {
             	profFile.getSheets().add(profSheet);
-            }
+            } 
         }
         
         return profFile;
     }
     
+    /**
+	 * 
+	 * @param table
+	 * @param prof
+	 * @param bim
+	 * @return a planilha parseada ou <code>null</code> caso a primeira célula
+	 *         de aulas dadas esteja vazia, ou algum outro problema aconteça
+	 */
     private ProfSheet parseSheet(Table table, String prof, Periodo bim) {
     	
-    	logger.debug("Parsing bimestre " + bim);
+    	logger.debug("Lendo bimestre " + bim);
 
-        String check = table.getCellByPosition(CELULA_PRIMEIRA_AULAS_DADAS).getDisplayText();
+        String check = table.getCellByPosition(CELL_FIRST_AULAS_DADAS).getDisplayText();
         if (check == null || check.isEmpty()) {
-        	// TODO quando alterar modelo de dados, esse debug pode virar info
-        	logger.debug("Nada no " + bim + "o bimestre");
         	return null;
         }
 
         ProfSheet profSheet = new ProfSheet(bim, prof);
 
-        Coluna y = new Coluna("C");
+        Coluna y = new Coluna(COL_FIRST_TARJETA);
         int i = 0;
+        String turma = table.getCellByPosition(y.getValor().concat(LIN_TURMAS)).getDisplayText();
         // while !turma.isEmpty
-        String turma = table.getCellByPosition(y.getValor().concat("4")).getDisplayText();
         while (!turma.isEmpty() && !turma.contains("FIM")) {
+    	// TODO: não deveria precisar do "FIM"
 
             Tarjeta tarj = parseTarjeta(table, i, prof, bim);
-            profSheet.getTarjetas().add(tarj);
+            if (tarj == null) {
+				logger.warn("Tarjeta da " + turma + " " + bim
+						+ " não incluída na planilha de "
+						+ profSheet.getProfessor());
+            } else {
+            	profSheet.getTarjetas().add(tarj);
+            }
 
-            y.inc(4);
+            y.inc(TARJETAS_DISTANCE);
             i++;
-            turma = table.getCellByPosition(y.getValor().concat("4")).getDisplayText();
+            turma = table.getCellByPosition(y.getValor().concat(LIN_TURMAS)).getDisplayText();
         }
 
         return profSheet;
@@ -107,32 +145,35 @@ public class OdsParser implements NotasParser {
      */
     private Tarjeta parseTarjeta(Table table, int index, String prof, Periodo bim) {
 
-        Coluna y = new Coluna("C");
-        y.inc(4*index);
-        String turma = table.getCellByPosition(y.getValor().concat("4")).getDisplayText();        
-        String aulasDadasStr = table.getCellByPosition(y.getValor().concat("63")).getDisplayText();   
-        String aulasPrevistasStr = table.getCellByPosition(y.getValor().concat("62")).getDisplayText(); 
-        String materia = table.getCellByPosition(y.getValor().concat("3")).getDisplayText();
+        Coluna y = new Coluna(COL_FIRST_TARJETA);
+        y.inc(TARJETAS_DISTANCE*index);
+		String turma = table.getCellByPosition(y.getValor().concat(LIN_TURMAS))
+				.getDisplayText();
+		String aulasDadasStr = table.getCellByPosition(
+				y.getValor().concat(LIN_AULAS_DADAS)).getDisplayText();
+		String aulasPrevistasStr = table.getCellByPosition(
+				y.getValor().concat(LIN_AULAS_PREVISTAS)).getDisplayText();
+		String materia = table.getCellByPosition(
+				y.getValor().concat(LIN_MATERIAS)).getDisplayText();
         		
         int aulasDadas=0, aulasPrevistas=0;
         try {
         	aulasDadas = Integer.parseInt(aulasDadasStr);
         } catch (NumberFormatException e) {
-        	String message = "Could not parse aulasDadas = " + aulasDadasStr + " on cell " + y.getValor() + "63";
-        	logger.error(message, e);
+        	String message = "Aulas dadas não foram registradas na célula" + y.getValor() + LIN_AULAS_DADAS;
+        	logger.warn(message);
         }
         try {
         	aulasPrevistas = Integer.parseInt(aulasPrevistasStr);
 	    } catch (NumberFormatException e) {
-	    	String message = "Could not parse aulasPrevistas = " + aulasPrevistasStr + " on cell " + y.getValor() + "62";
-        	logger.error(message, e);
+        	String message = "Aulas previstas não foram registradas na célula" + y.getValor() + LIN_AULAS_PREVISTAS;
+        	logger.warn(message);
 	    }
         
         Tarjeta tarj = new Tarjeta(turma, materia, prof, bim, aulasDadas, aulasPrevistas);
         
         // notas
-        int row = 7;
-        // while // !nota.isEmpty
+        int row = Integer.parseInt(LIN_FIRST_NOTA);
         for (int i=0; i<MAX_ALUNOS; i++) { 
 
             String nota = table.getCellByPosition(y.getValor().concat(Integer.toString(row))).getDisplayText();
