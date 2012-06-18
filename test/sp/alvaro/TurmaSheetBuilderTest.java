@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public class TurmaSheetBuilderTest {
     private Set<TurmaFile> expectedTurmaFiles;
     
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         
         FilePicker picker = new FilePicker(WORK_DIR, EXTENSION);
         Set<File> files = picker.pickFiles();

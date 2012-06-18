@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public class FilePickerTest {
     public final static String EXTENSION = "ods";
 
     @Test
-    public void test() {
+    public void test() throws IOException {
 
         FilePicker picker = new FilePicker(WORK_DIR, EXTENSION);
         Set<File> files = picker.pickFiles();

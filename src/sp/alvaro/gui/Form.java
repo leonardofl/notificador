@@ -22,6 +22,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 import sp.alvaro.AlvaroMain;
 import sp.alvaro.AppSettings;
+import sp.alvaro.NotasParserException;
 
 /**
  *
@@ -217,12 +218,14 @@ public class Form extends javax.swing.JFrame {
                 jLabelStatus.setText("Trabalhando. Espere!");
                 ProcessHandler handler = new ProcessHandler(inTextField.getText(), outTextField.getText());
                 try {
-                    handler.process();
-                } catch (IOException ex) {
-                    Logger.getLogger(Form.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(Form.class.getName()).log(Level.SEVERE, null, ex);
-                }
+					handler.process();
+				} catch (NotasParserException e) {
+					JOptionPane.showMessageDialog(Form.this, e.getMessage(),
+							"Problema!", JOptionPane.WARNING_MESSAGE);
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(Form.this, e.getMessage(),
+							"Problema!", JOptionPane.WARNING_MESSAGE);
+				}
                 return null;
             }
 

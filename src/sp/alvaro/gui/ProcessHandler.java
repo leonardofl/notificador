@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import sp.alvaro.FilePicker;
 import sp.alvaro.NotasParser;
+import sp.alvaro.NotasParserException;
 import sp.alvaro.TurmaFileBuilder;
 import sp.alvaro.TurmaFileRecorder;
 import sp.alvaro.model.ProfFile;
@@ -36,10 +37,15 @@ public class ProcessHandler {
         this.out = out;
     }
     
-    public void process() throws IOException, Exception {
+    public void process() throws NotasParserException, IOException {
         
         FilePicker picker = new FilePicker(this.in, EXTENSION);
         Set<File> files = picker.pickFiles();
+        if (files.isEmpty()) {
+        	String msg = "Sem planilhas em " + this.in;
+        	logger.error(msg);
+        	throw new IOException(msg);
+        }
         NotasParser parser = new OdsParser();
         Set<ProfFile> sheets = parser.parse(files);
         
