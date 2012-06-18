@@ -14,6 +14,7 @@ import sp.alvaro.FilePicker;
 import sp.alvaro.NotasParser;
 import sp.alvaro.NotasParserException;
 import sp.alvaro.TurmaFileBuilder;
+import sp.alvaro.TurmaFileBuilderException;
 import sp.alvaro.TurmaFileRecorder;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.TurmaFile;
@@ -37,7 +38,7 @@ public class ProcessHandler {
         this.out = out;
     }
     
-    public void process() throws NotasParserException, IOException {
+    public void process() throws NotasParserException, IOException, TurmaFileBuilderException {
         
         FilePicker picker = new FilePicker(this.in, EXTENSION);
         Set<File> files = picker.pickFiles();

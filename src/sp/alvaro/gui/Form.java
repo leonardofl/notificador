@@ -14,15 +14,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import org.apache.log4j.PropertyConfigurator;
 
-import sp.alvaro.AlvaroMain;
 import sp.alvaro.AppSettings;
 import sp.alvaro.NotasParserException;
+import sp.alvaro.TurmaFileBuilderException;
 
 /**
  *
@@ -223,6 +224,9 @@ public class Form extends javax.swing.JFrame {
 					JOptionPane.showMessageDialog(Form.this, e.getMessage(),
 							"Problema!", JOptionPane.WARNING_MESSAGE);
 				} catch (IOException e) {
+					JOptionPane.showMessageDialog(Form.this, e.getMessage(),
+							"Problema!", JOptionPane.WARNING_MESSAGE);
+				} catch (TurmaFileBuilderException e) {
 					JOptionPane.showMessageDialog(Form.this, e.getMessage(),
 							"Problema!", JOptionPane.WARNING_MESSAGE);
 				}

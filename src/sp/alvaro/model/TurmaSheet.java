@@ -77,5 +77,24 @@ public class TurmaSheet {
 		return "TurmaSheet [bimestre=" + bimestre + ", turma=" + turma
 				+ ", tarjetas=" + tarjetas + "]";
 	}
+	
+	public Tarjeta findTarjeta(String materia) {
+		
+		for (Tarjeta tarj: tarjetas) {
+			if (tarj.getMateria().equals(materia)) {
+				return tarj;
+			}
+		}
+		return null;
+	}
+	
+	public List<String> getMaterias() {
+		
+		List<String> materias = new ArrayList<String>();
+		for (Tarjeta tarj: tarjetas) {
+			materias.add(tarj.getMateria());
+		}
+		return materias;
+	}
 
 }

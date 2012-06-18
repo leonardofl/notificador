@@ -35,7 +35,7 @@ public class TurmaSheetBuilderTest {
     private Set<TurmaFile> expectedTurmaFiles;
     
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws IOException, TurmaFileBuilderException {
         
         FilePicker picker = new FilePicker(WORK_DIR, EXTENSION);
         Set<File> files = picker.pickFiles();

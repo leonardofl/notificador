@@ -50,7 +50,7 @@ public class OdsParser implements NotasParser {
     
     public ProfFile parseFile(File file) throws NotasParserException {
         
-    	logger.debug("Parsing file " + file.getName());
+    	logger.debug("Lendo arquivo " + file.getName());
     	
         SpreadsheetDocument planilha;
         try {
@@ -101,10 +101,11 @@ public class OdsParser implements NotasParser {
 	 * @param bim
 	 * @return a planilha parseada ou <code>null</code> caso a primeira célula
 	 *         de aulas dadas esteja vazia, ou algum outro problema aconteça
+     * @throws NotasParserException 
 	 */
-    private ProfSheet parseSheet(Table table, String prof, Periodo bim) {
+    private ProfSheet parseSheet(Table table, String prof, Periodo bim) throws NotasParserException {
     	
-    	logger.debug("Lendo bimestre " + bim);
+    	logger.debug("Lendo período " + bim);
 
         String check = table.getCellByPosition(CELL_FIRST_AULAS_DADAS).getDisplayText();
         if (check == null || check.isEmpty()) {
@@ -142,8 +143,9 @@ public class OdsParser implements NotasParser {
      * @param table
      * @para index índice da tarjeta na planilha, indo de 0 a N-1
      * @return
+     * @throws NotasParserException 
      */
-    private Tarjeta parseTarjeta(Table table, int index, String prof, Periodo bim) {
+    private Tarjeta parseTarjeta(Table table, int index, String prof, Periodo bim) throws NotasParserException {
 
         Coluna y = new Coluna(COL_FIRST_TARJETA);
         y.inc(TARJETAS_DISTANCE*index);
@@ -155,6 +157,19 @@ public class OdsParser implements NotasParser {
 				y.getValor().concat(LIN_AULAS_PREVISTAS)).getDisplayText();
 		String materia = table.getCellByPosition(
 				y.getValor().concat(LIN_MATERIAS)).getDisplayText();
+		
+		if (turma.isEmpty()) {
+			String msg = "Turma não especificada na tarjeta " + (index + 1)
+					+ " do " + bim + " do prof " + prof;
+			logger.error(msg);
+			throw new NotasParserException(msg);
+		}
+		if (materia.isEmpty()) {
+			String msg = "Matéria não especificada na tarjeta " + (index + 1)
+					+ " do " + bim + " do prof " + prof;
+			logger.error(msg);
+			throw new NotasParserException(msg);
+		}
         		
         int aulasDadas=0, aulasPrevistas=0;
         try {

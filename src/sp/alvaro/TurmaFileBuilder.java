@@ -31,7 +31,7 @@ public class TurmaFileBuilder {
      * @param profFiles planilhas dos professores (uma planilha por professor)
      * @return planilhas das turmas (um arquivo por turma)
      */
-    public Set<TurmaFile> buildTurmaFiles(Set<ProfFile> profFiles) {
+    public Set<TurmaFile> buildTurmaFiles(Set<ProfFile> profFiles) throws TurmaFileBuilderException {
         
         files = new HashSet<TurmaFile>();
 
@@ -44,23 +44,28 @@ public class TurmaFileBuilder {
             }
         }
 
-        // calcula média final
+        // calcula média final para cada turma
         MediaCalculator calc = new MediaCalculator();
         for (TurmaFile file: files) {
             TurmaSheet finalSheet = new TurmaSheet(Periodo.ANO, file.getTurma());
             
             // iterando matérias
-            for (int i=0; i<file.getSheets().get(0).getTarjetas().size(); i++) {
+            for (String materia: file.getSheets().get(0).getMaterias()) {
                 
                 List<Tarjeta> bimestres = new ArrayList<Tarjeta>();
                 for (TurmaSheet sheet: file.getSheets()) {
-                	try {
-                		bimestres.add(sheet.getTarjetas().get(i));
-                	} catch(IndexOutOfBoundsException e) {
-						String message = "Não consegui processar a tarjeta "
-								+ i + " da planilha " + sheet.getBimestre()
-								+ " da turma " + file.getTurma();
-                		logger.error(message, e);
+                	Tarjeta tarj = sheet.findTarjeta(materia);
+                	if (tarj != null) {
+                		bimestres.add(tarj);
+                	} else {
+						String msg = "Cálculo da média final falhou. Não achei a tarjeta de "
+								+ materia
+								+ " do "
+								+ sheet.getBimestre()
+								+ " da turma "
+								+ file.getTurma();
+                		logger.error(msg);
+                		throw new TurmaFileBuilderException(msg);
                 	}
                 }
                 Tarjeta tarjFinal = calc.calculateMedia(bimestres);
