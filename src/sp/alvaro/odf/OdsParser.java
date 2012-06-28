@@ -73,8 +73,8 @@ public class OdsParser implements NotasParser {
         // extract basic information
         String prof = table.getCellByPosition(CELL_PROF).getDisplayText();
         if (prof == null || prof.isEmpty()) {
-			String msg = "Célula B64 do arquivo " + file.getName()
-					+ " deveria conter o nome do professor";
+			String msg = "Célula B64 do arquivo " + file.getName() 
+					+ " (1o bimestre) deveria conter o nome do professor";
         	logger.error(msg);
         	throw new NotasParserException(msg);
         }
