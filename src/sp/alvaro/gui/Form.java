@@ -19,9 +19,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
-import org.apache.log4j.PropertyConfigurator;
-
 import sp.alvaro.AppSettings;
+import sp.alvaro.LogConfigurator;
 import sp.alvaro.NotasParserException;
 import sp.alvaro.TurmaFileBuilderException;
 
@@ -301,7 +300,7 @@ public class Form extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
     	
-    	PropertyConfigurator.configure("resources/log.config");
+    	LogConfigurator.configLog();
     	org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Form.class);
     	logger.info("Log configurado");
     	

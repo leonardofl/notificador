@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.TurmaFile;
@@ -19,7 +18,7 @@ public class AlvaroMain {
 
     public static void main(String[] args) throws Exception {
     	
-    	PropertyConfigurator.configure("resources/log.config");
+		LogConfigurator.configLog();
     	Logger logger = Logger.getLogger(AlvaroMain.class);
     	logger.info("Log configurado");
 
