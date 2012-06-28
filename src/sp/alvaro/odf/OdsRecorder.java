@@ -32,6 +32,7 @@ public class OdsRecorder implements TurmaFileRecorder {
     private static final int LINHA_TURMA = 4;
     private static final int LINHA_AULAS_PREVISTAS =62;
     private static final int LINHA_AULAS_DADAS = 63;
+    private static final int LINHA_PROFESSOR = 64;
     private static final String COLUNA_FALTAS_ANUAIS = "AX";
     
     private File outputDir;
@@ -107,6 +108,9 @@ public class OdsRecorder implements TurmaFileRecorder {
                 table.getCellByPosition(col.getValor()+LINHA_MATERIA).setStringValue(tarjeta.getMateria());
                 table.getCellByPosition(col.getValor()+LINHA_AULAS_PREVISTAS).setStringValue(Integer.toString(tarjeta.getAulasPrevistas()));
                 table.getCellByPosition(col.getValor()+LINHA_AULAS_DADAS).setStringValue(Integer.toString(tarjeta.getAulasDadas()));
+                Coluna colProf = new Coluna(col.getValor());
+                colProf.dec();
+                table.getCellByPosition(colProf.getValor()+LINHA_PROFESSOR).setStringValue(tarjeta.getProfessor());
                 
                 int lin = 7;
                 for (Conceito nota: tarjeta.getNotas()) {
