@@ -1,8 +1,10 @@
 package sp.alvaro.odf;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -40,12 +42,61 @@ public class OdsParser implements NotasParser {
 
     public Set<ProfFile> parse(Collection<File> files) throws NotasParserException {
         
-        Set<ProfFile> profFiles = new HashSet<ProfFile>();
+        List<ParserRunnable> parsers = new ArrayList<ParserRunnable>();
+        List<Thread> trds = new ArrayList<Thread>();
         for (File file: files) {
+        	ParserRunnable parser = new ParserRunnable(file);
+        	parsers.add(parser);
+        	Thread trd = new Thread(parser);
+        	trds.add(trd);
+        	trd.start();
+        }
 
-        	profFiles.add(this.parseFile(file));
+        waitTrds(trds);
+        
+        Set<ProfFile> profFiles = new HashSet<ProfFile>();
+        for (ParserRunnable parser: parsers) {
+        	if (parser.ok) {
+        		profFiles.add(parser.profFile);
+        	} else {
+        		throw parser.excp;
+        	}
         }
         return profFiles;
+    }
+    
+    private void waitTrds(List<Thread> trds) {
+    	
+    	for (Thread trd: trds) {
+    		try {
+				trd.join();
+			} catch (InterruptedException e) {
+				logger.error(e);
+			}
+    	}
+	}
+
+	private class ParserRunnable implements Runnable {
+
+    	File file; // input
+    	ProfFile profFile; // output
+    	boolean ok = true;
+    	NotasParserException excp;
+    	
+    	ParserRunnable(File file) {
+    		this.file = file;
+    	}
+    	
+		@Override
+		public void run() {
+			try {
+				profFile = parseFile(file);
+			} catch (NotasParserException e) {
+				ok = false;
+				excp = e; 
+			}			
+		}
+    	
     }
     
     public ProfFile parseFile(File file) throws NotasParserException {

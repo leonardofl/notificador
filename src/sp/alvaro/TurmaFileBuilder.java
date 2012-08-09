@@ -35,52 +35,82 @@ public class TurmaFileBuilder {
         
         files = new HashSet<TurmaFile>();
 
+        List<Thread> trds = new ArrayList<Thread>();
         for (ProfFile profFile: profFiles) {          
             for (ProfSheet profSheet: profFile.getSheets()) {
                 for (Tarjeta tarj: profSheet.getTarjetas()) {
-                    this.process(tarj, profSheet, profFile);
+                	
+                	RunnableProcess process = new RunnableProcess(tarj, profSheet, profFile);
+                	Thread trd = new Thread(process);
+                	trds.add(trd);
+                	trd.start();
                 }
                 
             }
         }
 
+        waitTrds(trds);
+        
+        trds = new ArrayList<Thread>();
         // calcula média final para cada turma
-        MediaCalculator calc = new MediaCalculator();
         for (TurmaFile file: files) {
-            TurmaSheet finalSheet = new TurmaSheet(Periodo.ANO, file.getTurma());
-            
-            // iterando matérias
-            for (String materia: file.getSheets().get(0).getMaterias()) {
-                
-                List<Tarjeta> bimestres = new ArrayList<Tarjeta>();
-                for (TurmaSheet sheet: file.getSheets()) {
-                	Tarjeta tarj = sheet.findTarjeta(materia);
-                	if (tarj != null) {
-                		bimestres.add(tarj);
-                	} else {
-						Tarjeta tarjNula = Tarjeta.getTarjetaNula(
-								sheet.getBimestre(), materia, null,
-								sheet.getTurma());
-                		bimestres.add(tarjNula);
-                		String msg = "Não achei a tarjeta de " + materia
-								+ " do " + sheet.getBimestre() + " da turma "
-								+ file.getTurma();
-                		logger.warn(msg);
-                	}
-                }
-                Tarjeta tarjFinal = calc.calculateMedia(bimestres);
-                finalSheet.getTarjetas().add(tarjFinal);
-            }
-
-            // calcula notas anuais
-            FaltasAnuaisCalculator fcalc = new FaltasAnuaisCalculator();
-            TarjetaFaltasAnuais faltasAnuais = fcalc.calculateFaltasAnuais(finalSheet);
-            file.setFaltasAnuais(faltasAnuais);
-            
-            file.getSheets().add(finalSheet);
+        	
+        	FinalSheetGeneratorRunnable generator = new FinalSheetGeneratorRunnable(file);
+        	Thread trd = new Thread(generator);
+        	trds.add(trd);
+        	trd.start();
         }
         
+        waitTrds(trds);
+        
         return files;
+    }
+    
+    private void waitTrds(List<Thread> trds) {
+    	
+    	for (Thread trd: trds) {
+    		try {
+				trd.join();
+			} catch (InterruptedException e) {
+				logger.error(e);
+			}
+    	}
+	}
+    
+    private class FinalSheetGeneratorRunnable implements Runnable {
+
+		TurmaFile file;
+
+		public FinalSheetGeneratorRunnable(TurmaFile file) {
+			this.file = file;
+		}
+
+		@Override
+		public void run() {
+			FinalSheetGenerator generator = new FinalSheetGenerator();
+			generator.generateFinalSheet(file);
+		}
+    	
+    }
+    
+    private class RunnableProcess implements Runnable {
+
+    	Tarjeta profTarj;
+    	ProfSheet profSheet;
+		ProfFile profFile;
+
+		public RunnableProcess(Tarjeta profTarj, ProfSheet profSheet,
+				ProfFile profFile) {
+			this.profTarj = profTarj;
+			this.profSheet = profSheet;
+			this.profFile = profFile;
+		}
+
+		@Override
+		public void run() {
+			process(profTarj, profSheet, profFile);
+		}
+    	
     }
     
     private void process(Tarjeta profTarj, ProfSheet profSheet, ProfFile profFile) {
