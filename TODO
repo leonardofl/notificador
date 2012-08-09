@@ -37,11 +37,17 @@ Arquivo de log só tem log da última execução
 ** Colocar cabeçalho da licença nos arquivos de código
 
 ** Paralelizar processamento
+Eu fiz, mas o tempo de execução ficou o mesmo! oO
+Então pra deixar o log mais simples, voltei pra versão não paralela
+Versão paralela salva no commit:
+21e6fbcc6847670fa373a8e2aa63e9a2e515175f
 
 ** Talvez uma estrutura de mapa, em vez de lita,
 para os conceitos na tarjeta fosse mais eficiente
 
 ** Barra para indicar o progresso da operação
+
+** Criar teste unitário para FinalSheetGenerator
 
 ******************************************
 ******************************************

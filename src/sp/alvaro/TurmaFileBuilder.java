@@ -1,17 +1,12 @@
 package sp.alvaro;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import org.apache.log4j.Logger;
 
 import sp.alvaro.model.Periodo;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
 import sp.alvaro.model.Tarjeta;
-import sp.alvaro.model.TarjetaFaltasAnuais;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.model.TurmaSheet;
 
@@ -22,7 +17,7 @@ import sp.alvaro.model.TurmaSheet;
  */
 public class TurmaFileBuilder {
     
-	private Logger logger = Logger.getLogger(TurmaFileBuilder.class);
+	// private Logger logger = Logger.getLogger(TurmaFileBuilder.class);
 	
     private Set<TurmaFile> files;
    
@@ -45,41 +40,10 @@ public class TurmaFileBuilder {
         }
 
         // calcula média final para cada turma
-        MediaCalculator calc = new MediaCalculator();
+        FinalSheetGenerator generator = new FinalSheetGenerator();
         for (TurmaFile file: files) {
-            TurmaSheet finalSheet = new TurmaSheet(Periodo.ANO, file.getTurma());
-            
-            // iterando matérias
-            for (String materia: file.getSheets().get(0).getMaterias()) {
-                
-                List<Tarjeta> bimestres = new ArrayList<Tarjeta>();
-                for (TurmaSheet sheet: file.getSheets()) {
-                	Tarjeta tarj = sheet.findTarjeta(materia);
-                	if (tarj != null) {
-                		bimestres.add(tarj);
-                	} else {
-						Tarjeta tarjNula = Tarjeta.getTarjetaNula(
-								sheet.getBimestre(), materia, null,
-								sheet.getTurma());
-                		bimestres.add(tarjNula);
-                		String msg = "Não achei a tarjeta de " + materia
-								+ " do " + sheet.getBimestre() + " da turma "
-								+ file.getTurma();
-                		logger.warn(msg);
-                	}
-                }
-                Tarjeta tarjFinal = calc.calculateMedia(bimestres);
-                finalSheet.getTarjetas().add(tarjFinal);
-            }
-
-            // calcula notas anuais
-            FaltasAnuaisCalculator fcalc = new FaltasAnuaisCalculator();
-            TarjetaFaltasAnuais faltasAnuais = fcalc.calculateFaltasAnuais(finalSheet);
-            file.setFaltasAnuais(faltasAnuais);
-            
-            file.getSheets().add(finalSheet);
+        	generator.generateFinalSheet(file);
         }
-        
         return files;
     }
     
