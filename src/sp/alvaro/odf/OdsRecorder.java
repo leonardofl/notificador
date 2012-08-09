@@ -2,9 +2,7 @@ package sp.alvaro.odf;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.odftoolkit.simple.SpreadsheetDocument;
@@ -47,48 +45,8 @@ public class OdsRecorder implements TurmaFileRecorder {
     @Override
     public void record(Collection<TurmaFile> turmaFiles) throws IOException {
         
-    	List<Thread> trds = new ArrayList<Thread>();
-    	List<RecorderRunnable> recorders = new ArrayList<RecorderRunnable>();
         for (TurmaFile f: turmaFiles) {
-        	RecorderRunnable recorder = new RecorderRunnable(f);
-        	recorders.add(recorder);
-        	Thread trd = new Thread(recorder);
-        	trds.add(trd);
-        	trd.start();
-        }
-        
-        waitTrds(trds);
-        
-        for (RecorderRunnable rec: recorders) {
-        	if (!rec.ok) {
-        		throw rec.excp;
-        	}
-        }
-    }
-    
-    private void waitTrds(List<Thread> trds) {
-    	
-    	for (Thread trd: trds) {
-    		try {
-				trd.join();
-			} catch (InterruptedException e) {
-				logger.error(e);
-			}
-    	}
-	}
-    
-    private class RecorderRunnable implements Runnable {
-
-		TurmaFile f;
-		boolean ok = true;
-		IOException excp;
-		
-		public RecorderRunnable(TurmaFile f) {
-			this.f = f;
-		}
-
-		@Override
-		public void run() {
+        	
         	logger.debug("Gravando arquivo " + f.getTurma());
             
             // consistência
@@ -105,11 +63,10 @@ public class OdsRecorder implements TurmaFileRecorder {
 			} catch (Exception e) {
 				String msg = "Não consegui carregar a planilha de modelo " + MODELO_CONSOLIDADO;
 				logger.error(msg, e);
-				excp = new IOException(msg, e);
-				return;
+				throw new IOException(msg, e);
 			}
 
-        	processSheets(ods, f);
+        	this.processSheets(ods, f);
             
             String path = outputDir.getAbsolutePath() + "/" + f.getTurma() + ".ods";
             try {
@@ -117,11 +74,9 @@ public class OdsRecorder implements TurmaFileRecorder {
 			} catch (Exception e) {
 				String msg = "Não consegui salvar planilha em " + path;
 				logger.error(msg, e);
-				excp = new IOException(msg, e);
-				return;
+				throw new IOException(msg, e);
 			}
-		}
-    	
+        }
     }
     
     private void processSheets(SpreadsheetDocument ods, TurmaFile f) {
