@@ -58,14 +58,14 @@ public class TurmaFileBuilder {
                 	if (tarj != null) {
                 		bimestres.add(tarj);
                 	} else {
-						String msg = "Cálculo da média final falhou. Não achei a tarjeta de "
-								+ materia
-								+ " do "
-								+ sheet.getBimestre()
-								+ " da turma "
+						Tarjeta tarjNula = Tarjeta.getTarjetaNula(
+								sheet.getBimestre(), materia, null,
+								sheet.getTurma());
+                		bimestres.add(tarjNula);
+                		String msg = "Não achei a tarjeta de " + materia
+								+ " do " + sheet.getBimestre() + " da turma "
 								+ file.getTurma();
-                		logger.error(msg);
-                		throw new TurmaFileBuilderException(msg);
+                		logger.warn(msg);
                 	}
                 }
                 Tarjeta tarjFinal = calc.calculateMedia(bimestres);

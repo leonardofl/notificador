@@ -181,7 +181,9 @@ public class OdsParser implements NotasParser {
         try {
         	aulasPrevistas = Integer.parseInt(aulasPrevistasStr);
 	    } catch (NumberFormatException e) {
-        	String message = "Aulas previstas não foram registradas na célula" + y.getValor() + LIN_AULAS_PREVISTAS;
+			String message = "Aulas previstas não foram registradas na célula "
+					+ y.getValor() + LIN_AULAS_PREVISTAS + " (" + prof + " - "
+					+ bim + ")";
         	logger.warn(message);
 	    }
         

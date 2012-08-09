@@ -184,4 +184,23 @@ public class Tarjeta {
 		return null;
 	}
 	
+	/**
+	 * Devolve uma tarjeta com dados nulos nos conceitos, aulas dadas e aulas previstas
+	 * @param bim
+	 * @param materia
+	 * @param prof
+	 * @param turma
+	 * @return
+	 */
+	public static Tarjeta getTarjetaNula(Periodo bim, String materia, String prof, String turma) {
+		
+		Tarjeta tarj = new Tarjeta();
+		tarj.setBimestre(bim);
+		tarj.setMateria(materia);
+		tarj.setProfessor(prof);
+		tarj.setTurma(turma);
+		
+		return tarj;
+	}
+	
 }
