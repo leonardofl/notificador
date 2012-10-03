@@ -65,7 +65,7 @@ public class TurmaFileBuilder {
             file.getSheets().add(sheet);
         }
         
-        String prof = profFile.getProfessor();
+        String prof = profTarj.getProfessor();
         int aulasDadas = profTarj.getAulasDadas();
         int aulasPrevistas = profTarj.getAulasPrevistas();
         Tarjeta tarjeta = tarjetaInSheet(prof, materia, sheet);

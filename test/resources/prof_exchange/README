@@ -1,3 +1,6 @@
 No último bimestre o prof MANOEL teve um problema de saúde, e pôde dar aula para penas uma sala.
 As outras turmas foram assumidas pelo prof ROBERTO.
 Existe um caso de teste para verificar se o professor ROBERTO é adequadamente incluído nas tarjetas geradas.
+
+Numa das tarjetas, o nome do professor está em branco. Neste caso esperamos que o sistema associe a tarjeta ao dono do arquivo.
+O dono do arquivo continua sendo definido como o nome do professor da primeira tarjeta do arquivo.

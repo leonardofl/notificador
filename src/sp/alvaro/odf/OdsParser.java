@@ -36,6 +36,7 @@ public class OdsParser implements NotasParser {
     private static final String LIN_AULAS_DADAS = "63";
     private static final String LIN_AULAS_PREVISTAS = "62";   
     private static final String LIN_FIRST_NOTA = "7";
+    private static final String LIN_NOME_PROF = "64";
     private static final int TARJETAS_DISTANCE = 4;
 
     public Set<ProfFile> parse(Collection<File> files) throws NotasParserException {
@@ -139,13 +140,18 @@ public class OdsParser implements NotasParser {
     }
     
     /**
-     * 
+     * Extrai informação da tarjeta.
+     * Tarjeta gerada possui nome do professor identificado na própria tarjeta.
+     * Mas mensagens de erro são dadas em nome do professor dono do arquivo,
+     * pois a mensagem serve para ajudar o operador a identificar o local do problema.
      * @param table
-     * @para index índice da tarjeta na planilha, indo de 0 a N-1
+     * @param index índice da tarjeta na planilha, indo de 0 a N-1
+     * @param professor dono da planilha, a princípio prof de todas as tarjetas
+     * @param bim
      * @return
      * @throws NotasParserException 
      */
-    private Tarjeta parseTarjeta(Table table, int index, String prof, Periodo bim) throws NotasParserException {
+    private Tarjeta parseTarjeta(Table table, int index, String profSheet, Periodo bim) throws NotasParserException {
 
         Coluna y = new Coluna(COL_FIRST_TARJETA);
         y.inc(TARJETAS_DISTANCE*index);
@@ -157,16 +163,26 @@ public class OdsParser implements NotasParser {
 				y.getValor().concat(LIN_AULAS_PREVISTAS)).getDisplayText();
 		String materia = table.getCellByPosition(
 				y.getValor().concat(LIN_MATERIAS)).getDisplayText();
+		Coluna yprof = new Coluna(y.getValor());
+		yprof.dec();
+		String profTarjeta = table.getCellByPosition(
+				yprof.getValor().concat(LIN_NOME_PROF)).getDisplayText();
+		
+		// se prof não foi identificado na tarjeta,
+		// assumimos que o professor é o dono da planilha
+		if (profTarjeta == null || profTarjeta.isEmpty()) {
+			profTarjeta = profSheet;
+		}
 		
 		if (turma.isEmpty()) {
 			String msg = "Turma não especificada na tarjeta " + (index + 1)
-					+ " do " + bim + " do prof " + prof;
+					+ " do " + bim + " do prof " + profSheet;
 			logger.error(msg);
 			throw new NotasParserException(msg);
 		}
 		if (materia.isEmpty()) {
 			String msg = "Matéria não especificada na tarjeta " + (index + 1)
-					+ " do " + bim + " do prof " + prof;
+					+ " do " + bim + " do prof " + profSheet;
 			logger.error(msg);
 			throw new NotasParserException(msg);
 		}
@@ -182,12 +198,12 @@ public class OdsParser implements NotasParser {
         	aulasPrevistas = Integer.parseInt(aulasPrevistasStr);
 	    } catch (NumberFormatException e) {
 			String message = "Aulas previstas não foram registradas na célula "
-					+ y.getValor() + LIN_AULAS_PREVISTAS + " (" + prof + " - "
+					+ y.getValor() + LIN_AULAS_PREVISTAS + " (" + profSheet + " - "
 					+ bim + ")";
         	logger.warn(message);
 	    }
         
-        Tarjeta tarj = new Tarjeta(turma, materia, prof, bim, aulasDadas, aulasPrevistas);
+        Tarjeta tarj = new Tarjeta(turma, materia, profTarjeta, bim, aulasDadas, aulasPrevistas);
         
         // notas
         int row = Integer.parseInt(LIN_FIRST_NOTA);

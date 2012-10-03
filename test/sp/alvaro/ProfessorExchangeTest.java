@@ -58,7 +58,7 @@ public class ProfessorExchangeTest {
     public void professorRobertoShouldAppear() {
     	
     	for (TurmaFile turmaFile: this.currentTurmaFiles) {
-    		
+
     		TurmaFile expectedTurmaFile = findExpectedTurmaFile(turmaFile);
     		for (TurmaSheet turmaSheet: turmaFile.getSheets()) {
 
@@ -69,7 +69,6 @@ public class ProfessorExchangeTest {
     				Tarjeta expectedTarjeta = expectedTurmaSheet.findTarjeta(materia);
     				String expectedProf = expectedTarjeta.getProfessor();
     				String prof = tarj.getProfessor();
-    				System.out.println(expectedProf + " - " + prof);
     				assertEquals(expectedProf, prof);
     			}
     		}
