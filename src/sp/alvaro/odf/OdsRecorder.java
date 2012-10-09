@@ -121,7 +121,11 @@ public class OdsRecorder implements TurmaFileRecorder {
                     cn.inc();
                     cf.inc();
                     table.getCellByPosition(cn.getValor()+l).setStringValue(nota.getAluno().getNome());
-                    table.getCellByPosition(col+l).setStringValue(Double.toString(nota.getNota()));
+                    if (nota.getAlteracao() != null && !nota.getAlteracao().isEmpty()) {
+                    	table.getCellByPosition(col+l).setStringValue(nota.getAlteracao());
+                    } else {
+                    	table.getCellByPosition(col+l).setStringValue(Double.toString(nota.getNota()));
+                    }
                     table.getCellByPosition(cf.getValor()+l).setStringValue(Integer.toString(nota.getFaltas()));
                     lin++; 
                 }
