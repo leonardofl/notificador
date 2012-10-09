@@ -219,12 +219,14 @@ public class OdsParser implements NotasParser {
             String faltas = table.getCellByPosition(yf.getValor().concat(Integer.toString(row))).getDisplayText();
 
             int notaInt = 0, faltasInt = 0;
+            String alteracao = null;
             if (nota != null && !nota.isEmpty()) {
                 try {
                     notaInt = Integer.parseInt(nota);
                 }
                 catch(NumberFormatException e) {
-                    ;
+                    if (nota != null && !nota.isEmpty())
+                    	alteracao = nota;
                 }
                 try {
                     faltasInt = Integer.parseInt(faltas);
@@ -234,6 +236,7 @@ public class OdsParser implements NotasParser {
                 }                
             }
             Conceito conc = new Conceito(new Aluno(aluno, turma), notaInt, faltasInt);
+            conc.setAlteracao(alteracao);
             tarj.getNotas().add(conc);
             
             row++;

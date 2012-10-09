@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import sp.alvaro.model.Conceito;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
 import sp.alvaro.model.Tarjeta;
@@ -143,6 +144,25 @@ public class OdsParserTest {
         for (Tarjeta tarj: profSheet.getTarjetas()) {
             assertEquals(expectTarjSize, tarj.getNotas().size());
         }
+        
+        Tarjeta tarj6a = profSheet.getTarjetas().get(0);
+        Tarjeta tarj6b = profSheet.getTarjetas().get(1);
+        Tarjeta tarj6c = profSheet.getTarjetas().get(2);
+
+        Conceito c = tarj6a.getNotas().get(1);
+        assertEquals("NC", c.getAlteracao());
+        
+        c = tarj6b.getNotas().get(2);
+        assertEquals("AB", c.getAlteracao());
+
+        c = tarj6c.getNotas().get(1);
+        assertEquals("RM", c.getAlteracao());
+
+        c = tarj6c.getNotas().get(2);
+        assertEquals("NC", c.getAlteracao());
+        
+        c = tarj6a.getNotas().get(0);
+        assertEquals(null, c.getAlteracao());
     }
     
     @Test
