@@ -86,13 +86,28 @@ public class OdsParser implements NotasParser {
 					planilha.getTableList().get(bim - 1), prof,
 					Periodo.valueOf(bim));
             if (profSheet == null) {
-            	logger.warn("Período " + bim + " do " + prof + " não foi incluído");
+            	logger.warn("Período " + bim + " de " + prof + " não foi incluído");
             } else {
             	profFile.getSheets().add(profSheet);
             } 
         }
         
         return profFile;
+    }
+    
+    /**
+     * Checa se planilha é válida, ou seja, se deve ser processada
+     * Implementação atual: checa se Aulas Dadas está preenchida na primeira tarjeta
+     * @return
+     */
+    private boolean checkSheet(Table table) {
+    	
+        String check = table.getCellByPosition(CELL_FIRST_AULAS_DADAS).getDisplayText();
+        if (check == null || check.isEmpty()) {
+        	return false;
+        } else {
+        	return true;
+        }
     }
     
     /**
@@ -108,8 +123,8 @@ public class OdsParser implements NotasParser {
     	
     	logger.debug("Lendo período " + bim);
 
-        String check = table.getCellByPosition(CELL_FIRST_AULAS_DADAS).getDisplayText();
-        if (check == null || check.isEmpty()) {
+        boolean ok = checkSheet(table);
+        if (!ok) {
         	return null;
         }
 

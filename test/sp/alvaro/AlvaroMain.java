@@ -12,8 +12,8 @@ import sp.alvaro.odf.OdsRecorder;
 
 public class AlvaroMain {
 
-    public final static String WORK_DIR = "test/resources/work";
-    public final static File OUT_DIR = new File("test/resources/work/out");
+    public final static String WORK_DIR = "temp/tarjetas";
+    public final static File OUT_DIR = new File("temp/out");
     public final static String EXTENSION = "ods";
 
     public static void main(String[] args) throws Exception {
@@ -29,10 +29,6 @@ public class AlvaroMain {
         
         TurmaFileBuilder builder = new TurmaFileBuilder();
         Set<TurmaFile> turmaFiles = builder.buildTurmaFiles(sheets);
-        
-        for (TurmaFile tf: turmaFiles)
-        	if (tf.getTurma().equals("1ºA"))
-        		logger.debug(tf);
         
         TurmaFileRecorder recorder = new OdsRecorder(OUT_DIR);
         recorder.record(turmaFiles);
