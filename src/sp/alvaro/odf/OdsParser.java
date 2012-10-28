@@ -86,7 +86,8 @@ public class OdsParser implements NotasParser {
 					planilha.getTableList().get(bim - 1), prof,
 					Periodo.valueOf(bim));
             if (profSheet == null) {
-            	logger.warn("Período " + bim + " de " + prof + " não foi incluído");
+				logger.warn("Período " + bim + " de " + prof
+						+ " não foi incluído (Aulas Dadas não foi preenchida na primeira tarjeta)");
             } else {
             	profFile.getSheets().add(profSheet);
             } 
