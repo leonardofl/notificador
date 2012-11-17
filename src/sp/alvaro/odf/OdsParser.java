@@ -38,18 +38,49 @@ public class OdsParser implements NotasParser {
     private static final String LIN_FIRST_NOTA = "7";
     private static final String LIN_NOME_PROF = "64";
     private static final int TARJETAS_DISTANCE = 4;
+    
+    private ProgressListener listener;
 
+    public OdsParser() {
+    	
+    }
+    
+    /**
+     * 
+     * @param listener é avisado quando OdsListener terminar de processar um arquivo
+     */
+    public OdsParser(ProgressListener listener) {
+    	this.listener = listener;
+    }
+    
     public Set<ProfFile> parse(Collection<File> files) throws NotasParserException {
         
         Set<ProfFile> profFiles = new HashSet<ProfFile>();
+        int i = 0;
         for (File file: files) {
 
         	profFiles.add(this.parseFile(file));
+        	this.callListener(++i, files.size());
         }
         return profFiles;
     }
     
-    public ProfFile parseFile(File file) throws NotasParserException {
+    /**
+     * 
+     * @param i arquivos já processados
+     * @param n arquivos recebidos para processar
+     */
+    private void callListener(int i, int n) {
+
+    	if (this.listener != null) {
+    		
+    		int progress = (int) ((float) i / n * 100);
+    		this.logger.debug("PROGRESS " + i + " de " + n + " = " + progress + "%");
+    		this.listener.progress(progress);
+    	}
+	}
+
+	public ProfFile parseFile(File file) throws NotasParserException {
         
     	logger.debug("Lendo arquivo " + file.getName());
     	

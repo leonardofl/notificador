@@ -19,6 +19,7 @@ import sp.alvaro.TurmaFileRecorder;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.odf.OdsParser;
+import sp.alvaro.odf.ProgressListener;
 import sp.alvaro.odf.OdsRecorder;
 
 /**
@@ -31,11 +32,13 @@ public class ProcessHandler {
 
 	public final static String EXTENSION = "ods";
     private String in, out;
+    private Form form;
     
-    public ProcessHandler(String in, String out) {
+    public ProcessHandler(String in, String out, Form form) {
         
         this.in = in;
         this.out = out;
+        this.form = form;
     }
     
     public void process() throws NotasParserException, IOException, TurmaFileBuilderException {
@@ -47,7 +50,9 @@ public class ProcessHandler {
         	logger.error(msg);
         	throw new IOException(msg);
         }
-        NotasParser parser = new OdsParser();
+        
+        ProgressListener listener = new ProgressUpdater(this.form);
+        NotasParser parser = new OdsParser(listener);
         Set<ProfFile> sheets = parser.parse(files);
         
         TurmaFileBuilder builder = new TurmaFileBuilder();

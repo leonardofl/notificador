@@ -210,13 +210,23 @@ public class Form extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Atualiza na tela o progresso da operação
+     * @param progress entre 0 e 100
+     */
+    public void updateProgress(int progress) {
+    	
+    	this.jLabel1.setText(Integer.toString(progress));
+    }
+    
     private void jButtonProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProcessActionPerformed
 
         SwingWorker worker = new SwingWorker<Void, Void>(){
 
             @Override public Void doInBackground() {
                 jLabelStatus.setText("Trabalhando. Espere!");
-                ProcessHandler handler = new ProcessHandler(inTextField.getText(), outTextField.getText());
+				ProcessHandler handler = new ProcessHandler(
+						inTextField.getText(), outTextField.getText(), Form.this);
                 try {
 					handler.process();
 				} catch (NotasParserException e) {
