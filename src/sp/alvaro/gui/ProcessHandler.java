@@ -51,13 +51,14 @@ public class ProcessHandler {
         	throw new IOException(msg);
         }
         
-        ProgressListener listener = new ProgressUpdater(this.form);
+        ProgressListener listener = new ReadingProgressUpdater(this.form);
         NotasParser parser = new OdsParser(listener);
         Set<ProfFile> sheets = parser.parse(files);
         
         TurmaFileBuilder builder = new TurmaFileBuilder();
         Set<TurmaFile> turmaFiles = builder.buildTurmaFiles(sheets);
         File out_dir = new File(this.out);
+        listener = new WritingProgressUpdater(this.form);
         TurmaFileRecorder recorder = new OdsRecorder(out_dir, listener);
         recorder.record(turmaFiles);  
         

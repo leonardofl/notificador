@@ -11,17 +11,17 @@ import sp.alvaro.odf.ProgressListener;
  * @author leonardo
  *
  */
-public class ProgressUpdater implements ProgressListener {
+public class WritingProgressUpdater implements ProgressListener {
 
 	private Form form;
 	
-	public ProgressUpdater(Form form) {
+	public WritingProgressUpdater(Form form) {
 		this.form = form;
 	}
 
 	@Override
 	public void progress(int progress) {
-		this.form.updateProgress(progress);
+		this.form.updateWritingProgress(progress);
 	}
 	
 }

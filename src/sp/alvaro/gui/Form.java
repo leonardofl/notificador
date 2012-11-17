@@ -214,17 +214,25 @@ public class Form extends javax.swing.JFrame {
      * Atualiza na tela o progresso da operação
      * @param progress entre 0 e 100
      */
-    public void updateProgress(int progress) {
+    public void updateReadingProgress(int progress) {
     	
-    	this.jLabel1.setText(Integer.toString(progress));
+    	this.jLabelStatus.setText("Lendo planilhas dos professores (" + progress + "%)");
     }
-    
+
+    /**
+     * Atualiza na tela o progresso da operação
+     * @param progress entre 0 e 100
+     */
+    public void updateWritingProgress(int progress) {
+    	
+    	this.jLabelStatus.setText("Gerando planilhas das salas (" + progress + "%)");
+    }
+
     private void jButtonProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProcessActionPerformed
 
         SwingWorker worker = new SwingWorker<Void, Void>(){
 
             @Override public Void doInBackground() {
-                jLabelStatus.setText("Trabalhando. Espere!");
 				ProcessHandler handler = new ProcessHandler(
 						inTextField.getText(), outTextField.getText(), Form.this);
                 try {

@@ -42,10 +42,15 @@ Então pra deixar o log mais simples, voltei pra versão não paralela
 Versão paralela salva no commit:
 21e6fbcc6847670fa373a8e2aa63e9a2e515175f
 
-** Talvez uma estrutura de mapa, em vez de lita,
+** Talvez uma estrutura de mapa, em vez de lista,
 para os conceitos na tarjeta fosse mais eficiente
 
-** Barra para indicar o progresso da operação
+** Barra para indicar o progresso da operação (OK)
+Na verdade está em porcentagem, em vez de barra,
+mas creio ser o suficiente
+
+** Melhorar o layout para que o label de status 
+não altere as posições dos botões da tela
 
 ** Criar teste unitário para FinalSheetGenerator
 
