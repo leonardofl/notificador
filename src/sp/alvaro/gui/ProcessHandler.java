@@ -58,7 +58,7 @@ public class ProcessHandler {
         TurmaFileBuilder builder = new TurmaFileBuilder();
         Set<TurmaFile> turmaFiles = builder.buildTurmaFiles(sheets);
         File out_dir = new File(this.out);
-        TurmaFileRecorder recorder = new OdsRecorder(out_dir);
+        TurmaFileRecorder recorder = new OdsRecorder(out_dir, listener);
         recorder.record(turmaFiles);  
         
     	logger.info("Execução completa");

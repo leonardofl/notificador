@@ -73,9 +73,7 @@ public class OdsParser implements NotasParser {
     private void callListener(int i, int n) {
 
     	if (this.listener != null) {
-    		
     		int progress = (int) ((float) i / n * 100);
-    		this.logger.debug("PROGRESS " + i + " de " + n + " = " + progress + "%");
     		this.listener.progress(progress);
     	}
 	}

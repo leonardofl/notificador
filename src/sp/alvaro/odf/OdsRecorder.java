@@ -36,15 +36,41 @@ public class OdsRecorder implements TurmaFileRecorder {
     private static final String COLUNA_FALTAS_ANUAIS = "AX";
     
     private File outputDir;
+    private ProgressListener listener;
     
     public OdsRecorder(File outputDir) {
         
         this.outputDir = outputDir;
     }
     
+    /**
+     * 
+     * @param outputDir
+     * @param listener é avisado quando OdsListener terminar de processar um arquivo
+     */
+    public OdsRecorder(File outputDir, ProgressListener listener) {
+        
+        this.outputDir = outputDir;
+        this.listener = listener;
+    }
+    
+    /**
+     * 
+     * @param i arquivos já processados
+     * @param n arquivos recebidos para processar
+     */
+    private void callListener(int i, int n) {
+
+    	if (this.listener != null) {
+    		int progress = (int) ((float) i / n * 100);
+    		this.listener.progress(progress);
+    	}
+	}
+    
     @Override
     public void record(Collection<TurmaFile> turmaFiles) throws IOException {
         
+    	int i = 0;
         for (TurmaFile f: turmaFiles) {
         	
         	logger.debug("Gravando arquivo " + f.getTurma());
@@ -76,6 +102,8 @@ public class OdsRecorder implements TurmaFileRecorder {
 				logger.error(msg, e);
 				throw new IOException(msg, e);
 			}
+            
+            this.callListener(++i, turmaFiles.size());
         }
     }
     
