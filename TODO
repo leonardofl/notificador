@@ -9,8 +9,6 @@
 ** Fazer com que enter no fileChoose abra a pasta, e não a selecione 
 (selecionar só com o botão)
 
-** Colocar cabeçalho da licença nos arquivos de código
-
 ** Paralelizar processamento
 Eu fiz, mas o tempo de execução ficou o mesmo! oO
 Então pra deixar o log mais simples, voltei pra versão não paralela
