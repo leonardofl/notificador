@@ -3,33 +3,8 @@
 ===============
 == Funcionalidades a implementar
 
-** Testes estão passando, mas é preciso revisá-los todos (OK)
-para ver se está tudo semanticamente certo.
-Boa parte sei que não vai etsar, pq o equals não compara as notas na tarjeta,
-só as informações "de cabeçalho"
-Pra isso, criar um método tipo tarjeta.notasEquals(other)
-
-** Fazer o guia do professor (OK)
-Junto com isso, criar uma boa planilha de exemplo
-
-** Colocar informações cruzadas no modelo de dados, isto facilita log (OK)
-Exemplo: TarjetaTurma devia ter atributo turma
-
-** Fazer com que erros de parser sejam apresentados ao usuário, não só no log (OK)
-Assim o usuário pode facilmente corrigir a planilha
-Cada linha de leitura da planilha é um erro em potencial
-Criar um bom sistema de exceções para isso
 
 ** Gráfico 
-
-** Sistema só funciona se sala tiver no máximo 12 matérias
-Pode ser preciso flexibilizar isso
-Além de suportar mais de 12 matérias, 
-vai ter saída mais simples, sem planilhas desnecessárias
-
-** Criar um arquivo só com o log da última execução (OK)
-Será que dá pra fazer só mexendo no log.config?
-Arquivo de log só tem log da última execução
 
 ** Fazer com que enter no fileChoose abra a pasta, e não a selecione 
 (selecionar só com o botão)
@@ -44,10 +19,6 @@ Versão paralela salva no commit:
 
 ** Talvez uma estrutura de mapa, em vez de lista,
 para os conceitos na tarjeta fosse mais eficiente
-
-** Barra para indicar o progresso da operação (OK)
-Na verdade está em porcentagem, em vez de barra,
-mas creio ser o suficiente
 
 ** Melhorar o layout para que o label de status 
 não altere as posições dos botões da tela
@@ -66,17 +37,10 @@ não altere as posições dos botões da tela
 
 ** Não se basear na posição da tarjeta para recuperá-la e fazer as contas
 
-** Nome do professor deveria aparecer na tarjeta consolidada? (OK)
-agora aparece
-
-** Professor com várias matérias não funciona direito (OK)
-Tarjeta do 1oA foi criada como ciências em vez de biologia
-Isto porque o professor, Cleiton, também dá aula de ciências para outras salas
-
 ** Notas vermelhas não estão ficando vermelhas
 
 ** Se a falta anual for maior que 25% deixar em vermelho
-Estou tendo problemas com a API: em vez de vermelhor, texto fica tachado!
+Estou tendo problemas com a API: em vez de vermelho, texto fica tachado!
 Talvez seja melhor mexer no modelo
 
 ** Travamento no parser 
@@ -93,3 +57,4 @@ Proposta: quando acabar alunos, a linha do número do aluno deve ficar branca.
 Com isso dá pra também melhorar os testes readSheetWithBlankLines e readSheetWithLetters em OdsParser
 
 ** Log loga hora errada!
+
