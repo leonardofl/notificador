@@ -47,7 +47,6 @@ public class OdsParser implements NotasParser {
     public static final int MAX_ALUNOS = 54; // o máximo que cabe na tarjeta
     private static final String COL_FIRST_TARJETA = "C"; // coluna das notas
     private static final String CELL_PROF = "B64";
-    private static final String CELL_FIRST_AULAS_DADAS = "C63";
     private static final String LIN_TURMAS = "4";
     private static final String LIN_MATERIAS = "3";
     private static final String LIN_AULAS_DADAS = "63";
@@ -131,33 +130,16 @@ public class OdsParser implements NotasParser {
 			ProfSheet profSheet = parseSheet(
 					planilha.getTableList().get(bim - 1), prof,
 					Periodo.valueOf(bim));
-            if (profSheet == null) {
-				logger.warn("Período " + bim + " de " + prof
-						+ " não foi incluído (Aulas Dadas não foi preenchida na primeira tarjeta)");
-            } else {
-            	profFile.getSheets().add(profSheet);
-            } 
+        	profFile.getSheets().add(profSheet);
         }
         
         return profFile;
     }
     
-    /**
-     * Checa se planilha é válida, ou seja, se deve ser processada
-     * Implementação atual: checa se Aulas Dadas está preenchida na primeira tarjeta
-     * @return
-     */
-    private boolean checkSheet(Table table) {
-    	
-        String check = table.getCellByPosition(CELL_FIRST_AULAS_DADAS).getDisplayText();
-        if (check == null || check.isEmpty()) {
-        	return false;
-        } else {
-        	return true;
-        }
-    }
-    
-    /**
+//	logger.warn("Período " + bim + " de " + prof
+//			+ " não foi incluído (Aulas Dadas não foi preenchida na primeira tarjeta)");
+
+	/**
 	 * 
 	 * @param table
 	 * @param prof
@@ -170,11 +152,6 @@ public class OdsParser implements NotasParser {
     	
     	logger.debug("Lendo período " + bim);
 
-        boolean ok = checkSheet(table);
-        if (!ok) {
-        	return null;
-        }
-
         ProfSheet profSheet = new ProfSheet(bim, prof);
 
         Coluna y = new Coluna(COL_FIRST_TARJETA);
@@ -184,14 +161,14 @@ public class OdsParser implements NotasParser {
         while (!turma.isEmpty() && !turma.contains("FIM")) {
     	// TODO: não deveria precisar do "FIM"
 
-            Tarjeta tarj = parseTarjeta(table, i, prof, bim);
-            if (tarj == null) {
-				logger.warn("Tarjeta da " + turma + " " + bim
-						+ " não incluída na planilha de "
-						+ profSheet.getProfessor());
-            } else {
-            	profSheet.getTarjetas().add(tarj);
-            }
+        	try {
+        		Tarjeta tarj = parseTarjeta(table, i, prof, bim);
+        		profSheet.getTarjetas().add(tarj);
+        	} catch (NotasParserException e) {
+        		logger.warn("Tarjeta da " + turma + " " + bim
+        				+ " não incluída na planilha de "
+        				+ profSheet.getProfessor());
+        	}
 
             y.inc(TARJETAS_DISTANCE);
             i++;
