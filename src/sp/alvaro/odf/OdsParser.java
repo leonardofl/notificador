@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.odftoolkit.simple.SpreadsheetDocument;
+import org.odftoolkit.simple.table.Cell;
 import org.odftoolkit.simple.table.Table;
 
 import sp.alvaro.NotasParser;
@@ -117,7 +118,13 @@ public class OdsParser implements NotasParser {
         }
         
         // extract basic information
-        String prof = table.getCellByPosition(CELL_PROF).getDisplayText();
+        SaferCellRetriever saferCellRetriever = new SaferCellRetriever();
+        String prof = "";
+        try {
+			prof = saferCellRetriever.getCell(table, CELL_PROF).getDisplayText();
+		} catch (OdfReadCellException e) {
+			throw new NotasParserException("OdfReadCellException detected");
+		}
         if (prof == null || prof.isEmpty()) {
 			String msg = "Célula B64 do arquivo " + file.getName() 
 					+ " (1o bimestre) deveria conter o nome do professor";
@@ -127,7 +134,7 @@ public class OdsParser implements NotasParser {
         
         ProfFile profFile = new ProfFile(prof, file.getName());
         for (int bim=1; bim<=4; bim++) {
-			ProfSheet profSheet = parseSheet(
+        	ProfSheet profSheet = parseSheet(
 					planilha.getTableList().get(bim - 1), prof,
 					Periodo.valueOf(bim));
         	profFile.getSheets().add(profSheet);
@@ -156,10 +163,16 @@ public class OdsParser implements NotasParser {
 
         Coluna y = new Coluna(COL_FIRST_TARJETA);
         int i = 0;
-        String turma = table.getCellByPosition(y.getValor().concat(LIN_TURMAS)).getDisplayText();
-        // while !turma.isEmpty
+        SaferCellRetriever saferCellRetriever = new SaferCellRetriever();
+        String posTurma = y.getValor().concat(LIN_TURMAS);
+        String turma = "";
+        try {
+			turma = saferCellRetriever.getCell(table, posTurma).getDisplayText();
+		} catch (OdfReadCellException e1) {
+			throw new NotasParserException("OdfReadCellException detected");
+		}
+        
         while (!turma.isEmpty() && !turma.contains("FIM")) {
-    	// TODO: não deveria precisar do "FIM"
 
         	try {
         		Tarjeta tarj = parseTarjeta(table, i, prof, bim);
@@ -170,9 +183,16 @@ public class OdsParser implements NotasParser {
         				+ profSheet.getProfessor());
         	}
 
-            y.inc(TARJETAS_DISTANCE);
             i++;
-            turma = table.getCellByPosition(y.getValor().concat(LIN_TURMAS)).getDisplayText();
+            y.inc(TARJETAS_DISTANCE);
+            String pos = y.getValor().concat(LIN_TURMAS);
+			try {
+				Cell nextCell = saferCellRetriever.getCell(table, pos);
+				turma = nextCell.getDisplayText();
+			} catch (OdfReadCellException e) {
+				logger.warn("OdfReadCellException detected");
+				turma = "FIM";
+			}
         }
 
         return profSheet;
@@ -192,20 +212,28 @@ public class OdsParser implements NotasParser {
      */
     private Tarjeta parseTarjeta(Table table, int index, String profSheet, Periodo bim) throws NotasParserException {
 
+    	SaferCellRetriever saferCellRetriever = new SaferCellRetriever();
+    	
         Coluna y = new Coluna(COL_FIRST_TARJETA);
         y.inc(TARJETAS_DISTANCE*index);
-		String turma = table.getCellByPosition(y.getValor().concat(LIN_TURMAS))
-				.getDisplayText();
-		String aulasDadasStr = table.getCellByPosition(
-				y.getValor().concat(LIN_AULAS_DADAS)).getDisplayText();
-		String aulasPrevistasStr = table.getCellByPosition(
-				y.getValor().concat(LIN_AULAS_PREVISTAS)).getDisplayText();
-		String materia = table.getCellByPosition(
-				y.getValor().concat(LIN_MATERIAS)).getDisplayText();
-		Coluna yprof = new Coluna(y.getValor());
-		yprof.dec();
-		String profTarjeta = table.getCellByPosition(
-				yprof.getValor().concat(LIN_NOME_PROF)).getDisplayText();
+        
+        String turma, aulasDadasStr, aulasPrevistasStr, materia, profTarjeta = ""; 
+        try {
+	        String posTurma = y.getValor().concat(LIN_TURMAS);
+			turma = saferCellRetriever.getCell(table, posTurma).getDisplayText();
+			String posAulasDadas = y.getValor().concat(LIN_AULAS_DADAS);
+			aulasDadasStr = saferCellRetriever.getCell(table, posAulasDadas).getDisplayText();
+			String posAulasPrevistas = y.getValor().concat(LIN_AULAS_PREVISTAS);
+			aulasPrevistasStr = saferCellRetriever.getCell(table, posAulasPrevistas).getDisplayText();
+			String posMateria = y.getValor().concat(LIN_MATERIAS);
+			materia = saferCellRetriever.getCell(table, posMateria).getDisplayText();
+			Coluna yprof = new Coluna(y.getValor());
+			yprof.dec();
+			String posProf = yprof.getValor().concat(LIN_NOME_PROF);
+			profTarjeta = saferCellRetriever.getCell(table, posProf).getDisplayText();
+        } catch (OdfReadCellException e) {
+        	throw new NotasParserException("OdfReadCellException detectado");
+        }
 		
 		// se prof não foi identificado na tarjeta,
 		// assumimos que o professor é o dono da planilha
@@ -248,14 +276,21 @@ public class OdsParser implements NotasParser {
         int row = Integer.parseInt(LIN_FIRST_NOTA);
         for (int i=0; i<MAX_ALUNOS; i++) { 
 
-            String nota = table.getCellByPosition(y.getValor().concat(Integer.toString(row))).getDisplayText();
-            
-            Coluna ya = new Coluna(y.getValor());
-            ya.dec();
-            String aluno = table.getCellByPosition(ya.toString().concat(Integer.toString(row))).getDisplayText();
-            Coluna yf = new Coluna(y.getValor());
-            yf.inc();
-            String faltas = table.getCellByPosition(yf.getValor().concat(Integer.toString(row))).getDisplayText();
+        	String nota, aluno, faltas = "";
+        	try {
+	        	String posNota = y.getValor().concat(Integer.toString(row));
+	            nota = saferCellRetriever.getCell(table, posNota).getDisplayText();
+	            Coluna ya = new Coluna(y.getValor());
+	            ya.dec();
+	            String posAluno = ya.toString().concat(Integer.toString(row));
+	            aluno = saferCellRetriever.getCell(table, posAluno).getDisplayText();
+	            Coluna yf = new Coluna(y.getValor());
+	            yf.inc();
+	            String posFaltas = yf.getValor().concat(Integer.toString(row));
+	            faltas = saferCellRetriever.getCell(table, posFaltas).getDisplayText();
+        	} catch (OdfReadCellException e) {
+            	throw new NotasParserException("OdfReadCellException detectado");
+            }
 
             int notaInt = 0, faltasInt = 0;
             String alteracao = null;
