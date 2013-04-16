@@ -61,3 +61,6 @@ Pedimos ainda alguns cuidados:
 Também é importante que saibam das seguintes limitações do sistema:
 * Uma planilha não suporta mais do que 12 tarjetas.
 * Uma tarjeta não suporta mais que 54 alunos.
+
+DICA: quando estiver navegando na janela de seleção de pastas (para escolher a pasta com as planilhas de entrada ou a pasta onde devem ser geradas as planilhas de saída), a tecla <ENTER> irá selecionar a pasta para que o Notificador a utilize. Se você quiser navegar pela pasta, para escolher uma de suas sub-pastas por exemplo, você pode fazer isso com um clique-duplo sobre a pasta ou pressionando <CTRL>+<ENTER> quando a pasta estiver selecionada (utilizar as setas do teclado é uma boa maneira de selecionar a pasta desejada).
+
