@@ -11,9 +11,11 @@ um formato aberto que integra a especificação ODF - Open Document Format.
 O BrOffice é um software livre que edita este tipo de planilha.
 
 Para utilizar o Notificador, é preciso ter instalado em sua máquina o BrOffice* e uma máquina virtual Java.
+Requisitos de sistema: 1GB de memória RAM livre!
 * pode ser também LibreOffice, OpenOffice etc.
 
 Informações técnicas sobre o projeto:
 Autor: Leonardo Leite
 Linguagem: Java
 Licença: GPL v3
+
