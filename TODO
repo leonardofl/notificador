@@ -54,8 +54,6 @@ Uma coisa ruim que isso gerou foi um acoplamento entre ValoresProf e OdsParser
 Proposta: quando acabar alunos, a linha do número do aluno deve ficar branca.
 Com isso dá pra também melhorar os testes readSheetWithBlankLines e readSheetWithLetters em OdsParser
 
-** Log loga hora errada!
-
 ** Atualmente o programa consome cerca de 1GB de RAM para processar 48 tarjetas.
 Investigar como diminuir o consumo de memória.
 Suspeita: talvez os recursos (aruqivos ods) não estejam sendo fechados.
