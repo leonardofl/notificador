@@ -41,11 +41,6 @@ não altere as posições dos botões da tela
 Estou tendo problemas com a API: em vez de vermelho, texto fica tachado!
 Talvez seja melhor mexer no modelo
 
-** Travamento no parser 
-Se eu altero e salvo uma das planilhas, o parse não é mais completado! 
-Será algum problema de compatibilidade de versões?
-Isso está temporariamente resolvido com a palavra FIM na célula que conteria o nome da próxima turma
-
 ** No sistema atual, toda tarjeta deve ter MAX_ALUNOS linhas
 Mesmo que objeto tarjeta só tenha 4 notas úteis, a lista notas terá MAX_ALUNO objetos Conceito
 Seria legal flexibilizar isso
@@ -56,6 +51,20 @@ Com isso dá pra também melhorar os testes readSheetWithBlankLines e readSheetW
 
 ** Atualmente o programa consome cerca de 1GB de RAM para processar 48 tarjetas.
 Investigar como diminuir o consumo de memória.
-Suspeita: talvez os recursos (aruqivos ods) não estejam sendo fechados.
+Suspeita: talvez os recursos (arquivos ods) não estejam sendo fechados.
+
+Há uma grande quantidade de threads pra executar CellReader em SaferCellRetriever.
+Cheguei a ver 10 threads.
+Essas threads devem de ser as responsáveis pelo auto consumo de memória.
+No dump os objetos suspeitos são justamente threads.
+CellReader aponta pra uma Table, que deve ser o objeto pesado (carrega todo o ods).
+Na análise de consumo de memória, o principal vilão é
+org.odftoolkit.simple.table.Row (deve pertencer ao Table)
+Talvez haja uma relação a qantidade de OdfReadCellException e o número de threads (mas não é ==).
+Será que deveriam haver mesmo todas essas threads?
+O código não está todo sequencial?
+Como fazer essas threads morrerem?
+Problema é que thread deve ficar travada em table.getCellByPosition(cellPos) quando dá pau na API do odf,
+nessa situação é que soltamos OdfReadCellException.
 
 
