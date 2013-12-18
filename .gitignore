@@ -1,11 +1,9 @@
 *~
 notificador.log
-resources/properties
-test/resources/outgui/
-test/resources/out_multicol/*
-test/resources/nova/
-bin/
+.classpath
+.project
 build/
 dist/
 release/
 temp/
+target/
