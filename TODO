@@ -33,7 +33,7 @@ não altere as posições dos botões da tela
 ============
 == Problemas para corrigir
 
-** Acho que as pasta utilizadas como entrada e saída não estão sendo salvas no properties.
+** Verificar se abertura de caminhos absolutos em FileLoader funciona no Windows.
 
 ** Não se basear na posição da tarjeta para recuperá-la e fazer as contas
 

@@ -58,7 +58,7 @@ public class AppSettings {
     }
 
     public void setCurrentDirectoryIn(String dir) throws FileNotFoundException, IOException {
-        FileLoader loader = new FileLoader(PROPERTIES_FILE);
+    	FileLoader loader = new FileLoader(PROPERTIES_FILE);
     	File file = loader.getFile();
         OutputStream os = new FileOutputStream(file);
         this.properties.setProperty("currentDirIn", dir);
@@ -72,13 +72,7 @@ public class AppSettings {
         OutputStream os = new FileOutputStream(file);
         this.properties.setProperty("currentDirOut", dir);
         this.properties.store(os, "#app settings file");
-        os.close();
-    }
-    
-    public static void main(String[] args) throws IOException {
-		AppSettings settings = new AppSettings();
-		settings.setCurrentDirectoryIn("in");
-		settings.setCurrentDirectoryOut("out");
+		os.close();
 	}
 
 }
