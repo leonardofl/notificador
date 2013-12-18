@@ -1,0 +1,40 @@
+<assembly>
+    <!-- reference: http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html -->
+    <id>bin</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <fileSets>
+       <fileSet>
+            <includes>
+              <include>LICENSE</include>
+              <include>README</include>
+              <include>guia_do_professor.txt</include>
+            </includes>
+       </fileSet>
+       <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory>conf</outputDirectory>
+            <includes>
+              <include>properties</include>
+              <include>log.config</include>
+            </includes>
+       </fileSet>
+       <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory>resources</outputDirectory>
+            <includes>
+              <include>consolidado_modelo.ods</include>
+            </includes>
+       </fileSet>       
+       <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>Notificador-*.jar</include>
+            </includes>
+       </fileSet>
+    </fileSets>
+
+</assembly>

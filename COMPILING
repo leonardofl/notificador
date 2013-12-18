@@ -1,3 +1,17 @@
+
+Para compilar o Notificador é preciso ter o Apache Odftoolkit em seu repositório Maven local:
+
 $svn co https://svn.apache.org/repos/asf/incubator/odf/trunk odf
 odf$mvn install
-notificador$mvn install
+
+Para compialr o Notificador basta:
+
+notificador$mvn package
+
+Na pasta target será criado o .zip que é distribuído aos usuários.
+
+Para usar no Eclipse:
+
+notificador$mvn eclipse:eclipse
+E aí você pode importar o projeto no Eclipse.
+
