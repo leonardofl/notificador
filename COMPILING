@@ -1,0 +1,3 @@
+$svn co https://svn.apache.org/repos/asf/incubator/odf/trunk odf
+odf$mvn install
+notificador$mvn install
