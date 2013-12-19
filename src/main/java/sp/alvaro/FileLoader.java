@@ -24,13 +24,21 @@ public class FileLoader {
 	}
 	
 	private boolean isAbsolutPath() {
-		// TODO Windows!
-		if (fileName.startsWith("/")) 
+		if (isUnixAbsolutPath() || isWIndowsAbsolutPath()) 
 			return true;
 		else 
 			return false;
 	}
 	
+	private boolean isUnixAbsolutPath() {
+		return fileName.startsWith("/");
+	}
+	
+	private boolean isWIndowsAbsolutPath() {
+		final String regex = "[A-Z]:\\\\.*"; 
+		return fileName.matches(regex);
+	}
+
 	private File getFileWithAbsolutPath() throws IOException {
 		File file = new File(fileName);
 		if (!file.exists())
@@ -52,5 +60,4 @@ public class FileLoader {
 		throw new IOException(msg);
 	}
 	
-
 }
