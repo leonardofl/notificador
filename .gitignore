@@ -8,3 +8,5 @@ dist/
 release/
 temp/
 target/
+/bin/
+.settings/

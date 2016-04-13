@@ -2,7 +2,7 @@
 Para compilar o Notificador é preciso ter o Apache Odftoolkit em seu repositório Maven local:
 
 $svn co https://svn.apache.org/repos/asf/incubator/odf/trunk odf
-odf$mvn install
+odf$mvn -Dmaven.test.skip=true install
 
 Para compialr o Notificador basta:
 

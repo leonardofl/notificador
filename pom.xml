@@ -26,12 +26,22 @@
 		<dependency>
 			<groupId>org.apache.odftoolkit</groupId>
 			<artifactId>simple-odf</artifactId>
-			<version>0.8.1-incubating-SNAPSHOT</version>
+			<version>0.8.2-incubating-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
@@ -41,13 +51,13 @@
 						</manifest>
 						<manifestEntries>
 							<Class-Path>conf/ resources/</Class-Path>
-						</manifestEntries>						
+						</manifestEntries>
 					</archive>
 					<excludes>
 						<exclude>properties</exclude>
 						<exclude>log.config</exclude>
 						<exclude>consolidado_modelo.ods</exclude>
-					</excludes>					
+					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>
