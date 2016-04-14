@@ -61,6 +61,8 @@ public class ProcessHandler {
     
     public void process() throws NotasParserException, IOException, TurmaFileBuilderException {
         
+    	long t0 = System.currentTimeMillis();
+    	
         FilePicker picker = new FilePicker(this.in, EXTENSION);
         Set<File> files = picker.pickFiles();
         if (files.isEmpty()) {
@@ -80,7 +82,9 @@ public class ProcessHandler {
         TurmaFileRecorder recorder = new OdsRecorder(out_dir, listener);
         recorder.record(turmaFiles);  
         
-    	logger.info("Execução completa");
+        long tf = System.currentTimeMillis();
+        double delstaMin = (tf - t0) / 1000.0 / 60.0;
+    	logger.info("Execução completa em " + (delstaMin) + " min.");
     }
     
 }

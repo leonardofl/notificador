@@ -69,4 +69,6 @@ Como fazer essas threads morrerem?
 Problema é que thread deve ficar travada em table.getCellByPosition(cellPos) quando dá pau na API do odf,
 nessa situação é que soltamos OdfReadCellException.
 
+** Nas planilhas geradas, apenas a primeira tarjeta está com a "turma" impressa corretamente.
+Nas outras tarjetas, fica a string "TURMA".
 
