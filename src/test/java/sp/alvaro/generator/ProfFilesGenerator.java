@@ -1,5 +1,12 @@
 package sp.alvaro.generator;
 
+import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+
+import sp.alvaro.LogConfigurator;
+import sp.alvaro.model.ProfFile;
+
 /**
  * Gera planilhas de professores para utilização em teste de carga.
  * 
@@ -8,8 +15,11 @@ package sp.alvaro.generator;
  */
 public class ProfFilesGenerator {
 
-	private final static String[] TODO_ENSINO_MEDIO = new String[] { "1oA", "1oB", "1oC", "1oD", "2oA", "2oB", "2oC",
-			"2oD", "3oA", "3oB", "3oC", "3oD" };
+	private final static String FOLDER_FOR_GENERATED_FILES = "/home/leonardo/Dropbox/notificador-planilhas/profs-gerados";
+	
+	private final static String[] ENSINO_MEDIO_1 = new String[] { "1oA", "1oB", "1oC", "1oD", "2oA", "2oB" };
+
+	private final static String[] ENSINO_MEDIO_2 = new String[] { "2oC", "2oD", "3oA", "3oB", "3oC", "3oD" };
 
 	private final static String[] QUINTAS = new String[] { "5aA", "5aB", "5aC", "5aD", "5aE", "5aF" };
 
@@ -24,59 +34,73 @@ public class ProfFilesGenerator {
 
 	private final static String[] SETIMAS_E_OITAVAS = new String[] { "7aA", "7aB", "7aC", "7aD", "7aE", "7aF", "8aA",
 			"8aB", "8aC", "8aD", "8aE", "8aF" };
+	
+	private static Set<ProfFile> profFiles = new HashSet<ProfFile>();
 
 	public static void main(String[] args) {
 
+		LogConfigurator.initLog();
+		
 		long t0 = System.nanoTime();
 		
-		profFileGenerator("lucia", "Eng de SW").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("jj", "Autômatos").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("nakamura", "Computação Gráfica").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("fabio", "Orientação a Objetos").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("gubitoso", "Sistemas Distribuídos").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("alfredo", "Programação Extrema").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("reverbel", "Conceitos de Linguagens de Programação").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("ze-augusto", "Introdução a Computação").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("gerosa", "Desenvolvimento Web").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("saad", "Programação").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("maciel", "Elétrica").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("gomes", "Sistemas Digitais").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("ana-heali", "Inteligência Artificial").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("wurtman-saad", "Programação").turmas(TODO_ENSINO_MEDIO).generate();
-		profFileGenerator("Harmione", "Magia").turmas(TODO_ENSINO_MEDIO).generate();
+		add(profFile("lucia", "Eng de SW").turmas(ENSINO_MEDIO_1).generate());
+		add(profFile("jj", "Autômatos").turmas(ENSINO_MEDIO_1).generate());
+		add(profFile("nakamura", "Computação Gráfica").turmas(ENSINO_MEDIO_1).generate());
+		add(profFile("fabio", "Orientação a Objetos").turmas(ENSINO_MEDIO_1).generate());
+		add(profFile("gubitoso", "Sistemas Distribuídos").turmas(ENSINO_MEDIO_1).generate());
+		add(profFile("alfredo", "Programação Extrema").turmas(ENSINO_MEDIO_1).generate());
+		add(profFile("reverbel", "Conceitos de Linguagens de Programação").turmas(ENSINO_MEDIO_1).generate());
+		add(profFile("ze-augusto", "Introdução a Computação").turmas(ENSINO_MEDIO_1).generate());
+		add(profFile("gerosa", "Desenvolvimento Web").turmas(ENSINO_MEDIO_2).generate());
+		add(profFile("maciel", "Elétrica").turmas(ENSINO_MEDIO_2).generate());
+		add(profFile("gomes", "Sistemas Digitais").turmas(ENSINO_MEDIO_2).generate());
+		add(profFile("ana-heali", "Inteligência Artificial").turmas(ENSINO_MEDIO_2).generate());
+		add(profFile("wurtman-saad", "Programação").turmas(ENSINO_MEDIO_2).generate());
+		add(profFile("Harmione", "Magia").turmas(ENSINO_MEDIO_2).generate());
 
-		profFileGenerator("rosangela", "Português").turmas(QUINTAS_E_SEXTAS).generate();
-		profFileGenerator("camoes", "Português").turmas(SETIMAS_E_OITAVAS).generate();
-		profFileGenerator("areco", "Matemática").turmas(QUINTAS).generate();
-		profFileGenerator("descartes", "Matemática", "Filosofia").turmas(SEXTAS).generate();
-		profFileGenerator("tales", "Matemática").turmas(SETIMAS).generate();
-		profFileGenerator("mateus", "Matemática", "Física").turmas(OITAVAS).generate();
-		profFileGenerator("wanderley", "Física").turmas(QUINTAS).generate();
-		profFileGenerator("evandro", "Química", "Física").turmas(SEXTAS).generate();
-		profFileGenerator("marcondes", "Biologia", "Química").turmas(SETIMAS_E_OITAVAS).generate();
-		profFileGenerator("mendel", "Biologia").turmas(QUINTAS_E_SEXTAS).generate();
-		profFileGenerator("edileusa", "História").turmas(QUINTAS).generate();
-		profFileGenerator("camila", "História", "Geografia").turmas(SEXTAS).generate();
-		profFileGenerator("marta", "História").turmas(SETIMAS).generate();
-		profFileGenerator("herodoto", "Historia").turmas(OITAVAS).generate();
-		profFileGenerator("magalhes", "Geografia").turmas(SETIMAS_E_OITAVAS).generate();
-		profFileGenerator("nelson", "Inglês").turmas(QUINTAS_E_SEXTAS).generate();
-		profFileGenerator("victoria", "Inglês").turmas(SETIMAS_E_OITAVAS).generate();
-		profFileGenerator("katia", "Artes").turmas(QUINTAS_E_SEXTAS).generate();
-		profFileGenerator("leonardo", "Artes").turmas(SETIMAS_E_OITAVAS).generate();
-		profFileGenerator("marcelo", "Educação Física").turmas(QUINTAS_E_SEXTAS).generate();
-		profFileGenerator("eduardo", "Educação Física").turmas(SETIMAS_E_OITAVAS).generate();
-		profFileGenerator("socrates", "Filosofia").turmas(QUINTAS).generate();
-		profFileGenerator("platao", "Filosofia").turmas(OITAVAS).generate();
+		add(profFile("rosangela", "Português").turmas(QUINTAS_E_SEXTAS).generate());
+		add(profFile("camoes", "Português").turmas(SETIMAS_E_OITAVAS).generate());
+		add(profFile("areco", "Matemática").turmas(QUINTAS).generate());
+		add(profFile("descartes", "Matemática", "Filosofia").turmas(SEXTAS).generate());
+		add(profFile("tales", "Matemática").turmas(SETIMAS).generate());
+		add(profFile("mateus", "Matemática", "Física").turmas(OITAVAS).generate());
+		add(profFile("wanderley", "Física").turmas(QUINTAS).generate());
+		add(profFile("evandro", "Química", "Física").turmas(SEXTAS).generate());
+		add(profFile("marcondes", "Biologia", "Química").turmas(SETIMAS).generate());
+		add(profFile("mendel", "Biologia").turmas(QUINTAS_E_SEXTAS).generate());
+		add(profFile("edileusa", "História").turmas(QUINTAS).generate());
+		add(profFile("camila", "História", "Geografia").turmas(SEXTAS).generate());
+		add(profFile("marta", "História").turmas(SETIMAS).generate());
+		add(profFile("herodoto", "Historia").turmas(OITAVAS).generate());
+		add(profFile("magalhes", "Geografia").turmas(SETIMAS_E_OITAVAS).generate());
+		add(profFile("nelson", "Inglês").turmas(QUINTAS_E_SEXTAS).generate());
+		add(profFile("victoria", "Inglês").turmas(SETIMAS_E_OITAVAS).generate());
+		add(profFile("katia", "Artes").turmas(QUINTAS_E_SEXTAS).generate());
+		add(profFile("leonardo", "Artes").turmas(SETIMAS_E_OITAVAS).generate());
+		add(profFile("marcelo", "Educação Física").turmas(QUINTAS).generate());
+		add(profFile("eduardo", "Educação Física").turmas(SETIMAS).generate());
+		add(profFile("socrates", "Filosofia").turmas(QUINTAS).generate());
+		add(profFile("platao", "Filosofia").turmas(OITAVAS).generate());
+		
+		record();
 		
 		long tf = System.nanoTime();
 		long deltaSeconds = (tf - t0) / 1000 / 1000 / 1000;
 		System.out.println("Generated in " + deltaSeconds + " seconds");
 	}
 
-	private static ProfFileGenerator profFileGenerator(String prof, String... materias) {
+	private static ProfFileGenerator profFile(String prof, String... materias) {
 		ProfFileGenerator profFileGenerator = new ProfFileGenerator(prof, materias);
 		return profFileGenerator;
 	}
+	
+	private static void add(ProfFile profFile) {
+		profFiles.add(profFile);
+	}
 
+	private static void record() {
+		File outputFolder = new File(FOLDER_FOR_GENERATED_FILES);
+		OdsProfRecorder recorder = new OdsProfRecorder(outputFolder);
+		recorder.record(profFiles);
+	}
 }

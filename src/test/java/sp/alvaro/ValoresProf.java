@@ -23,7 +23,7 @@ import sp.alvaro.model.Periodo;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
 import sp.alvaro.model.Tarjeta;
-import sp.alvaro.odf.OdsParser;
+import sp.alvaro.odf.OdsProfParser;
 
 public class ValoresProf {
 
@@ -349,7 +349,7 @@ public class ValoresProf {
     	
     	for (ProfSheet s: f.getSheets()) {
     		for (Tarjeta t: s.getTarjetas()) {
-    			for (int i=t.getNotas().size()+1; i<=OdsParser.MAX_ALUNOS; i++) {
+    			for (int i=t.getNotas().size()+1; i<=OdsProfParser.MAX_ALUNOS; i++) {
     				t.getNotas().add(new Conceito(
     						new Aluno(Integer.toString(i), t.getTurma()), 0, 0));
     			}

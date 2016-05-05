@@ -32,7 +32,7 @@ import sp.alvaro.model.Conceito;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
 import sp.alvaro.model.Tarjeta;
-import sp.alvaro.odf.OdsParser;
+import sp.alvaro.odf.OdsProfParser;
 
 /**
  * Este teste depende dos arquivos em test/resources
@@ -63,7 +63,7 @@ public class OdsParserTest {
         expectedFile2 = vals.getProfSheet2();  
         
         // dados calculados
-        NotasParser parser = new OdsParser();
+        NotasParser parser = new OdsProfParser();
         Set<ProfFile> profFiles = null;
         try {
             profFiles = parser.parse(files);
@@ -156,12 +156,12 @@ public class OdsParserTest {
     public void readSheetWithLetters() throws NotasParserException {
 
         File sheetFile = getFile(LETTERS_SHEET);
-        NotasParser parser = new OdsParser();
+        NotasParser parser = new OdsProfParser();
         parser.parseFile(sheetFile);
         ProfFile profFile = parser.parseFile(sheetFile);
         ProfSheet profSheet = profFile.getSheets().get(0);
         
-        int expectTarjSize = OdsParser.MAX_ALUNOS;
+        int expectTarjSize = OdsProfParser.MAX_ALUNOS;
         for (Tarjeta tarj: profSheet.getTarjetas()) {
             assertEquals(expectTarjSize, tarj.getNotas().size());
         }
@@ -190,12 +190,12 @@ public class OdsParserTest {
     public void readSheetWithBlankLines() throws NotasParserException {
     
         File sheetFile = getFile(BLANK_LINES_SHEET);
-        NotasParser parser = new OdsParser();
+        NotasParser parser = new OdsProfParser();
         parser.parseFile(sheetFile);
         ProfFile profFile = parser.parseFile(sheetFile);
         ProfSheet profSheet = profFile.getSheets().get(0);
         
-        int expectTarjSize = OdsParser.MAX_ALUNOS;
+        int expectTarjSize = OdsProfParser.MAX_ALUNOS;
         for (Tarjeta tarj: profSheet.getTarjetas()) {
             assertEquals(expectTarjSize, tarj.getNotas().size());
         }

@@ -36,9 +36,9 @@ import sp.alvaro.TurmaFileBuilderException;
 import sp.alvaro.TurmaFileRecorder;
 import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.TurmaFile;
-import sp.alvaro.odf.OdsParser;
+import sp.alvaro.odf.OdsProfParser;
 import sp.alvaro.odf.ProgressListener;
-import sp.alvaro.odf.OdsRecorder;
+import sp.alvaro.odf.OdsTurmaRecorder;
 
 /**
  *
@@ -72,14 +72,14 @@ public class ProcessHandler {
         }
         
         ProgressListener listener = new ReadingProgressUpdater(this.form);
-        NotasParser parser = new OdsParser(listener);
+        NotasParser parser = new OdsProfParser(listener);
         Set<ProfFile> sheets = parser.parse(files);
         
         TurmaFileBuilder builder = new TurmaFileBuilder();
         Set<TurmaFile> turmaFiles = builder.buildTurmaFiles(sheets);
         File out_dir = new File(this.out);
         listener = new WritingProgressUpdater(this.form);
-        TurmaFileRecorder recorder = new OdsRecorder(out_dir, listener);
+        TurmaFileRecorder recorder = new OdsTurmaRecorder(out_dir, listener);
         recorder.record(turmaFiles);  
         
         long tf = System.currentTimeMillis();

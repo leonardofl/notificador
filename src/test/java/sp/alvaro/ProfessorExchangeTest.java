@@ -30,7 +30,7 @@ import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.Tarjeta;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.model.TurmaSheet;
-import sp.alvaro.odf.OdsParser;
+import sp.alvaro.odf.OdsProfParser;
 
 /**
  * No último bimestre o prof MANOEL teve um problema de saúde, e pôde dar aula para penas uma sala.
@@ -56,7 +56,7 @@ public class ProfessorExchangeTest {
         FilePicker picker = new FilePicker(SHEETS_DIR, EXTENSION);
         Set<File> files = picker.pickFiles();
 
-        NotasParser parser = new OdsParser();
+        NotasParser parser = new OdsProfParser();
         profFiles = null;
         try {
             profFiles = parser.parse(files);

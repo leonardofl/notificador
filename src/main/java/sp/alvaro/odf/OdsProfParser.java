@@ -41,9 +41,9 @@ import sp.alvaro.model.Tarjeta;
  * @author leonardo
  *
  */
-public class OdsParser implements NotasParser {
+public class OdsProfParser implements NotasParser {
     
-	private Logger logger = Logger.getLogger(OdsParser.class);
+	private Logger logger = Logger.getLogger(OdsProfParser.class);
 	
     public static final int MAX_ALUNOS = 54; // o máximo que cabe na tarjeta
     private static final String COL_FIRST_TARJETA = "C"; // coluna das notas
@@ -58,7 +58,7 @@ public class OdsParser implements NotasParser {
     
     private ProgressListener listener;
 
-    public OdsParser() {
+    public OdsProfParser() {
     	
     }
     
@@ -66,7 +66,7 @@ public class OdsParser implements NotasParser {
      * 
      * @param listener é avisado quando OdsListener terminar de processar um arquivo
      */
-    public OdsParser(ProgressListener listener) {
+    public OdsProfParser(ProgressListener listener) {
     	this.listener = listener;
     }
     

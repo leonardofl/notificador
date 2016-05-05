@@ -11,7 +11,6 @@ import sp.alvaro.model.Tarjeta;
 
 public class ProfFileGenerator {
 
-	private final static String FOLDER_FOR_GENERATED_FILES = "";
 	private final static int NUM_ALUNOS = 35;
 
 	private String profNome;
@@ -28,7 +27,8 @@ public class ProfFileGenerator {
 		return this;
 	}
 
-	public void generate() {
+	public ProfFile generate() {
+		
 		ProfFile profFile = new ProfFile(profNome, profNome + ".ods");
 		profFile.getSheets().add(new ProfSheet(Periodo.BIMESTRE_1, profNome));
 		profFile.getSheets().add(new ProfSheet(Periodo.BIMESTRE_2, profNome));
@@ -43,6 +43,7 @@ public class ProfFileGenerator {
 			}
 		}
 		
+		return profFile;
 	}
 
 	private Tarjeta tarjeta(String turma, String materia, Periodo periodo) {

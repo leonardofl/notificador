@@ -15,7 +15,7 @@ import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.ProfSheet;
 import sp.alvaro.model.Tarjeta;
 import sp.alvaro.odf.NullProgressListener;
-import sp.alvaro.odf.OdsParser;
+import sp.alvaro.odf.OdsProfParser;
 
 public class DebugHelper {
 	
@@ -40,7 +40,7 @@ public class DebugHelper {
         	throw new IOException(msg);
         }
         
-        NotasParser parser = new OdsParser(new NullProgressListener());
+        NotasParser parser = new OdsProfParser(new NullProgressListener());
         Set<ProfFile> profFiles = parser.parse(files);
         
         logger.info("** Lista de profs: turmas **");

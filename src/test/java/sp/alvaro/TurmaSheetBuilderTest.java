@@ -40,7 +40,7 @@ import sp.alvaro.model.ProfFile;
 import sp.alvaro.model.Tarjeta;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.model.TurmaSheet;
-import sp.alvaro.odf.OdsParser;
+import sp.alvaro.odf.OdsProfParser;
 
 public class TurmaSheetBuilderTest {
 
@@ -57,7 +57,7 @@ public class TurmaSheetBuilderTest {
         FilePicker picker = new FilePicker(SHEETS_DIR, EXTENSION);
         Set<File> files = picker.pickFiles();
 
-        NotasParser parser = new OdsParser();
+        NotasParser parser = new OdsProfParser();
         profFiles = null;
         try {
             profFiles = parser.parse(files);

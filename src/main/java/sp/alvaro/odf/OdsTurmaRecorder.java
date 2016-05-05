@@ -35,9 +35,9 @@ import sp.alvaro.model.TarjetaFaltasAnuais;
 import sp.alvaro.model.TurmaFile;
 import sp.alvaro.model.TurmaSheet;
 
-public class OdsRecorder implements TurmaFileRecorder {
+public class OdsTurmaRecorder implements TurmaFileRecorder {
 	
-	private Logger logger = Logger.getLogger(OdsRecorder.class);
+	private Logger logger = Logger.getLogger(OdsTurmaRecorder.class);
 
 	// regra de negócio
 	public static final int PRESENCA_MINIMA = 75; // 75%
@@ -56,7 +56,7 @@ public class OdsRecorder implements TurmaFileRecorder {
     private File outputDir;
     private ProgressListener listener;
     
-    public OdsRecorder(File outputDir) {
+    public OdsTurmaRecorder(File outputDir) {
         
         this.outputDir = outputDir;
     }
@@ -66,7 +66,7 @@ public class OdsRecorder implements TurmaFileRecorder {
      * @param outputDir
      * @param listener é avisado quando OdsListener terminar de processar um arquivo
      */
-    public OdsRecorder(File outputDir, ProgressListener listener) {
+    public OdsTurmaRecorder(File outputDir, ProgressListener listener) {
         
         this.outputDir = outputDir;
         this.listener = listener;
@@ -138,12 +138,12 @@ public class OdsRecorder implements TurmaFileRecorder {
         		i = 4;
             Table table = ods.getTableList().get(i);
             
-            table.getCellByPosition("C" + LINHA_TURMA).setStringValue(f.getTurma());
-            
             Coluna col = new Coluna("C");
             for (Tarjeta tarjeta: turmaSheet.getTarjetas()) {
                 
-                // consistência
+            	table.getCellByPosition(col.getValor() + LINHA_TURMA).setStringValue(f.getTurma());
+
+            	// consistência
                 int tarj_size = tarjeta.getNotas().size();
                 if (tarj_size > MAX_NOTAS){
                 	IllegalArgumentException e = new IllegalArgumentException(
